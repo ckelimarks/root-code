@@ -1,8 +1,9 @@
-extends Spatial
+extends Node3D
 
 var test = 3
 var base_navigation_speed = .05
 var time = 0
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
@@ -10,7 +11,7 @@ func _ready():
 
 func _process(delta):
 	time += delta
-	var navigation_speed = base_navigation_speed + sin(time * 10) * .05
+	var navigation_speed = base_navigation_speed # + sin(time * 10) * .05
 #	var right = 0
 #	var left = 0
 #	var up = 0
@@ -64,19 +65,19 @@ func _process(delta):
 		$AnimationPlayer.play("Walk")
 		$RobotArmature.rotation.y = atan2(-movement.z, -movement.x)
 	elif right:
-		$RobotArmature.translation += Vector3(1,0,-1).normalized() * navigation_speed
+		$RobotArmature.position += Vector3(1,0,-1).normalized() * navigation_speed
 		$RobotArmature.rotation.y = PI/2
 		$AnimationPlayer.play("Walk")
 	elif down:
-		$RobotArmature.translation += Vector3(1,0,1).normalized() * navigation_speed
+		$RobotArmature.position += Vector3(1,0,1).normalized() * navigation_speed
 		$RobotArmature.rotation.y = 0
 		$AnimationPlayer.play("Walk")
 	elif left:
-		$RobotArmature.translation += Vector3(-1,0,1).normalized() * navigation_speed
+		$RobotArmature.position += Vector3(-1,0,1).normalized() * navigation_speed
 		$RobotArmature.rotation.y = -PI/2
 		$AnimationPlayer.play("Walk")
 	elif up:
-		$RobotArmature.translation += Vector3(-1,0,-1).normalized() * navigation_speed
+		$RobotArmature.position += Vector3(-1,0,-1).normalized() * navigation_speed
 		$RobotArmature.rotation.y = PI
 		$AnimationPlayer.play("Run")
 
@@ -91,22 +92,22 @@ func _process(delta):
 			#$WalkingSound.stop()	#var forward = $Leela.transform.basis.z.normalized() * navigation_speed
 
 	if Input.is_key_pressed(KEY_W):
-		$RobotArmature.translation += Vector3(-1,0,-1).normalized() * navigation_speed
+		$RobotArmature.position += Vector3(-1,0,-1).normalized() * navigation_speed
 		$RobotArmature.rotation.y = PI
 		$AnimationPlayer.play("Run")
 
 	if Input.is_key_pressed(KEY_S):
-		$RobotArmature.translation += Vector3(1,0,1).normalized() * navigation_speed
+		$RobotArmature.position += Vector3(1,0,1).normalized() * navigation_speed
 		$RobotArmature.rotation.y = 0
 		$AnimationPlayer.play("Walk")
 
 	if Input.is_key_pressed(KEY_A):
-		$RobotArmature.translation += Vector3(-1,0,1).normalized() * navigation_speed
+		$RobotArmature.position += Vector3(-1,0,1).normalized() * navigation_speed
 		$RobotArmature.rotation.y = -PI/2
 		$AnimationPlayer.play("Walk")
 
 	if Input.is_key_pressed(KEY_D):
-		$RobotArmature.translation += Vector3(1,0,-1).normalized() * navigation_speed
+		$RobotArmature.position += Vector3(1,0,-1).normalized() * navigation_speed
 		$RobotArmature.rotation.y = PI/2
 		$AnimationPlayer.play("Walk")
 
