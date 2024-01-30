@@ -11,6 +11,10 @@ func _ready():
 func _process(delta):
 	time += delta
 	var navigation_speed = base_navigation_speed + sin(time * 10) * .05
+#	var right = 0
+#	var left = 0
+#	var up = 0
+#	var down = 0
 	var right = Input.is_action_pressed('ui_right')
 	var left = Input.is_action_pressed('ui_left')
 	var up = Input.is_action_pressed('ui_up')
@@ -21,7 +25,19 @@ func _process(delta):
 	#if Input.is_action_pressed('punch'):
 		#sprite_node.play("punch")
 		#get_tree().paused = true
-	#if sprite_node.animation != "dead":		
+	#if sprite_node.animation != "dead":	
+	
+	
+#	var direction = Vector3(right - left, 0, down - up).normalized()
+#	if direction != Vector3.ZERO:
+#		$RobotArmature.translate(direction * navigation_speed)
+#		$AnimationPlayer.rotation.y = atan2(direction.z, direction.x)
+#		$AnimationPlayer.play("Walk")
+	
+	
+
+
+
 	if right and down:
 		print("right and down SE")
 		var movement = Vector3(1, 0, 1).normalized() * navigation_speed
@@ -63,7 +79,7 @@ func _process(delta):
 		$RobotArmature.translation += Vector3(-1,0,-1).normalized() * navigation_speed
 		$RobotArmature.rotation.y = PI
 		$AnimationPlayer.play("Run")
-		
+
 
 		#if velocity.length() > 0 and !$WalkingSound.playing:
 			##print("moving")
@@ -78,34 +94,19 @@ func _process(delta):
 		$RobotArmature.translation += Vector3(-1,0,-1).normalized() * navigation_speed
 		$RobotArmature.rotation.y = PI
 		$AnimationPlayer.play("Run")
-		
+
 	if Input.is_key_pressed(KEY_S):
 		$RobotArmature.translation += Vector3(1,0,1).normalized() * navigation_speed
 		$RobotArmature.rotation.y = 0
 		$AnimationPlayer.play("Walk")
-		
+
 	if Input.is_key_pressed(KEY_A):
 		$RobotArmature.translation += Vector3(-1,0,1).normalized() * navigation_speed
 		$RobotArmature.rotation.y = -PI/2
 		$AnimationPlayer.play("Walk")
-		
+
 	if Input.is_key_pressed(KEY_D):
 		$RobotArmature.translation += Vector3(1,0,-1).normalized() * navigation_speed
 		$RobotArmature.rotation.y = PI/2
 		$AnimationPlayer.play("Walk")
-	#if Input.is_action_pressed("rotate_left"):
-		#$Leela.rotation_degrees.y -= 1
-#
-	#if Input.is_action_pressed("rotate_right"):
-		#$RobotArmature.rotation_degrees.y += 1
-#
-#func _input(event):
-	#if Input.is_action_just_pressed("ui_accept"):
-		#if $RobotArmature/SkyCamera.size > 5:
-			#$RobotArmature/SkyCamera.size = 25
-			##navigation_speed = $RobotArmature/SkyCamera.size / 10
-##
-	#if Input.is_action_just_pressed("ui_accept"):
-		#if $RobotArmature/SkyCamera.size < 100:
-			#$RobotArmature/SkyCamera.size = 30
-			##navigation_speed = $RobotArmature/SkyCamera.size / 100
+

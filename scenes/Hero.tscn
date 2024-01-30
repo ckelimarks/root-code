@@ -26,7 +26,6 @@ transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0
 
 [node name="Stan" parent="PositionSmoother" instance=ExtResource( 2 )]
 transform = Transform( 0.707107, -0.40558, 0.579228, 0, 0.819152, 0.573577, -0.707107, -0.40558, 0.579228, 0, 2.8, 0 )
-frame = 10
 
 [node name="HealthNode" type="Node" parent="PositionSmoother"]
 
@@ -47,6 +46,3 @@ volume_db = -9.333
 [node name="WalkingSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 212 )
 volume_db = -6.667
-bus = "verb"
-
-[connection signal="animation_finished" from="PositionSmoother/Stan" to="." method="_on_Stan_animation_finished"]
