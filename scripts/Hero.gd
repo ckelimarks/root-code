@@ -26,7 +26,7 @@ var sprite_offset = Vector3()
 
 func _ready():
 	sprite_offset = smooth_node.translation
-	sprite_node.play("idle")
+	#sprite_node.play("idle")
 	#sprite_node.speed_scale = speed / 300.0
 
 	
@@ -45,31 +45,31 @@ func _physics_process(delta):
 	#if Input.is_action_pressed('punch'):
 		#sprite_node.play("punch")
 		#get_tree().paused = true
-		
-	if right and down:
-		velocity += Vector3(speed, 0, speed).normalized()
-		sprite_node.play("walk_se")
-	elif down and left:
-		velocity += Vector3(-speed, 0, speed).normalized()
-		sprite_node.play("walk_sw")
-	elif left and up:
-		velocity == Vector3(-speed, 0, -speed).normalized()
-		sprite_node.play("walk_nw")
-	elif up and right:
-		velocity += Vector3(speed, 0, -speed).normalized()
-		sprite_node.play("walk_ne")
-	elif right:
-		velocity.x += 1
-		sprite_node.play("walk_e")
-	elif down:
-		velocity.y -= 1
-		sprite_node.play("walk_s")
-	elif left:
-		velocity.x -= 1
-		sprite_node.play("walk_w")
-	elif up:
-		velocity.y += 1
-		sprite_node.play("walk_n")
+#
+#	if right and down:
+#		velocity += Vector3(speed, 0, speed).normalized()
+#		sprite_node.play("walk_se")
+#	elif down and left:
+#		velocity += Vector3(-speed, 0, speed).normalized()
+#		sprite_node.play("walk_sw")
+#	elif left and up:
+#		velocity == Vector3(-speed, 0, -speed).normalized()
+#		sprite_node.play("walk_nw")
+#	elif up and right:
+#		velocity += Vector3(speed, 0, -speed).normalized()
+#		sprite_node.play("walk_ne")
+#	elif right:
+#		velocity.x += 1
+#		sprite_node.play("walk_e")
+#	elif down:
+#		velocity.y -= 1
+#		sprite_node.play("walk_s")
+#	elif left:
+#		velocity.x -= 1
+#		sprite_node.play("walk_w")
+#	elif up:
+#		velocity.y += 1
+#		sprite_node.play("walk_n")
 	
 
 	if velocity.length() > 0 and !$WalkingSound.playing:
@@ -86,13 +86,13 @@ func _physics_process(delta):
 	var collision = move_and_collide(velocity.normalized() * speed * delta)
 	var push_vector = Vector3.ZERO
 	
-	sprite_node.modulate = Color(1, 1, 1, 1)
+	#sprite_node.modulate = Color(1, 1, 1, 1)
 	
 	if collision:
 		$ImpactSound.play()
 		if collision.collider.is_in_group("enemies"):
 			HP -= collision.collider.power
-			sprite_node.modulate = Color(1, 0, 0, 1)
+			#sprite_node.modulate = Color(1, 0, 0, 1)
 			HeroHealth.value = HP / max_HP * 100
 			if HP <= 0:
 				music.stop()

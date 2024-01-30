@@ -23,4 +23,4 @@ volume_db = -80.0
 
 [node name="Stan" parent="PositionSmoother" instance=ExtResource( 2 )]
 transform = Transform( 0.707107, -0.40558, 0.579228, 0, 0.819152, 0.573577, -0.707107, -0.40558, 0.579228, 0, 2.8, 0 )
-frame = 25
+frame = 18

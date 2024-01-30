@@ -1,14 +1,15 @@
-extends Node2D
+extends Spatial
 
 # Get a reference to the camera node
 var enemy_scene = preload("res://scenes/Enemy.tscn")
-var max_enemies = 10
+var max_enemies = 0
 var enemy_spawn_cooldown = 1
 var enemy_spawn_heat = 0
 var enemies = []
 
 func _ready():
-	z_as_relative = false
+	pass
+	#z_as_relative = false
 	
 #func spawn_enemy(view):
 func spawn_enemy():

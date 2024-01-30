@@ -3,7 +3,7 @@ extends KinematicBody
 var speed = 5.0  # Adjust as needed
 var pushing_strength = 5.0
 var HP = 3 # hit points
-var power = 1
+var power = 0
 var distance_to_hero = -1
 var enemy_color = Color(.9, .8, 1, 1)
 #var ISO = Vector2(1, .5)  # isometric coordinate transform
@@ -34,7 +34,7 @@ func _physics_process(delta):
 		var real_gap_vector = gap_vector #* unISO #de-isometricify before using the angle
 		var angle = atan2(real_gap_vector.y, real_gap_vector.x)
 		var angle_dir = int(angle / (PI / 4)) % 8
-		sprite_node.play("walk_"+["e","se","s","sw","w","nw","n","ne"][angle_dir])
+#		sprite_node.play("walk_"+["e","se","s","sw","w","nw","n","ne"][angle_dir])
 	
 	# First, try to move normally.	
 	var push_vector = Vector3.ZERO
