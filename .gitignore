@@ -1,0 +1,11 @@
+.godot/
+.import/
+.mono/
+.DS_Store
+*.png*
+*.jpg*
+*.jpeg*
+*.import
+*.mp3*
+images/
+mono_crash*

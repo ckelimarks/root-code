@@ -1,0 +1,45 @@
+[gd_resource type="Shader" format=2]
+
+[resource]
+code = "shader_type canvas_item;
+
+uniform sampler2D ground_texture;
+uniform vec2 camera_pos; // Uniform for the camera position
+uniform vec2 window_size; // The size of the window
+//uniform vec2 hero_pos; // Uniform for the character position
+uniform vec2 texture_size; // The actual pixel size of the texture
+const bool isometricify = true; // 'true' to make topdown textures isometric
+
+void fragment() {
+	// Convert camera position to UV offset
+	vec2 uv_offset = -camera_pos / texture_size;
+
+	// Apply additional offset based on half the window size
+	vec2 window_offset = (window_size * 0.5) / texture_size * vec2(1.0, -1.0);
+	uv_offset += window_offset;
+
+	// Calculate the UV coordinates offset by the camera position
+	vec2 frag = FRAGCOORD.xy;
+	frag.y = -frag.y;
+	vec2 uv = (frag / texture_size) - uv_offset;
+	if (isometricify == true) {
+		// Apply the isometric transformation
+		uv.y *= 2.0;
+		float angle = 3.1415926 / 4.0; // 45 degrees in radians
+		float cos_angle = cos(angle);
+		float sin_angle = sin(angle);
+		float scale_y = sqrt(2.0) / 2.0; // Scaling factor for y-axis
+
+		// Rotating and then scaling the UV coordinates
+		mat2 rotationMatrix = mat2(vec2(cos_angle, sin_angle), vec2(-sin_angle, cos_angle));
+		uv = rotationMatrix * uv;
+		uv.y *= scale_y;
+	}
+	// Tile the texture
+	COLOR = texture(ground_texture, mod(uv, 1.0));
+	// Fade out with distance from the center
+	uv.y *= 3.0;
+	float dist = distance(uv * vec2(0.5, 0.5), vec2(0.0, 0.0));
+	COLOR *= vec4(1.0, 1.0, 1.0, 1.0 - 0.75 * pow(dist, 0.5));
+}
+"
