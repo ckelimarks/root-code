@@ -3,7 +3,7 @@ extends Node
 var cooldown = 3
 var heat = 0
 
-onready var weapons = WeaponManager.weapons
+@onready var weapons = WeaponManager.weapons
 var blue_orb_scene = preload("res://scenes/weapons/BlueOrb.tscn")
 
 func _ready():
@@ -18,9 +18,9 @@ func _physics_process(delta):
 		heat = cooldown
 
 func spawn_orb():
-	var blue_orb_projectile = blue_orb_scene.instance()
+	var blue_orb_projectile = blue_orb_scene.instantiate()
 	#blue_orb_projectile.z_index = 4096
-	blue_orb_projectile.global_translation = Hero.OrbOrigin.global_translation 
+	blue_orb_projectile.global_position = Hero.OrbOrigin.global_position 
 	add_child(blue_orb_projectile)
 	weapons.append(blue_orb_projectile)
 

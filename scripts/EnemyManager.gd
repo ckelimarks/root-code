@@ -1,8 +1,8 @@
-extends Spatial
+extends Node3D
 
 # Get a reference to the camera node
 var enemy_scene = preload("res://scenes/Enemy.tscn")
-var max_enemies = 0
+var max_enemies = 10
 var enemy_spawn_cooldown = 1
 var enemy_spawn_heat = 0
 var enemies = []
@@ -13,7 +13,7 @@ func _ready():
 	
 #func spawn_enemy(view):
 func spawn_enemy():
-	var enemy_instance = enemy_scene.instance()
+	var enemy_instance = enemy_scene.instantiate()
 #	var vpos = view.position
 #	var vsiz = view.size
 #	var position = Vector2(0,0)
@@ -26,10 +26,10 @@ func spawn_enemy():
 #		position = Vector2(vpos.x + rand_range(-1, 1)*vsiz.x, vpos.y + rand_range(-2,-1)*vsiz.y)
 #	elif seg == 3:
 #		position = Vector2(vpos.x + rand_range(-1, 1)*vsiz.x, vpos.y + rand_range( 1, 2)*vsiz.y)
-	var translation = Hero.global_translation + Vector3(rand_range(-100, 100), 0, rand_range(-100, 100))
+	var position = Hero.global_position + Vector3(randf_range(-10, 10), 0, randf_range(-10, 10))
 
 	# Set the enemy's position and add it to the scene
-	enemy_instance.global_translation = translation
+	enemy_instance.global_position = position
 	enemy_instance.add_to_group("enemies")
 	add_child(enemy_instance)
 

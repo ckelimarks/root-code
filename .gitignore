@@ -2,10 +2,11 @@
 .import/
 .mono/
 .DS_Store
+*.import
 *.png*
 *.jpg*
 *.jpeg*
-*.import
 *.mp3*
 images/
+sounds/
 mono_crash*
