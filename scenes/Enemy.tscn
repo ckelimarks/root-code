@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://c1eksyt1bexd4" path="res://scenes/robots/Stan.tscn" id="2"]
 [ext_resource type="AudioStream" uid="uid://dirwxw7f73mdj" path="res://sounds/killsound2.mp3" id="3"]
 
-[sub_resource type="CylinderShape3D" id="1"]
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_mco0h"]
 
 [node name="EnemyBody" type="CharacterBody3D" groups=["enemies"]]
 collision_layer = 3
@@ -12,8 +12,7 @@ collision_mask = 3
 script = ExtResource("1")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-shape = SubResource("1")
-disabled = true
+shape = SubResource("CapsuleShape3D_mco0h")
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 visible = false
@@ -23,4 +22,4 @@ volume_db = -80.0
 [node name="PositionSmoother" type="Node3D" parent="."]
 
 [node name="Stan" parent="PositionSmoother" instance=ExtResource("2")]
-transform = Transform3D(0.707107, -0.40558, 0.579228, 0, 0.819152, 0.573577, -0.707107, -0.40558, 0.579228, 0, 2.8, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)

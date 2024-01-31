@@ -1,13 +1,14 @@
 extends CharacterBody3D
 
 var speed = 10.0
-var pushing_strength = 10.0  # Adjust the pushing effect as needed
+var dampening = .9
+var pushing_strength = 10.0
 var HP = 100.0
 var max_HP = 100.0
-#var velocity = Vector3.ZERO
 
 @onready var smooth_node = $PositionSmoother
 @onready var sprite_node = $PositionSmoother/Stan
+@onready var animation_player = $PositionSmoother/Stan/AnimationPlayer
 @onready var Yantra = $PositionSmoother/Yantra
 @onready var OrbOrigin = $PositionSmoother/OrbOrigin
 @onready var HeroHealth = $PositionSmoother/HealthNode/HeroHealth
@@ -26,7 +27,9 @@ var sprite_offset = Vector3()
 func _ready():
 	sprite_offset = smooth_node.position
 	#sprite_node.play("idle")
-	#sprite_node.speed_scale = speed / 300.0
+	animation_player.speed_scale = speed / 10.0	
+	#$CollisionShape3D.radius = stan.collisionshape.radius
+	#etc
 
 	
 
@@ -35,9 +38,14 @@ func _physics_process(delta):
 	var start_position = global_position  # Save the current position before moving
 	var sprite_start_position = smooth_node.position
 
-	# Move the player
+	velocity *= Vector3(dampening, 0, dampening)
+	animation_player.speed_scale = velocity.length() / 10.0	
+	
+	# Get user interactioin
+	interact()
+	
 	# First, try to move normally.
-	var collision = move_and_collide(velocity.normalized() * speed * delta)
+	var collision = move_and_collide(velocity * delta)
 	var push_vector = Vector3.ZERO
 	
 	#sprite_node.modulate = Color(1, 1, 1, 1)
@@ -68,10 +76,20 @@ func _physics_process(delta):
 	var smoothed_position = (start_position + sprite_start_position).lerp(new_position + sprite_offset, 0.3)
 	global_position = global_position + (new_position - global_position) 
 	smooth_node.position = smoothed_position - new_position
+
+func interact():
+	# int(bool) turns true into 1 and false into 0
+	var right = int(Input.is_action_pressed('ui_right')) 
+	var left = int(Input.is_action_pressed('ui_left'))
+	var up = int(Input.is_action_pressed('ui_up'))
+	var down = int(Input.is_action_pressed('ui_down'))
 	
-	#self.z_index = int(smoothed_position.y - Cam.global_translation.y)
+	# left makes x = -1, right makes x = 1
+	# up makes z = -1, down makes z = 1
+	var direction = Vector3(right - left, 0, down - up).normalized()
 	
-func _on_Stan_animation_finished():
-	pass
-	#sprite_node.play("idle")
-	
+	if direction != Vector3.ZERO:
+		# atan2 takes z / x (rise over run) and returns an angle
+		sprite_node.rotation.y = atan2(-direction.z, direction.x) + PI/2
+		animation_player.play("Walk")
+		velocity = direction * speed

@@ -4,10 +4,8 @@ var speed = 5.0  # Adjust as needed
 var pushing_strength = 5.0
 var HP = 3 # hit points
 var power = 0
-var distance_to_hero = -1
 var enemy_color = Color(.9, .8, 1, 1)
-#var ISO = Vector2(1, .5)  # isometric coordinate transform
-#var unISO = Vector2(1, 2) # undo isometric coordinate transform
+#var distance_to_hero = -1
 
 var sprite_offset = Vector3()
 
@@ -22,9 +20,12 @@ func _ready():
 	#sprite_node.speed_scale = speed / 300.0
 	sprite_offset = smooth_node.position
 	#modulate = enemy_color
+	#$CollisionShape3D.radius = stan.collisionshape.radius
+	#etc
+
 
 func _physics_process(delta):
-	distance_to_hero = global_position.distance_to(Hero.global_position)
+	#distance_to_hero = global_position.distance_to(Hero.global_position)
 	var gap_vector = Hero.global_position - global_position
 	var direction = (gap_vector).normalized()
 	var start_position = global_position
@@ -42,6 +43,7 @@ func _physics_process(delta):
 	var collision = move_and_collide(direction * speed * delta)
 
 	if collision:
+		print(0)
 		if weapons.has(collision.collider):
 			HP -= collision.collider.power
 			recoil = (Hero.global_position - global_position).normalized() * 100
