@@ -5,8 +5,9 @@ var dampening = .9
 var pushing_strength = 10.0
 var HP = 100.0
 var max_HP = 100.0
-var target_direction = Vector3.ZERO
-var direction = Vector3.ZERO
+var target_angle = 0
+var angle = 0
+var target_velocity = Vector3.ZERO
 
 @onready var smooth_node = $PositionSmoother
 @onready var sprite_node = $PositionSmoother/Stan
@@ -44,7 +45,14 @@ func _physics_process(delta):
 	var start_position = global_position  # Save the current position before moving
 	var sprite_start_position = smooth_node.position
 
-	velocity *= Vector3(dampening, 0, dampening)
+	#velocity *= Vector3(dampening, 0, dampening)
+	velocity = velocity.move_toward(target_velocity, delta*100)
+	#direction = direction.lerp(target_direction, .05)
+	#angle = move_toward(angle, target_angle, .1)
+	#velocity.rotated(Vector3(0, 1, 0), angle)
+
+	target_angle = -atan2(velocity.z, velocity.x) + PI/2
+	sprite_node.rotation.y = move_toward(sprite_node.rotation.y, target_angle, delta*PI)
 	animation_player.speed_scale = velocity.length() / 10.0	
 	
 	# Get user interactioin
@@ -80,10 +88,12 @@ func _physics_process(delta):
 		# Attempt to push the collider by manually adjusting the hero's global_position
 		push_vector = collision.get_remainder().normalized() * pushing_strength * delta
 	
-	var new_position = global_position + push_vector
-	var smoothed_position = (start_position + sprite_start_position).lerp(new_position + sprite_offset, 0.3)
-	global_position = global_position + (new_position - global_position) 
-	smooth_node.position = smoothed_position - new_position
+	global_position += push_vector
+	
+	#var new_position = global_position + push_vector
+	#var smoothed_position = (start_position + sprite_start_position).lerp(new_position + sprite_offset, 0.3)
+	#global_position = global_position + (new_position - global_position) 
+	#smooth_node.position = smoothed_position - new_position
 
 func interact():
 	# int(bool) turns true into 1 and false into 0
@@ -92,13 +102,9 @@ func interact():
 	var up = int(Input.is_action_pressed('ui_up'))
 	var down = int(Input.is_action_pressed('ui_down'))
 	
+	animation_player.play("Walk")
+
 	# left makes x = -1, right makes x = 1
 	# up makes z = -1, down makes z = 1
-	target_direction = Vector3(right - left, 0, down - up).normalized()
-	direction = direction.lerp(target_direction, .3)
-	if direction != Vector3.ZERO:
-		# atan2 takes z / x (rise over run) and returns an angle
-		sprite_node.rotation.y = atan2(-direction.z, direction.x) + PI/2
-		animation_player.play("Walk")
-		velocity = direction * speed
+	target_velocity = Vector3(right - left, 0, down - up).normalized() * speed
 		
