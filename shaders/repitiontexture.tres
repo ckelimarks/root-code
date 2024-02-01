@@ -1,7 +1,7 @@
 [gd_resource type="VisualShader" load_steps=16 format=3 uid="uid://bcpe4wiysxuft"]
 
-[ext_resource type="Texture2D" uid="uid://dgrcr740wwovw" path="res://images/ground/techground3.jpeg" id="1_mmutw"]
-[ext_resource type="Texture2D" uid="uid://cf4djfpu4xpci" path="res://images/ground/techground1.jpeg" id="2_hcaj0"]
+[ext_resource type="Texture2D" uid="uid://dhiol5jenvdm7" path="res://images/ground/techground3.jpeg" id="1_mmutw"]
+[ext_resource type="Texture2D" uid="uid://d37afjn60007h" path="res://images/ground/techground1.jpeg" id="2_hcaj0"]
 
 [sub_resource type="VisualShaderNodeMix" id="VisualShaderNodeMix_wffyx"]
 default_input_values = [0, Vector3(0, 0, 0), 1, Vector3(1, 1, 1), 2, Vector3(0.5, 0.5, 0.5)]

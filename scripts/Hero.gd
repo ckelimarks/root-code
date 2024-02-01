@@ -8,6 +8,7 @@ var max_HP = 100.0
 var target_angle = 0
 var angle = 0
 var target_velocity = Vector3.ZERO
+var throttle = 0 
 
 @onready var smooth_node = $PositionSmoother
 @onready var sprite_node = $PositionSmoother/Stan
@@ -106,5 +107,6 @@ func interact():
 
 	# left makes x = -1, right makes x = 1
 	# up makes z = -1, down makes z = 1
+	throttle = 1
 	target_velocity = Vector3(right - left, 0, down - up).normalized() * speed
 		
