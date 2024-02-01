@@ -1,6 +1,6 @@
 [gd_scene load_steps=25 format=3 uid="uid://c1eksyt1bexd4"]
 
-[ext_resource type="Texture2D" uid="uid://dokwt3mhjyoim" path="res://models/Stan_Stan_Texture.png" id="1_biqsn"]
+[ext_resource type="Texture2D" uid="uid://cdr0etm77exju" path="res://models/Stan_Stan_Texture.png" id="1_biqsn"]
 
 [sub_resource type="CapsuleShape3D" id="26"]
 radius = 1.65062

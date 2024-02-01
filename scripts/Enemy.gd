@@ -6,6 +6,7 @@ var HP = 3 # hit points
 var power = 1
 var enemy_color = Color(.9, .8, 1, 1)
 var is_dead = false
+var momentum = Vector3.ZERO
 #var distance_to_hero = -1
 
 var sprite_offset = Vector3()
@@ -48,15 +49,15 @@ func _physics_process(delta):
 	
 	# First, try to move normally.	
 	var push_vector = Vector3.ZERO
-	var recoil = Vector3.ZERO
 	var collision = move_and_collide(direction * speed * delta)
+	momentum *= Vector3(.95, .95, .95)
 
 	if collision:
 		var collider = collision.get_collider()
 		
 		if weapons.has(collider):
 			HP -= collider.power
-			recoil = (Hero.global_position - global_position).normalized() * 5
+			momentum += (global_position - Hero.global_position).normalized() * collider.power / 2
 			glow()
 			if HP <= 0:
 				is_dead = true
@@ -77,7 +78,7 @@ func _physics_process(delta):
 		# Attempt to push the collider by manually adjusting the enemy's global_position
 		push_vector = collision.get_remainder().normalized() * pushing_strength * delta
 	
-	var new_position = global_position + push_vector - recoil
+	var new_position = global_position + push_vector + momentum
 	var smoothed_position = (start_position + sprite_start_position).lerp(new_position + sprite_offset, 0.2)
 	global_position = global_position + (new_position - global_position) #* ISO 
 	smooth_node.position = smoothed_position - new_position	
