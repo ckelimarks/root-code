@@ -15,6 +15,7 @@ func _physics_process(delta):
 	if heat < 0:
 		heat = cooldown
 		$Sprite2D.play()
+		$AudioStreamPlayer2D.play()
 	elif heat > .8 * cooldown:
 		$Collider.disabled = false
 	else:

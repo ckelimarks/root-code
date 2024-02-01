@@ -8,12 +8,14 @@ var max_HP = 100.0
 var target_direction = Vector3.ZERO
 var direction = Vector3.ZERO
 
+@onready var animation_tree : AnimationTree = $PositionSmoother/Stan/AnimationTree
 @onready var smooth_node = $PositionSmoother
 @onready var sprite_node = $PositionSmoother/Stan
 @onready var animation_player = $PositionSmoother/Stan/AnimationPlayer
 @onready var Yantra = $PositionSmoother/Yantra
 @onready var OrbOrigin = $PositionSmoother/OrbOrigin
 @onready var HeroHealth = $PositionSmoother/HealthNode/HeroHealth
+@onready var sword_collision = $PositionSmoother/Stan/RobotArmature/Skeleton3D/BoneAttachment3D/Sword/CollisionShape3D
 
 @onready var main_node = get_node("/root/Main")
 @onready var xp_bar = get_node("/root/Main/UICanvas/xpBar")
@@ -24,23 +26,22 @@ var direction = Vector3.ZERO
 @onready var stan = $PositionSmoother/Stan
 #@onready var stan_collision_shape = $PositionSmoother/Stan/CollisionShape3D
 #onready var walking_sound =
-
+var sword: CharacterBody3D  
 var sprite_offset = Vector3()
 
 func _ready():
-	
+	animation_tree.active = true
 	sprite_offset = smooth_node.position
 	#sprite_node.play("idle")
 	animation_player.speed_scale = speed / 10.0	
 	var stan_collider = stan.get_node("CollisionShape3D")
 	$CollisionShape3D.shape.radius = stan_collider.shape.radius
 	$CollisionShape3D.shape.height = stan_collider.shape.height
-	
-
-	
-
+	sword = stan.get_node("%Sword")
+	print(sword)
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
+	update_animation_parameters()	
 	var start_position = global_position  # Save the current position before moving
 	var sprite_start_position = smooth_node.position
 
@@ -50,6 +51,7 @@ func _physics_process(delta):
 	# Get user interactioin
 	interact()
 	
+		 
 	# First, try to move normally.
 	var collision = move_and_collide(velocity * delta)
 	var push_vector = Vector3.ZERO
@@ -86,6 +88,7 @@ func _physics_process(delta):
 	smooth_node.position = smoothed_position - new_position
 
 func interact():
+	
 	# int(bool) turns true into 1 and false into 0
 	var right = int(Input.is_action_pressed('ui_right')) 
 	var left = int(Input.is_action_pressed('ui_left'))
@@ -99,6 +102,33 @@ func interact():
 	if direction != Vector3.ZERO:
 		# atan2 takes z / x (rise over run) and returns an angle
 		sprite_node.rotation.y = atan2(-direction.z, direction.x) + PI/2
-		animation_player.play("Walk")
-		velocity = direction * speed
+		#animation_player.play("Run")
 		
+		velocity = direction * speed
+	#if Input.is_action_pressed('ui_accept'):
+		#animation_player.play("SwordSlash")
+	
+func update_animation_parameters():
+	if velocity.length_squared() < 0.01:
+		#print("idle = true and is_moving = false")
+		animation_tree.set("parameters/conditions/idle", true)
+		animation_tree.set("parameters/conditions/is_moving", false)
+	else:
+		#print(velocity)
+		#print("is_moving = true and idle = false")
+		animation_tree.set("parameters/conditions/idle", false)
+		animation_tree.set("parameters/conditions/is_moving", true)
+	
+	if Input.is_action_just_pressed("attack"):
+		#print("slash")
+		#print(sword_collision)
+		animation_tree.set("parameters/Idle/blend_position", 1)
+		animation_tree.set("parameters/conditions/slash", true)
+		sword_collision.disabled = false
+	else:
+		animation_tree.set("parameters/conditions/slash", false)
+		sword_collision.disabled = true
+
+	
+	#animation_tree["parameters/Walk/blend_position"] = direction
+	#animation_tree["parameters/Slash/blend_position"] = direction
