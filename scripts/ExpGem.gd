@@ -68,4 +68,4 @@ func _process(delta):
 		$Sprite2D.position = smoothed_position - new_position
 		recoil -= 10
 		
-	self.z_index = int(global_position.y - Cam.global_position.y)
+	#self.z_index = int(global_position.y - Cam.global_position.y)

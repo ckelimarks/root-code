@@ -8,10 +8,10 @@
 size = Vector2(1024, 600)
 
 [node name="Camera3D" type="Camera3D"]
-transform = Transform3D(1, 0, 0, 0, 0.819152, 0.573577, 0, -0.573577, 0.819152, 0, 70, 100)
+transform = Transform3D(1, 0, 0, 0, 0.819152, 0.573577, 0, -0.573577, 0.819152, 2.08165e-12, 70, 100)
 projection = 1
 current = true
-size = 20.0
+size = 44.359
 near = 1.0
 far = 1000.0
 script = ExtResource("3")

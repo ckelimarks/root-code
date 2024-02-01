@@ -1,10 +1,12 @@
 extends CharacterBody3D
 
-var speed = 10.0
+var speed = 16.0
 var dampening = .9
 var pushing_strength = 10.0
 var HP = 100.0
 var max_HP = 100.0
+var target_direction = Vector3.ZERO
+var direction = Vector3.ZERO
 
 @onready var smooth_node = $PositionSmoother
 @onready var sprite_node = $PositionSmoother/Stan
@@ -19,16 +21,18 @@ var max_HP = 100.0
 @onready var game_over = get_node("/root/Main/GameOverSound")
 @onready var music = get_node("/root/Main/Music")
 @onready var focusbutton = get_node("/root/Main/UICanvas/MarginContainer/VBoxContainer/Button1")
-
+@onready var stan = $PositionSmoother/Stan
+#@onready var stan_collision_shape = $PositionSmoother/Stan/CollisionShape3D
 #onready var walking_sound =
 
 var sprite_offset = Vector3()
 
 func _ready():
+	var stan_collider = stan.get_node("CollisionShape3D")
 	sprite_offset = smooth_node.position
 	#sprite_node.play("idle")
 	animation_player.speed_scale = speed / 10.0	
-	#$CollisionShape3D.radius = stan.collisionshape.radius
+	$CollisionShape3D.shape.radius = stan_collider.shape.radius
 	#etc
 
 	
@@ -51,9 +55,11 @@ func _physics_process(delta):
 	#sprite_node.modulate = Color(1, 1, 1, 1)
 	
 	if collision:
-		$ImpactSound.play()
-		if collision.collider.is_in_group("enemies"):
-			HP -= collision.collider.power
+		var collider = collision.get_collider()
+		
+		if collider.is_in_group("enemies"):
+			$ImpactSound.play()
+			HP -= collider.power
 			#sprite_node.modulate = Color(1, 0, 0, 1)
 			HeroHealth.value = HP / max_HP * 100
 			if HP <= 0:
@@ -70,7 +76,7 @@ func _physics_process(delta):
 				return
 			
 		# Attempt to push the collider by manually adjusting the hero's global_position
-		push_vector = collision.remainder.normalized() * pushing_strength * delta
+		push_vector = collision.get_remainder().normalized() * pushing_strength * delta
 	
 	var new_position = global_position + push_vector
 	var smoothed_position = (start_position + sprite_start_position).lerp(new_position + sprite_offset, 0.3)
@@ -86,10 +92,11 @@ func interact():
 	
 	# left makes x = -1, right makes x = 1
 	# up makes z = -1, down makes z = 1
-	var direction = Vector3(right - left, 0, down - up).normalized()
-	
+	target_direction = Vector3(right - left, 0, down - up).normalized()
+	direction = direction.lerp(target_direction, .3)
 	if direction != Vector3.ZERO:
 		# atan2 takes z / x (rise over run) and returns an angle
 		sprite_node.rotation.y = atan2(-direction.z, direction.x) + PI/2
 		animation_player.play("Walk")
 		velocity = direction * speed
+		

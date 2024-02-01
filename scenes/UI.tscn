@@ -1,25 +1,31 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=8 format=3 uid="uid://b5hidq7fuopte"]
 
-[ext_resource path="res://scripts/UI.gd" type="Script" id=2]
-[ext_resource path="res://scripts/Button1.gd" type="Script" id=3]
-[ext_resource path="res://images/weapons/yantra/weapon2.png" type="Texture2D" id=4]
-[ext_resource path="res://images/UIgraphics/weaponmodal.png" type="Texture2D" id=5]
-[ext_resource path="res://images/UIgraphics/weaponmodel2.png" type="Texture2D" id=6]
-[ext_resource path="res://images/UIgraphics/PT_Sans-Web-Bold.ttf" type="FontFile" id=7]
+[ext_resource type="Script" path="res://scripts/UI.gd" id="2"]
+[ext_resource type="Script" path="res://scripts/Button1.gd" id="3"]
+[ext_resource type="Texture2D" uid="uid://coi7l76eanueu" path="res://images/weapons/yantra/weapon2.png" id="4"]
+[ext_resource type="Texture2D" uid="uid://cc4n1wqqxwyc4" path="res://images/UIgraphics/weaponmodal.png" id="5"]
+[ext_resource type="Texture2D" uid="uid://46l542p0vyh0" path="res://images/UIgraphics/weaponmodel2.png" id="6"]
+[ext_resource type="FontFile" uid="uid://dp8dfcyv2fsrb" path="res://images/UIgraphics/PT_Sans-Web-Bold.ttf" id="7"]
 
-[sub_resource type="StyleBoxFlat" id=2]
-bg_color = Color( 0.74902, 0.137255, 0.137255, 1 )
-
-[sub_resource type="FontFile" id=1]
-size = 50
-font_data = ExtResource( 7 )
+[sub_resource type="FontFile" id="1"]
+fallbacks = Array[Font]([ExtResource("7"), ExtResource("7")])
+subpixel_positioning = 0
+msdf_pixel_range = 14
+msdf_size = 128
+cache/0/16/0/ascent = 0.0
+cache/0/16/0/descent = 0.0
+cache/0/16/0/underline_position = 0.0
+cache/0/16/0/underline_thickness = 0.0
+cache/0/16/0/scale = 1.0
+cache/0/16/0/kerning_overrides/16/0 = Vector2(0, 0)
 
 [node name="UICanvas" type="CanvasLayer"]
 process_mode = 3
-script = ExtResource( 2 )
+script = ExtResource("2")
 
 [node name="xpBar" type="ProgressBar" parent="."]
-modulate = Color( 1, 1, 1, 0.666667 )
+modulate = Color(1, 1, 1, 0.666667)
+anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -499.0
@@ -30,10 +36,10 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 7
 size_flags_vertical = 7
-theme_override_styles/fg = SubResource( 2 )
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 visible = false
+anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -44,176 +50,158 @@ offset_right = 461.0
 offset_bottom = 298.0
 
 [node name="LevelupMessage" type="Label" parent="MarginContainer"]
-offset_right = 900.0
-offset_bottom = 534.0
+layout_mode = 2
 size_flags_vertical = 1
-theme_override_fonts/font = SubResource( 1 )
+theme_override_fonts/font = SubResource("1")
 text = "YOU'VE LEVELED UP!"
-align = 1
-valign = 1
 uppercase = true
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
 visible = false
-offset_right = 900.0
-offset_bottom = 534.0
+layout_mode = 2
 
 [node name="ColorRect" type="TextureRect" parent="MarginContainer/HBoxContainer"]
 visible = false
-offset_right = 338.0
-offset_bottom = 804.0
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-texture = ExtResource( 5 )
+texture = ExtResource("5")
 
 [node name="Label" type="Label" parent="MarginContainer/HBoxContainer/ColorRect"]
 visible = false
+layout_mode = 0
 offset_right = 335.0
 offset_bottom = 596.0
 text = "WEAPON 1"
-align = 1
-valign = 1
 
 [node name="TextureRect" type="TextureRect" parent="MarginContainer/HBoxContainer/ColorRect"]
 visible = false
+layout_mode = 0
 offset_left = 67.5
 offset_top = 50.0
 offset_right = 1091.5
 offset_bottom = 1074.0
-scale = Vector2( 0.2, 0.2 )
-texture = ExtResource( 4 )
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("4")
 
 [node name="ColorRect4" type="TextureRect" parent="MarginContainer/HBoxContainer"]
 visible = false
-offset_left = 342.0
-offset_right = 680.0
-offset_bottom = 804.0
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-texture = ExtResource( 6 )
+texture = ExtResource("6")
 
 [node name="Label" type="Label" parent="MarginContainer/HBoxContainer/ColorRect4"]
 visible = false
+layout_mode = 0
 offset_right = 335.0
 offset_bottom = 596.0
 text = "WEAPON 1"
-align = 1
-valign = 1
 
 [node name="TextureRect" type="TextureRect" parent="MarginContainer/HBoxContainer/ColorRect4"]
 visible = false
+layout_mode = 0
 offset_left = 67.5
 offset_top = 50.0
 offset_right = 1091.5
 offset_bottom = 1074.0
-scale = Vector2( 0.2, 0.2 )
-texture = ExtResource( 4 )
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("4")
 
 [node name="ColorRect5" type="ColorRect" parent="MarginContainer/HBoxContainer"]
-offset_right = 297.0
-offset_bottom = 534.0
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-color = Color( 0, 0, 0, 0.619608 )
+color = Color(0, 0, 0, 0.619608)
 
 [node name="Label" type="Label" parent="MarginContainer/HBoxContainer/ColorRect5"]
+layout_mode = 0
 offset_right = 296.0
 offset_bottom = 528.0
 text = "CHAKRA
 "
-align = 1
-valign = 1
 
 [node name="TextureRect" type="TextureRect" parent="MarginContainer/HBoxContainer/ColorRect5"]
 visible = false
+layout_mode = 0
 offset_left = 49.0
 offset_top = 48.0
 offset_right = 1073.0
 offset_bottom = 1072.0
-scale = Vector2( 0.2, 0.2 )
-texture = ExtResource( 4 )
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("4")
 stretch_mode = 4
 
 [node name="ColorRect3" type="ColorRect" parent="MarginContainer/HBoxContainer"]
-offset_left = 301.0
-offset_right = 598.0
-offset_bottom = 534.0
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-color = Color( 0, 0, 0, 0.619608 )
+color = Color(0, 0, 0, 0.619608)
 
 [node name="Label" type="Label" parent="MarginContainer/HBoxContainer/ColorRect3"]
+layout_mode = 0
 offset_right = 297.0
 offset_bottom = 531.0
 text = "BLUE ORB
 "
-align = 1
-valign = 1
 
 [node name="TextureRect" type="TextureRect" parent="MarginContainer/HBoxContainer/ColorRect3"]
 visible = false
+layout_mode = 0
 offset_left = 43.0
 offset_top = 52.0
 offset_right = 1067.0
 offset_bottom = 1076.0
-scale = Vector2( 0.2, 0.2 )
-texture = ExtResource( 4 )
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("4")
 stretch_mode = 4
 
 [node name="ColorRect6" type="ColorRect" parent="MarginContainer/HBoxContainer"]
-offset_left = 602.0
-offset_right = 900.0
-offset_bottom = 534.0
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-color = Color( 0, 0, 0, 0.619608 )
+color = Color(0, 0, 0, 0.619608)
 
 [node name="Label" type="Label" parent="MarginContainer/HBoxContainer/ColorRect6"]
+layout_mode = 0
 offset_right = 292.0
 offset_bottom = 530.0
 text = "SPINACH
 "
-align = 1
-valign = 1
 
 [node name="TextureRect" type="TextureRect" parent="MarginContainer/HBoxContainer/ColorRect6"]
 visible = false
+layout_mode = 0
 offset_left = 43.0
 offset_top = 54.0
 offset_right = 1067.0
 offset_bottom = 1078.0
-scale = Vector2( 0.2, 0.2 )
-texture = ExtResource( 4 )
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("4")
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer"]
-offset_right = 900.0
-offset_bottom = 534.0
+layout_mode = 2
 alignment = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
-offset_right = 900.0
-offset_bottom = 534.0
+layout_mode = 2
 
 [node name="Button1" type="Button" parent="MarginContainer/VBoxContainer"]
-offset_right = 900.0
-offset_bottom = 70.0
+layout_mode = 2
 text = "PUSH STRENGTH"
-script = ExtResource( 3 )
+script = ExtResource("3")
 
 [node name="Button2" type="Button" parent="MarginContainer/VBoxContainer"]
-offset_top = 74.0
-offset_right = 900.0
-offset_bottom = 144.0
+layout_mode = 2
 text = "SPEED"
 
 [node name="Button3" type="Button" parent="MarginContainer/VBoxContainer"]
-offset_top = 148.0
-offset_right = 900.0
-offset_bottom = 218.0
+layout_mode = 2
 text = "HEALTH"
 
 [node name="youdied" type="MarginContainer" parent="."]
 visible = false
+anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -224,19 +212,14 @@ offset_right = 512.0
 offset_bottom = 180.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="youdied"]
-offset_right = 1024.0
-offset_bottom = 360.0
+layout_mode = 2
 
 [node name="Label" type="Label" parent="youdied/VBoxContainer"]
-offset_right = 1024.0
-offset_bottom = 14.0
+layout_mode = 2
 text = "YOU DIED"
-align = 1
 
 [node name="restartbutton" type="Button" parent="youdied/VBoxContainer"]
-offset_top = 18.0
-offset_right = 1024.0
-offset_bottom = 38.0
+layout_mode = 2
 text = "RESTART?"
 
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Button1" to="." method="_on_Button1_pressed"]

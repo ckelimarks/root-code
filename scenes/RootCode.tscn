@@ -1,21 +1,23 @@
-[gd_scene load_steps=10 format=3 uid="uid://3rgmo8vegmv"]
+[gd_scene load_steps=11 format=3 uid="uid://3rgmo8vegmv"]
 
-[ext_resource type="Texture2D" uid="uid://dhiol5jenvdm7" path="res://images/ground/techground3.jpeg" id="1"]
 [ext_resource type="Script" path="res://scripts/Main.gd" id="2"]
-[ext_resource type="PackedScene" path="res://scenes/UI.tscn" id="3"]
+[ext_resource type="PackedScene" uid="uid://b5hidq7fuopte" path="res://scenes/UI.tscn" id="3"]
+[ext_resource type="Shader" uid="uid://bcpe4wiysxuft" path="res://shaders/repitiontexture.tres" id="4_5ucip"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_4pyo8"]
 size = Vector3(100, 2, 100)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yv7mc"]
-albedo_texture = ExtResource("1")
-uv1_scale = Vector3(0.1, 0.1, 0.1)
-uv1_triplanar = true
+[sub_resource type="BoxMesh" id="BoxMesh_n8d8q"]
+size = Vector3(100, 1, 100)
 
-[sub_resource type="BoxMesh" id="1"]
-size = Vector3(100, 2, 100)
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5pp3x"]
+render_priority = 0
+shader = ExtResource("4_5ucip")
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_4qono"]
 
 [sub_resource type="Sky" id="3"]
+sky_material = SubResource("ProceduralSkyMaterial_4qono")
 
 [sub_resource type="Environment" id="4"]
 background_mode = 2
@@ -42,16 +44,14 @@ transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 
 shape = SubResource("BoxShape3D_4pyo8")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Ground"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
-material_override = SubResource("StandardMaterial3D_yv7mc")
-mesh = SubResource("1")
-skeleton = NodePath("../..")
+mesh = SubResource("BoxMesh_n8d8q")
+surface_material_override/0 = SubResource("ShaderMaterial_5pp3x")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("4")
 
 [node name="MeshInstance2" type="MeshInstance3D" parent="."]
-transform = Transform3D(3, 0, 0, 0, 23, 0, 0, 0, 3, -11.0193, 0, -3.57014)
+transform = Transform3D(3, 0, 0, 0, 23, 0, 0, 0, 3, -11.0193, 0, 17.4279)
 mesh = SubResource("5")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
