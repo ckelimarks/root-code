@@ -1,6 +1,6 @@
 extends CharacterBody3D
 
-var speed = 15.0  # Adjust as needed
+var speed = 10.0  # Adjust as needed
 var pushing_strength = 5.0
 var HP = 3 # hit points
 var power = 1
@@ -20,6 +20,8 @@ var sprite_offset = Vector3()
 @onready var weapons         = WeaponManager.weapons
 
 func _ready():
+	#connect("body_entered", self, "_on_collision")
+	#print(sword)
 	#sprite_node.connect("animation_finished", Callable(self, "_on_animation_finished"))
 	#sprite_node.speed_scale = speed / 300.0
 	robot_animation.play("Take 001")
@@ -100,3 +102,7 @@ func dead():
 	explosion.play("explosion")
 	await get_tree().create_timer(2).timeout	
 	self.queue_free()
+	
+func _on_collision(body):
+	print("Collision with:", body.name)
+	print("Collider type:", body.get_type())

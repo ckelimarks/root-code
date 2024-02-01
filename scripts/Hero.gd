@@ -18,6 +18,7 @@ var dampening = 0.9
 @onready var HeroHealth       = $HealthNode/HeroHealth
 @onready var Yantra           = $Yantra
 @onready var OrbOrigin        = $OrbOrigin
+@onready var sword_collision = $PositionSmoother/Stan/RobotArmature/Skeleton3D/BoneAttachment3D/Sword/CollisionShape3D
 
 # autoload these, and put these vars in their top-level scopes
 @onready var main_node = get_node("/root/Main")
@@ -28,16 +29,20 @@ var dampening = 0.9
 @onready var music = get_node("/root/Main/Music")
 
 func _ready():
+	animation_tree.active = true
 	#sprite_node.play("idle")
 	animation_player.speed_scale = speed / 10.0	
 	var robot_collider = robot.get_node("CollisionShape3D")
 	$CollisionShape3D.shape.radius = robot_collider.shape.radius
 	$CollisionShape3D.shape.height = robot_collider.shape.height	
+	sword = stan.get_node("%Sword")
 
 func _physics_process(delta):
 	updateMomentum()
 	getUserInteractaction()
 	handleMovementAndCollisions(delta)
+	update_animation_parameters()	
+
 
 func updateMomentum():
 	throttle *= .1
@@ -99,3 +104,29 @@ func die():
 	xp_bar.value = 0
 	
 			
+	#animation_player.play("SwordSlash")
+	
+func update_animation_parameters():
+	if velocity.length_squared() < 0.01:
+		#print("idle = true and is_moving = false")
+		animation_tree.set("parameters/conditions/idle", true)
+		animation_tree.set("parameters/conditions/is_moving", false)
+	else:
+		#print(velocity)
+		#print("is_moving = true and idle = false")
+		animation_tree.set("parameters/conditions/idle", false)
+		animation_tree.set("parameters/conditions/is_moving", true)
+	
+	if Input.is_action_just_pressed("attack"):
+		#print("slash")
+		#print(sword_collision)
+		animation_tree.set("parameters/Idle/blend_position", 1)
+		animation_tree.set("parameters/conditions/slash", true)
+		sword_collision.disabled = false
+	else:
+		animation_tree.set("parameters/conditions/slash", false)
+		sword_collision.disabled = true
+
+	
+	#animation_tree["parameters/Walk/blend_position"] = direction
+	#animation_tree["parameters/Slash/blend_position"] = direction
