@@ -2,6 +2,8 @@ extends Area3D
 
 var recoil = Vector3.ZERO
 var touched = false
+
+@onready var gem_sprite = $GemSprite
 @onready var focusbutton = get_node("/root/Main/UICanvas/MarginContainer/VBoxContainer/Button1")
 
 var audio_samples := [
@@ -17,7 +19,7 @@ var audio_samples := [
 
 func _ready():
 	connect("body_entered", Callable(self, "_on_body_entered"))
-
+	
 	
 	
 func _on_body_entered(body):
@@ -26,7 +28,7 @@ func _on_body_entered(body):
 			gem_captured()
 			return
 			
-		recoil = 1000
+		recoil = 128
 		touched = true
 
 		var random_note_index = randi() % audio_samples.size()
@@ -51,7 +53,7 @@ func _on_body_entered(body):
 		
 		
 func gem_captured():
-	$Sprite2D.visible = false
+	gem_sprite.visible = false
 	queue_free()
 	
 func _on_audio_finished():
@@ -62,10 +64,10 @@ func _process(delta):
 		var start_position = global_position
 		var force = (Hero.global_position - global_position).normalized() * recoil * delta
 		var new_position = global_position - force
-		var sprite_start_position = $Sprite2D.position  # Save the current position before moving
+		var sprite_start_position = gem_sprite.position  # Save the current position before moving
 		var smoothed_position = (start_position + sprite_start_position).lerp(new_position, 0.1)
 		global_position = new_position
-		$Sprite2D.position = smoothed_position - new_position
+		global_position.y = 2
+		gem_sprite.position = smoothed_position - new_position
 		recoil -= 10
 		
-	#self.z_index = int(global_position.y - Cam.global_position.y)

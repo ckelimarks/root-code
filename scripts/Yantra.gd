@@ -1,7 +1,8 @@
 extends Node
 
-var power = 200
-var cooldown = 1
+var base_power = 1
+var power = 1
+var cooldown = 2
 var heat = 0
 
 func _ready():
@@ -9,10 +10,12 @@ func _ready():
 
 func _physics_process(delta):
 	heat -= delta
+	power = base_power * (heat/cooldown)
 	#modulate = Color(1, 1, 1, heat)
 	if heat < 0:
 		heat = cooldown
-	elif heat < .1:
+		$Sprite2D.play()
+	elif heat > .8 * cooldown:
 		$Collider.disabled = false
-	#else:
-		#$Collider.disabled = true
+	else:
+		$Collider.disabled = true

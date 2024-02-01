@@ -5,16 +5,18 @@ var pushing_strength = 5.0
 var HP = 3 # hit points
 var power = 1
 var enemy_color = Color(.9, .8, 1, 1)
-
+var is_dead = false
+var momentum = Vector3.ZERO
 #var distance_to_hero = -1
 
 var sprite_offset = Vector3()
 
-@onready var blue_orb = WeaponManager.BlueOrbEmitter
 @onready var smooth_node = $PositionSmoother
-@onready var sprite_node = $PositionSmoother/Stan
+@onready var sprite_node = $PositionSmoother/YellowBot
 @onready var enemy_node = $PositionSmoother/YellowBot/utilityBot/AnimationPlayer
 @onready var killsound = $AudioStreamPlayer2D
+@onready var explosion = $ExplosionSprite
+@onready var blue_orb = WeaponManager.BlueOrbEmitter
 @onready var weapons = WeaponManager.weapons
 
 func _ready():
@@ -29,6 +31,11 @@ func _ready():
 
 
 func _physics_process(delta):
+	if is_dead:
+		return
+		
+	global_position.y = 1
+	
 	#distance_to_hero = global_position.distance_to(Hero.global_position)
 	var gap_vector = Hero.global_position - global_position
 	var direction = (gap_vector).normalized()
@@ -44,20 +51,21 @@ func _physics_process(delta):
 	
 	# First, try to move normally.	
 	var push_vector = Vector3.ZERO
-	var recoil = Vector3.ZERO
 	var collision = move_and_collide(direction * speed * delta)
-	
+	momentum *= Vector3(.95, .95, .95)
+
 	if collision:
 		var collider = collision.get_collider()
 		
 		if weapons.has(collider):
-			print("collidercollided")
 			HP -= collider.power
-			recoil = (Hero.global_position - global_position).normalized() * 100
+			momentum += (global_position - Hero.global_position).normalized() * collider.power / 2
 			glow()
 			if HP <= 0:
+				is_dead = true
 				speed = 0
 				killsound.play()
+				
 				#enemy_node.play("dead")
 				# remove from collision layers
 				set_collision_layer_value(0, false)
@@ -72,8 +80,8 @@ func _physics_process(delta):
 		# Attempt to push the collider by manually adjusting the enemy's global_position
 		push_vector = collision.get_remainder().normalized() * pushing_strength * delta
 	
-	var new_position = global_position + push_vector - recoil
-	var smoothed_position = (start_position + sprite_start_position).lerp(new_position + sprite_offset, 0.3)
+	var new_position = global_position + push_vector + momentum
+	var smoothed_position = (start_position + sprite_start_position).lerp(new_position + sprite_offset, 0.2)
 	global_position = global_position + (new_position - global_position) #* ISO 
 	smooth_node.position = smoothed_position - new_position	
 		
@@ -82,9 +90,10 @@ func _physics_process(delta):
 var exp_gem_scene = preload("res://scenes/ExpGem.tscn")
 
 func glow():
-#	glow_sprite.visible = true
+	pass
+	#glow_sprite.visible = true
 	#modulate = Color(1, 0, 0, 1)
-	await get_tree().create_timer(0.2).timeout
+	#await get_tree().create_timer(0.2).timeout
 	#modulate = enemy_color
 	#glow_sprite.visible = false
 	
@@ -94,4 +103,10 @@ func dead():
 	gem_instance.global_position = global_position
 	EnemyManager.add_child(gem_instance)
 	EnemyManager.enemies.erase(self)
+	explosion.visible = true
+	smooth_node.visible = false
+	$CollisionShape3D.disabled = true
+	explosion.rotation = Vector3(-35,0,0) - global_rotation
+	explosion.play("explosion")
+	await get_tree().create_timer(2).timeout	
 	self.queue_free()

@@ -9,7 +9,7 @@ height = 5.93634
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yxgdt"]
 resource_name = "Stan_Texture"
 cull_mode = 2
-shading_mode = 0
+shading_mode = 2
 albedo_texture = ExtResource("1_biqsn")
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_fjlww"]

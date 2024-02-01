@@ -19,8 +19,8 @@ func _ready():
 
 
 func _on_Button2_pressed():
-	Hero.speed = Hero.speed + 100
-	Hero.sprite_node.speed_scale = Hero.speed / 300
+	Hero.speed = Hero.speed + 10
+	Hero.animation_player.speed_scale = Hero.speed / 10
 	$MarginContainer.hide()
 	AudioServer.set_bus_effect_enabled(0, 0, false)
 	get_tree().paused = false
