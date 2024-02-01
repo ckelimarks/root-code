@@ -1,14 +1,11 @@
-[gd_scene load_steps=11 format=3 uid="uid://3rgmo8vegmv"]
+[gd_scene load_steps=10 format=3 uid="uid://3rgmo8vegmv"]
 
 [ext_resource type="Script" path="res://scripts/Main.gd" id="2"]
 [ext_resource type="PackedScene" uid="uid://b5hidq7fuopte" path="res://scenes/UI.tscn" id="3"]
 [ext_resource type="Shader" uid="uid://bcpe4wiysxuft" path="res://shaders/repitiontexture.tres" id="4_5ucip"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_4pyo8"]
-size = Vector3(100, 2, 100)
-
 [sub_resource type="BoxMesh" id="BoxMesh_n8d8q"]
-size = Vector3(100, 1, 100)
+size = Vector3(1000, 2, 1000)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_5pp3x"]
 render_priority = 0
@@ -37,14 +34,10 @@ volume_db = -10.0
 [node name="GameOverSound" type="AudioStreamPlayer2D" parent="."]
 process_mode = 3
 
-[node name="Ground" type="StaticBody3D" parent="."]
-transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 0, -1, 0)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground"]
-shape = SubResource("BoxShape3D_4pyo8")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Ground"]
+[node name="Ground" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 2.08165e-12, -1.1, 2.08165e-12)
 mesh = SubResource("BoxMesh_n8d8q")
+skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_5pp3x")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]

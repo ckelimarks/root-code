@@ -28,12 +28,14 @@ var direction = Vector3.ZERO
 var sprite_offset = Vector3()
 
 func _ready():
-	var stan_collider = stan.get_node("CollisionShape3D")
+	
 	sprite_offset = smooth_node.position
 	#sprite_node.play("idle")
 	animation_player.speed_scale = speed / 10.0	
+	var stan_collider = stan.get_node("CollisionShape3D")
 	$CollisionShape3D.shape.radius = stan_collider.shape.radius
-	#etc
+	$CollisionShape3D.shape.height = stan_collider.shape.height
+	
 
 	
 

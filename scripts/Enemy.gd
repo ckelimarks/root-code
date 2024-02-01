@@ -46,18 +46,19 @@ func _physics_process(delta):
 	var push_vector = Vector3.ZERO
 	var recoil = Vector3.ZERO
 	var collision = move_and_collide(direction * speed * delta)
-	
+
 	if collision:
 		var collider = collision.get_collider()
 		
 		if weapons.has(collider):
-			print("collidercollided")
 			HP -= collider.power
 			recoil = (Hero.global_position - global_position).normalized() * 100
 			glow()
 			if HP <= 0:
+				
 				speed = 0
 				killsound.play()
+				
 				#enemy_node.play("dead")
 				# remove from collision layers
 				set_collision_layer_value(0, false)
@@ -91,7 +92,12 @@ func glow():
 func dead():
 	#if sprite_node.get_animation() == "dead":
 	var gem_instance = exp_gem_scene.instantiate()
+	var explosion = gem_instance.get_node("AnimatedSprite3D")
+	
+	
 	gem_instance.global_position = global_position
+	#gem_instance.global_position.z = 5
 	EnemyManager.add_child(gem_instance)
+	explosion.play("explosion")
 	EnemyManager.enemies.erase(self)
 	self.queue_free()

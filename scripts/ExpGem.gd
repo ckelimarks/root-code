@@ -17,7 +17,7 @@ var audio_samples := [
 
 func _ready():
 	connect("body_entered", Callable(self, "_on_body_entered"))
-
+	
 	
 	
 func _on_body_entered(body):
@@ -26,7 +26,7 @@ func _on_body_entered(body):
 			gem_captured()
 			return
 			
-		recoil = 1000
+		recoil = 100
 		touched = true
 
 		var random_note_index = randi() % audio_samples.size()

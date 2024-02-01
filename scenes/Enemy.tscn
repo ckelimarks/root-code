@@ -27,5 +27,6 @@ volume_db = -80.0
 
 [node name="DuneDrone" parent="PositionSmoother" instance=ExtResource("3_3k41f")]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0.0794476, 0, 0.0675392)
+visible = false
 
 [node name="YellowBot" parent="PositionSmoother" instance=ExtResource("4_2gfhv")]

@@ -12,7 +12,7 @@ offsets = PackedFloat32Array(0.558642, 0.716049)
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_p43jf"]
 noise_type = 0
-frequency = 0.0072
+frequency = 0.0868
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_agyni"]
 color_ramp = SubResource("Gradient_6g4x6")
@@ -33,10 +33,10 @@ input_name = "uv"
 function = 1
 
 [sub_resource type="VisualShaderNodeFloatConstant" id="VisualShaderNodeFloatConstant_7lw80"]
-constant = 10.0
+constant = 100.0
 
 [sub_resource type="VisualShaderNodeFloatConstant" id="VisualShaderNodeFloatConstant_52hfe"]
-constant = 10.0
+constant = 90.0
 
 [sub_resource type="VisualShaderNodeUVFunc" id="VisualShaderNodeUVFunc_ohjd1"]
 function = 1
@@ -64,7 +64,7 @@ void fragment() {
 
 
 // FloatConstant:5
-	float n_out5p0 = 10.000000;
+	float n_out5p0 = 100.000000;
 
 
 // UVFunc:4
@@ -81,7 +81,7 @@ void fragment() {
 
 
 // FloatConstant:6
-	float n_out6p0 = 10.000000;
+	float n_out6p0 = 90.000000;
 
 
 // UVFunc:7
@@ -107,7 +107,7 @@ void fragment() {
 
 }
 "
-graph_offset = Vector2(-462.807, 660.623)
+graph_offset = Vector2(-348.158, 249.05)
 nodes/fragment/2/node = SubResource("VisualShaderNodeTexture_a7owb")
 nodes/fragment/2/position = Vector2(-120, 200)
 nodes/fragment/3/node = SubResource("VisualShaderNodeInput_8rc3a")
