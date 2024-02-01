@@ -1,11 +1,13 @@
-extends Camera
+extends Camera3D
 
-var ground_material  # Reference to the ground material
-var smoothing_speed = 5.0
+var ground_material  # RefCounted to the ground material
+var position_smoothing_speed = 5.0
+var initial_offset: Vector3
 
 func _ready():
+	initial_offset = global_position
 	pass
 	
 func _process(delta):
-	var target_position = Hero.global_translation + Vector3(100, 100, 100)
-	global_translation = global_translation.linear_interpolate(target_position, smoothing_speed * delta)
+	var target_position = Hero.global_position + initial_offset
+	global_position = global_position.lerp(target_position, position_smoothing_speed * delta)

@@ -1,0 +1,180 @@
+fileFormatVersion: 2
+guid: afba9eddcab120d4fb3abb40b8b7ec43
+timeCreated: 1438080687
+licenseType: Store
+ModelImporter:
+  serializedVersion: 18
+  fileIDToRecycleName:
+    100000: Bone
+    100002: Bone_L.002
+    100004: Bone_L.003
+    100006: Bone_L.004
+    100008: Bone_L.005
+    100010: Bone_L.005_end
+    100012: Bone_L.006
+    100014: Bone_L.007
+    100016: Bone_L.008
+    100018: Bone_L.009
+    100020: Bone_L.009_end
+    100022: Bone_L.010
+    100024: Bone_L.010_end
+    100026: Bone_L.011
+    100028: Bone_L.011_end
+    100030: Bone_L.012
+    100032: Bone_L.013
+    100034: Bone_L.013_end
+    100036: Bone_L.014
+    100038: Bone_L.014_end
+    100040: Bone_L.015
+    100042: Bone_L.015_end
+    100044: Bone_L.016
+    100046: Bone_L.017
+    100048: Bone_L.017_end
+    100050: Bone_R.002
+    100052: Bone_R.003
+    100054: Bone_R.004
+    100056: Bone_R.005
+    100058: Bone_R.005_end
+    100060: Bone_R.006
+    100062: Bone_R.007
+    100064: Bone_R.008
+    100066: Bone_R.009
+    100068: Bone_R.009_end
+    100070: Bone_R.010
+    100072: Bone_R.010_end
+    100074: Bone_R.011
+    100076: Bone_R.011_end
+    100078: Bone_R.012
+    100080: Bone_R.013
+    100082: Bone_R.013_end
+    100084: Bone_R.014
+    100086: Bone_R.014_end
+    100088: Bone_R.015
+    100090: Bone_R.015_end
+    100092: Bone_R.016
+    100094: Bone_R.017
+    100096: Bone_R.017_end
+    100098: drone
+    100100: //RootNode
+    100102: drone_Armature
+    400000: Bone
+    400002: Bone_L.002
+    400004: Bone_L.003
+    400006: Bone_L.004
+    400008: Bone_L.005
+    400010: Bone_L.005_end
+    400012: Bone_L.006
+    400014: Bone_L.007
+    400016: Bone_L.008
+    400018: Bone_L.009
+    400020: Bone_L.009_end
+    400022: Bone_L.010
+    400024: Bone_L.010_end
+    400026: Bone_L.011
+    400028: Bone_L.011_end
+    400030: Bone_L.012
+    400032: Bone_L.013
+    400034: Bone_L.013_end
+    400036: Bone_L.014
+    400038: Bone_L.014_end
+    400040: Bone_L.015
+    400042: Bone_L.015_end
+    400044: Bone_L.016
+    400046: Bone_L.017
+    400048: Bone_L.017_end
+    400050: Bone_R.002
+    400052: Bone_R.003
+    400054: Bone_R.004
+    400056: Bone_R.005
+    400058: Bone_R.005_end
+    400060: Bone_R.006
+    400062: Bone_R.007
+    400064: Bone_R.008
+    400066: Bone_R.009
+    400068: Bone_R.009_end
+    400070: Bone_R.010
+    400072: Bone_R.010_end
+    400074: Bone_R.011
+    400076: Bone_R.011_end
+    400078: Bone_R.012
+    400080: Bone_R.013
+    400082: Bone_R.013_end
+    400084: Bone_R.014
+    400086: Bone_R.014_end
+    400088: Bone_R.015
+    400090: Bone_R.015_end
+    400092: Bone_R.016
+    400094: Bone_R.017
+    400096: Bone_R.017_end
+    400098: //RootNode
+    400100: drone
+    400102: drone_Armature
+    4300000: drone
+    7400000: drone_Armature|drone_fly
+    7400002: drone_Armature|drone_hit
+    7400004: drone_Armature|drone_idle
+    7400006: drone_Armature|drone_neutral
+    9500000: //RootNode
+    13700000: drone
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 0
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

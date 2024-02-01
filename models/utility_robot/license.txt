@@ -1,0 +1,11 @@
+Model Information:
+* title:	Utility Robot
+* source:	https://sketchfab.com/3d-models/utility-robot-efe7b67fc77748949562e51c30795dd8
+* author:	nickheitzman (https://sketchfab.com/nickheitzman)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Utility Robot" (https://sketchfab.com/3d-models/utility-robot-efe7b67fc77748949562e51c30795dd8) by nickheitzman (https://sketchfab.com/nickheitzman) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

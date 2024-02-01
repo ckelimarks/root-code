@@ -14,5 +14,5 @@ func _physics_process(delta):
 		heat = cooldown
 	elif heat < .1:
 		$Collider.disabled = false
-	else:
-		$Collider.disabled = true
+	#else:
+		#$Collider.disabled = true

@@ -1,4 +1,4 @@
-extends Spatial
+extends Node3D
 
 	
 	
@@ -20,5 +20,5 @@ func reset():
 	# reset/respawn Hero
 	Hero.HP = Hero.max_HP
 	Hero.HeroHealth.value = 100
-	Hero.smooth_node.translation = Hero.sprite_offset
-	Hero.global_translation = Vector3.ZERO
+	Hero.smooth_node.position = Hero.sprite_offset
+	Hero.global_position = Vector3.ZERO
