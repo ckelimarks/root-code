@@ -49,3 +49,7 @@ mesh = SubResource("5")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.779808, -0.602604, 0.169611, 0, 0.270936, 0.962597, -0.626019, -0.750641, 0.211278, 0, 6.38892, 0)
+light_energy = 0.5
+shadow_enabled = true
+shadow_opacity = 0.5
+shadow_blur = 5.0
