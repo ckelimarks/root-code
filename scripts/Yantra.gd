@@ -10,7 +10,7 @@ func _ready():
 
 func _physics_process(delta):
 	heat -= delta
-	power = base_power * heat
+	power = base_power * (heat/cooldown)
 	#modulate = Color(1, 1, 1, heat)
 	if heat < 0:
 		heat = cooldown
