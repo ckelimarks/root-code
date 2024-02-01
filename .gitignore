@@ -3,9 +3,6 @@
 .mono/
 .DS_Store
 *.import
-*.png*
-*.jpg*
-*.jpeg*
 *.mp3*
 images/
 sounds/
