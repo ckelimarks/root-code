@@ -76,7 +76,6 @@ environment = SubResource("4")
 process_mode = 3
 stream = ExtResource("4_q7a0o")
 volume_db = -10.0
-autoplay = true
 
 [node name="GameOverSound" type="AudioStreamPlayer2D" parent="."]
 process_mode = 3

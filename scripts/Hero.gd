@@ -42,34 +42,47 @@ func _ready():
 
 func _physics_process(delta):
 	updateMomentum()
-	getUserInteractaction()
+	getUserInteraction()
 	handleMovementAndCollisions(delta)
 	update_animation_parameters()	
-
 
 func updateMomentum():
 	throttle *= .1
 	velocity *= Vector3(dampening, 0, dampening)
 	velocity += Vector3(cos(angle), 0, sin(angle)) * throttle * speed
 	
-	# Adjust target_angle for shortest rotation path
+	# Adjust target_angle for the shortest rotation path and update angle
 	target_angle = angle + fposmod(target_angle - angle + PI, 2*PI) - PI
 	angle = move_toward(angle, target_angle, PI/12)
 	robot.rotation.y = -angle + PI/2
 	animation_player.speed_scale = velocity.length() / 10.0
 
-func getUserInteractaction():
+var previous_horizontal_direction = 0
+var previous_vertical_direction = 0
+func getUserInteraction():
 	# int(bool) turns true into 1 and false into 0
-	var right = int(Input.is_action_pressed('ui_right')) 
+	var right = int(Input.is_action_pressed('ui_right'))
 	var left = int(Input.is_action_pressed('ui_left'))
 	var up = int(Input.is_action_pressed('ui_up'))
 	var down = int(Input.is_action_pressed('ui_down'))
 	
 	animation_player.play("Walk")
+	
+	var x = right - left
+	var y = down - up
+	if x or y:
+		var bias = 0
+		if x:
+			bias = .1 * previous_vertical_direction * sign(x)
+			previous_horizontal_direction = x
 
-	if left+right != 0 || up+down != 0:
+		if y:
+			bias = .1 * previous_horizontal_direction * sign(-y)
+			previous_vertical_direction = y
+
+		target_angle = atan2(y, x)
+		angle -= bias
 		throttle = 1.0
-		target_angle = atan2(down - up, right - left)
 
 func handleMovementAndCollisions(delta):
 	# First, try to move normally.
