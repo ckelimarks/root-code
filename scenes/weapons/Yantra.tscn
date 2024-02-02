@@ -1,20 +1,20 @@
 [gd_scene load_steps=43 format=3 uid="uid://7mo00dv2g31f"]
 
 [ext_resource type="Script" path="res://scripts/Yantra.gd" id="1"]
-[ext_resource type="Texture2D" uid="uid://cal8esaqc6jp1" path="res://images/weapons/yantra/weapon1_0008.png" id="2"]
-[ext_resource type="Texture2D" uid="uid://bfkejms38fsp3" path="res://images/weapons/yantra/weapon1_0002.png" id="3"]
-[ext_resource type="Texture2D" uid="uid://cqg7vf6ivur47" path="res://images/weapons/yantra/weapon1_0006.png" id="4"]
-[ext_resource type="Texture2D" uid="uid://ds4efxnm4wimn" path="res://images/weapons/yantra/weapon1_0005.png" id="5"]
-[ext_resource type="Texture2D" uid="uid://c30kb2a2beme4" path="res://images/weapons/yantra/weapon1_0000.png" id="6"]
-[ext_resource type="Texture2D" uid="uid://bg8q7y1plm3uw" path="res://images/weapons/yantra/weapon1_0009.png" id="7"]
-[ext_resource type="Texture2D" uid="uid://dpy0m8lfmqjbh" path="res://images/weapons/yantra/weapon1_0004.png" id="8"]
-[ext_resource type="Texture2D" uid="uid://brb3rvckrmoqf" path="res://images/weapons/yantra/weapon1_0007.png" id="9"]
-[ext_resource type="Texture2D" uid="uid://txatwion8xtt" path="res://images/weapons/yantra/weapon1_0010.png" id="10"]
-[ext_resource type="Texture2D" uid="uid://dfmkrv1t4852k" path="res://images/weapons/yantra/weapon1_0011.png" id="11"]
-[ext_resource type="Texture2D" uid="uid://gtvlbmsgyax7" path="res://images/weapons/yantra/weapon1_0001.png" id="12"]
-[ext_resource type="Texture2D" uid="uid://clnpnrq8hgg4a" path="res://images/weapons/yantra/weapon1_0003.png" id="13"]
-[ext_resource type="Texture2D" uid="uid://txqduaw0wvok" path="res://images/weapons/orb/electricorb.png" id="14_j3jmb"]
-[ext_resource type="AudioStream" uid="uid://bsmy3vkw5info" path="res://sounds/orbSound.mp3" id="15_56j0s"]
+[ext_resource type="Texture2D" uid="uid://cps5stoal2ccq" path="res://images/weapons/yantra/weapon1_0008.png" id="2"]
+[ext_resource type="Texture2D" uid="uid://fkft42em0d0t" path="res://images/weapons/yantra/weapon1_0002.png" id="3"]
+[ext_resource type="Texture2D" uid="uid://cbo3oqqw828au" path="res://images/weapons/yantra/weapon1_0006.png" id="4"]
+[ext_resource type="Texture2D" uid="uid://c537kfkwlhe1h" path="res://images/weapons/yantra/weapon1_0005.png" id="5"]
+[ext_resource type="Texture2D" uid="uid://dx2yqtwoa2wbi" path="res://images/weapons/yantra/weapon1_0000.png" id="6"]
+[ext_resource type="Texture2D" uid="uid://b0a8oq0g3d5la" path="res://images/weapons/yantra/weapon1_0009.png" id="7"]
+[ext_resource type="Texture2D" uid="uid://dvbi65iixor15" path="res://images/weapons/yantra/weapon1_0004.png" id="8"]
+[ext_resource type="Texture2D" uid="uid://lfvj2r2vfn3v" path="res://images/weapons/yantra/weapon1_0007.png" id="9"]
+[ext_resource type="Texture2D" uid="uid://c31x4ojaqdmm5" path="res://images/weapons/yantra/weapon1_0010.png" id="10"]
+[ext_resource type="Texture2D" uid="uid://dkv1xdcgqkq4v" path="res://images/weapons/yantra/weapon1_0011.png" id="11"]
+[ext_resource type="Texture2D" uid="uid://chyq3l1g2iclw" path="res://images/weapons/yantra/weapon1_0001.png" id="12"]
+[ext_resource type="Texture2D" uid="uid://dot8hgat4i44o" path="res://images/weapons/yantra/weapon1_0003.png" id="13"]
+[ext_resource type="Texture2D" uid="uid://m6wdr1abieab" path="res://images/weapons/orb/electricorb.png" id="14_j3jmb"]
+[ext_resource type="AudioStream" uid="uid://bgqmjgpy1oerl" path="res://sounds/orbSound.mp3" id="15_56j0s"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_qumsj"]
 radius = 7.32062
@@ -262,4 +262,4 @@ frame_progress = 1.0
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("15_56j0s")
-volume_db = -80.0
+volume_db = -12.0

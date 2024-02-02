@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://b5hidq7fuopte" path="res://scenes/UI.tscn" id="3"]
 [ext_resource type="Texture2D" uid="uid://pl023xvmhfs6" path="res://images/textures/Cracked_Asphalt/Cracked_Asphalt_DIFF.png" id="3_61o8t"]
 [ext_resource type="Shader" uid="uid://bcpe4wiysxuft" path="res://shaders/repitiontexture.tres" id="4_5ucip"]
-[ext_resource type="AudioStream" uid="uid://dp3ve4x1egsgp" path="res://sounds/Victory is nearv2.mp3" id="4_q7a0o"]
+[ext_resource type="AudioStream" uid="uid://dec5qtte8nlgh" path="res://sounds/Victory is nearv2.mp3" id="4_q7a0o"]
 [ext_resource type="Texture2D" uid="uid://35r6hmtlpir8" path="res://images/textures/New_Concrete/New_Concrete_DIFF.jpg" id="6_mlrml"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_n8d8q"]

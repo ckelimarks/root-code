@@ -18,7 +18,8 @@ var dampening = 0.9
 @onready var HeroHealth       = $HealthNode/HeroHealth
 @onready var Yantra           = $Yantra
 @onready var OrbOrigin        = $OrbOrigin
-@onready var sword_collision = $PositionSmoother/Stan/RobotArmature/Skeleton3D/BoneAttachment3D/Sword/CollisionShape3D
+@onready var sword_collision  = $Stan/RobotArmature/Skeleton3D/BoneAttachment3D/Sword/CollisionShape3D
+@onready var animation_tree   = $Stan/AnimationTree
 
 # autoload these, and put these vars in their top-level scopes
 @onready var main_node = get_node("/root/Main")
@@ -28,6 +29,8 @@ var dampening = 0.9
 @onready var focusbutton = get_node("/root/Main/UICanvas/MarginContainer/VBoxContainer/Button1")
 @onready var music = get_node("/root/Main/Music")
 
+var Sword: CharacterBody3D  
+
 func _ready():
 	animation_tree.active = true
 	#sprite_node.play("idle")
@@ -35,7 +38,7 @@ func _ready():
 	var robot_collider = robot.get_node("CollisionShape3D")
 	$CollisionShape3D.shape.radius = robot_collider.shape.radius
 	$CollisionShape3D.shape.height = robot_collider.shape.height	
-	sword = stan.get_node("%Sword")
+	Sword = robot.get_node("%Sword")
 
 func _physics_process(delta):
 	updateMomentum()
@@ -118,14 +121,11 @@ func update_animation_parameters():
 		animation_tree.set("parameters/conditions/is_moving", true)
 	
 	if Input.is_action_just_pressed("attack"):
-		#print("slash")
-		#print(sword_collision)
 		animation_tree.set("parameters/Idle/blend_position", 1)
 		animation_tree.set("parameters/conditions/slash", true)
-		sword_collision.disabled = false
+		Sword.slash()
 	else:
 		animation_tree.set("parameters/conditions/slash", false)
-		sword_collision.disabled = true
 
 	
 	#animation_tree["parameters/Walk/blend_position"] = direction

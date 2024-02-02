@@ -1,7 +1,7 @@
 extends Node3D
 
 var enemy_scene = preload("res://scenes/Enemy.tscn")
-var max_enemies = 10
+var max_enemies = 100
 var enemy_spawn_cooldown = 1
 var enemy_spawn_heat = 0
 var enemies = []

@@ -1,23 +1,27 @@
 [gd_scene load_steps=9 format=3 uid="uid://bnnbjmrqxwrhl"]
 
-[ext_resource type="Script" path="res://scripts/Sword.gd" id="1_dasnj"]
-[ext_resource type="Texture2D" uid="uid://d4kvpkcpmwcwm" path="res://models/jade_sword/textures/MAT_Lowpoly_baseColor.png" id="1_qdxyj"]
-[ext_resource type="Texture2D" uid="uid://bl0ttrd7qdn27" path="res://models/jade_sword/textures/MAT_Lowpoly_metallicRoughness.png" id="2_h76uw"]
-[ext_resource type="Texture2D" uid="uid://dsews8aqud0c7" path="res://models/jade_sword/textures/MAT_Lowpoly_normal.png" id="3_cl2vh"]
+[ext_resource type="Script" path="res://scripts/Sword.gd" id="1_vcck5"]
+[ext_resource type="Texture2D" uid="uid://cj62khqgcqors" path="res://models/jade_sword/textures/MAT_Lowpoly_baseColor.png" id="2_yiuox"]
+[ext_resource type="Texture2D" uid="uid://cghclpi6buo46" path="res://models/jade_sword/textures/MAT_Lowpoly_metallicRoughness.png" id="3_i4p1k"]
+[ext_resource type="Texture2D" uid="uid://4pdvg47uta24" path="res://models/jade_sword/textures/MAT_Lowpoly_normal.png" id="4_dg1kg"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_mkxix"]
+radius = 4.0
+height = 50.0
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lfi6h"]
 resource_name = "MAT_Lowpoly"
 cull_mode = 2
-albedo_texture = ExtResource("1_qdxyj")
+albedo_texture = ExtResource("2_yiuox")
 metallic = 1.0
-metallic_texture = ExtResource("2_h76uw")
+metallic_texture = ExtResource("3_i4p1k")
 metallic_texture_channel = 2
-roughness_texture = ExtResource("2_h76uw")
+roughness_texture = ExtResource("3_i4p1k")
 roughness_texture_channel = 1
 normal_enabled = true
-normal_texture = ExtResource("3_cl2vh")
+normal_texture = ExtResource("4_dg1kg")
 ao_enabled = true
-ao_texture = ExtResource("2_h76uw")
+ao_texture = ExtResource("3_i4p1k")
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_1n80s"]
 _surfaces = [{
@@ -53,31 +57,16 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_1n80s")
 
-[sub_resource type="CylinderShape3D" id="CylinderShape3D_ev6v1"]
-height = 100.0
-radius = 15.694
-
 [node name="Sword" type="CharacterBody3D"]
-transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
 collision_layer = 2
 collision_mask = 2
-script = ExtResource("1_dasnj")
-
-[node name="Sketchfab_model" type="Node3D" parent="."]
-transform = Transform3D(0.485389, 0.0655727, 0.871836, -0.685325, 0.647729, 0.332833, -0.542888, -0.759044, 0.359339, -0.875976, 1.12393, -0.0120051)
-
-[node name="d59c46b9bf414e7c80d12df441e1b5db_fbx" type="Node3D" parent="Sketchfab_model"]
-transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, 0, 0, 0)
-
-[node name="RootNode" type="Node3D" parent="Sketchfab_model/d59c46b9bf414e7c80d12df441e1b5db_fbx"]
-
-[node name="polySurface10" type="Node3D" parent="Sketchfab_model/d59c46b9bf414e7c80d12df441e1b5db_fbx/RootNode"]
-
-[node name="polySurface10_MAT_Lowpoly_0" type="MeshInstance3D" parent="Sketchfab_model/d59c46b9bf414e7c80d12df441e1b5db_fbx/RootNode/polySurface10"]
-mesh = SubResource("ArrayMesh_tj27b")
-skeleton = NodePath("")
+script = ExtResource("1_vcck5")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(-0.442323, -0.865486, -0.235126, 0.887381, -0.384334, -0.254643, 0.130023, -0.32128, 0.938016, 2.73533, 2.10009, 2.48677)
-shape = SubResource("CylinderShape3D_ev6v1")
-disabled = true
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, -4, -21)
+shape = SubResource("CapsuleShape3D_mkxix")
+
+[node name="SwordMesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, -2.18557e-08, -0.5, 0, 0.5, -2.18557e-08, 0, -4, -21)
+mesh = SubResource("ArrayMesh_tj27b")
+skeleton = NodePath("")

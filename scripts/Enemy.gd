@@ -2,7 +2,7 @@ extends CharacterBody3D
 
 var speed = 10.0  # Adjust as needed
 var pushing_strength = 5.0
-var HP = 3 # hit points
+var HP = 30 # hit points
 var power = 1
 var enemy_color = Color(.9, .8, 1, 1)
 var is_dead = false
@@ -58,7 +58,7 @@ func _physics_process(delta):
 		
 		if weapons.has(collider):
 			HP -= collider.power
-			momentum += (global_position - Hero.global_position).normalized() * collider.power / 2
+			momentum += (global_position - Hero.global_position).normalized() * sqrt(collider.power / 2)
 			glow()
 			if HP <= 0:
 				is_dead = true

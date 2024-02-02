@@ -6,9 +6,11 @@ var cooldown = 2
 var heat = 0
 
 func _ready():
+	$Collider.disabled = true
 	pass # Replace with function body.
 
 func _physics_process(delta):
+	return
 	heat -= delta
 	power = base_power * (heat/cooldown)
 	#modulate = Color(1, 1, 1, heat)
