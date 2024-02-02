@@ -1,10 +1,10 @@
 [gd_scene load_steps=24 format=3 uid="uid://j156lpeh0b06"]
 
 [ext_resource type="Script" path="res://scripts/Enemy.gd" id="1"]
-[ext_resource type="AudioStream" uid="uid://dy66cuoui1lpv" path="res://sounds/killsound2.mp3" id="3"]
+[ext_resource type="AudioStream" uid="uid://dirwxw7f73mdj" path="res://sounds/killsound2.mp3" id="3"]
 [ext_resource type="PackedScene" uid="uid://by3vf41kopnky" path="res://scenes/robots/dune_drone.tscn" id="3_3k41f"]
 [ext_resource type="PackedScene" uid="uid://qn8xc4d5jsao" path="res://scenes/robots/utility_robot.tscn" id="4_2gfhv"]
-[ext_resource type="Texture2D" uid="uid://b1spsdym4n3xb" path="res://images/gem/exp2_0.png" id="5_4ntbs"]
+[ext_resource type="Texture2D" uid="uid://bnaeo7k6l8r64" path="res://images/gem/exp2_0.png" id="5_4ntbs"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_hg5ar"]
 radius = 2.8072
@@ -147,13 +147,11 @@ visible = false
 stream = ExtResource("3")
 volume_db = -80.0
 
-[node name="PositionSmoother" type="Node3D" parent="."]
-
-[node name="DuneDrone" parent="PositionSmoother" instance=ExtResource("3_3k41f")]
+[node name="DuneDrone" parent="." instance=ExtResource("3_3k41f")]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0.0794476, 0, 0.0675392)
 visible = false
 
-[node name="YellowBot" parent="PositionSmoother" instance=ExtResource("4_2gfhv")]
+[node name="YellowBot" parent="." instance=ExtResource("4_2gfhv")]
 
 [node name="ExplosionSprite" type="AnimatedSprite3D" parent="."]
 transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 3.40455, 0)
