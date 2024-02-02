@@ -1,31 +1,15 @@
-[gd_resource type="VisualShader" load_steps=16 format=3 uid="uid://bcpe4wiysxuft"]
+[gd_resource type="VisualShader" load_steps=14 format=3 uid="uid://bcpe4wiysxuft"]
 
-[ext_resource type="Texture2D" uid="uid://dhiol5jenvdm7" path="res://images/ground/techground3.jpeg" id="1_mmutw"]
-[ext_resource type="Texture2D" uid="uid://d37afjn60007h" path="res://images/ground/techground1.jpeg" id="2_hcaj0"]
+[ext_resource type="Texture2D" uid="uid://35r6hmtlpir8" path="res://images/textures/New_Concrete/New_Concrete_DIFF.jpg" id="1_hmu0o"]
+[ext_resource type="Texture2D" uid="uid://pl023xvmhfs6" path="res://images/textures/Cracked_Asphalt/Cracked_Asphalt_DIFF.png" id="1_ornq2"]
+[ext_resource type="Texture2D" uid="uid://b7wq8thc3cwy2" path="res://images/textures/SolarPanel/TCom_SolarCells_1K_albedo.png" id="3_4h324"]
 
 [sub_resource type="VisualShaderNodeMix" id="VisualShaderNodeMix_wffyx"]
 default_input_values = [0, Vector3(0, 0, 0), 1, Vector3(1, 1, 1), 2, Vector3(0.5, 0.5, 0.5)]
 op_type = 3
 
-[sub_resource type="Gradient" id="Gradient_6g4x6"]
-offsets = PackedFloat32Array(0.351852, 0.438272)
-
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_p43jf"]
-noise_type = 5
-frequency = 0.0455
-fractal_octaves = 1
-fractal_lacunarity = 0.0
-fractal_gain = 1.0
-metadata/_preview_in_3d_space_ = true
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_agyni"]
-width = 1024
-normalize = false
-color_ramp = SubResource("Gradient_6g4x6")
-noise = SubResource("FastNoiseLite_p43jf")
-
 [sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_ffysx"]
-texture = SubResource("NoiseTexture2D_agyni")
+texture = ExtResource("1_ornq2")
 texture_type = 1
 
 [sub_resource type="VisualShaderNodeVec2Constant" id="VisualShaderNodeVec2Constant_q6yjv"]
@@ -35,7 +19,7 @@ constant = Vector2(100, 62)
 constant = Vector2(100, 62)
 
 [sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_a7owb"]
-texture = ExtResource("1_mmutw")
+texture = ExtResource("1_hmu0o")
 texture_type = 1
 
 [sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_8rc3a"]
@@ -51,7 +35,7 @@ function = 1
 input_name = "uv"
 
 [sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_o7pwt"]
-texture = ExtResource("2_hcaj0")
+texture = ExtResource("3_4h324")
 texture_type = 1
 
 [resource]

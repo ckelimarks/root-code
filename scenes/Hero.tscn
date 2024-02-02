@@ -27,6 +27,7 @@ layout_mode = 3
 anchors_preset = 0
 
 [node name="HeroHealth" type="ProgressBar" parent="HealthNode"]
+layout_mode = 0
 offset_left = -51.0
 offset_top = -13.0
 offset_right = 52.0
