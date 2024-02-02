@@ -260,6 +260,6 @@ animation = &"new_animation"
 frame = 24
 frame_progress = 1.0
 
-[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource("15_56j0s")
-volume_db = -12.0
+volume_db = 19.242
