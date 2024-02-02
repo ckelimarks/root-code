@@ -1,64 +1,69 @@
 extends CharacterBody3D
 
-var speed = 16.0
-var dampening = .9
-var pushing_strength = 10.0
+#stats
 var HP = 100.0
 var max_HP = 100.0
-var target_angle = 0
-var angle = 0
-var target_velocity = Vector3.ZERO
-var throttle = 0 
+var speed = 16.0
+var pushing_strength = 10.0
 
-@onready var smooth_node = $PositionSmoother
-@onready var sprite_node = $PositionSmoother/Stan
-@onready var animation_player = $PositionSmoother/Stan/AnimationPlayer
-@onready var Yantra = $PositionSmoother/Yantra
-@onready var OrbOrigin = $PositionSmoother/OrbOrigin
-@onready var HeroHealth = $PositionSmoother/HealthNode/HeroHealth
+#movement
+var angle = 0.0
+var target_angle = 0.0
+var throttle = 0.0
+var dampening = 0.9
 
+#local nodes
+@onready var robot            = $Stan
+@onready var animation_player = $Stan/AnimationPlayer
+@onready var HeroHealth       = $HealthNode/HeroHealth
+@onready var Yantra           = $Yantra
+@onready var OrbOrigin        = $OrbOrigin
+
+# autoload these, and put these vars in their top-level scopes
 @onready var main_node = get_node("/root/Main")
 @onready var xp_bar = get_node("/root/Main/UICanvas/xpBar")
 @onready var you_died = get_node("/root/Main/UICanvas/youdied")
 @onready var game_over = get_node("/root/Main/GameOverSound")
-@onready var music = get_node("/root/Main/Music")
 @onready var focusbutton = get_node("/root/Main/UICanvas/MarginContainer/VBoxContainer/Button1")
-@onready var stan = $PositionSmoother/Stan
-#@onready var stan_collision_shape = $PositionSmoother/Stan/CollisionShape3D
-#onready var walking_sound =
-
-var sprite_offset = Vector3()
+@onready var music = get_node("/root/Main/Music")
 
 func _ready():
-	
-	sprite_offset = smooth_node.position
 	#sprite_node.play("idle")
 	animation_player.speed_scale = speed / 10.0	
-	var stan_collider = stan.get_node("CollisionShape3D")
-	$CollisionShape3D.shape.radius = stan_collider.shape.radius
-	$CollisionShape3D.shape.height = stan_collider.shape.height
-	
+	var robot_collider = robot.get_node("CollisionShape3D")
+	$CollisionShape3D.shape.radius = robot_collider.shape.radius
+	$CollisionShape3D.shape.height = robot_collider.shape.height	
 
-	
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
-	var start_position = global_position  # Save the current position before moving
-	var sprite_start_position = smooth_node.position
+	updateMomentum()
+	getUserInteractaction()
+	handleMovementAndCollisions(delta)
 
-	#velocity *= Vector3(dampening, 0, dampening)
-	velocity = velocity.move_toward(target_velocity, delta*100)
-	#direction = direction.lerp(target_direction, .05)
-	#angle = move_toward(angle, target_angle, .1)
-	#velocity.rotated(Vector3(0, 1, 0), angle)
+func updateMomentum():
+	throttle *= .1
+	velocity *= Vector3(dampening, 0, dampening)
+	velocity += Vector3(cos(angle), 0, sin(angle)) * throttle * speed
+	
+	# Adjust target_angle for shortest rotation path
+	target_angle = angle + fposmod(target_angle - angle + PI, 2*PI) - PI
+	angle = move_toward(angle, target_angle, PI/12)
+	robot.rotation.y = -angle + PI/2
+	animation_player.speed_scale = velocity.length() / 10.0
 
-	target_angle = -atan2(velocity.z, velocity.x) + PI/2
-	sprite_node.rotation.y = move_toward(sprite_node.rotation.y, target_angle, delta*PI)
-	animation_player.speed_scale = velocity.length() / 10.0	
+func getUserInteractaction():
+	# int(bool) turns true into 1 and false into 0
+	var right = int(Input.is_action_pressed('ui_right')) 
+	var left = int(Input.is_action_pressed('ui_left'))
+	var up = int(Input.is_action_pressed('ui_up'))
+	var down = int(Input.is_action_pressed('ui_down'))
 	
-	# Get user interactioin
-	interact()
-	
+	animation_player.play("Walk")
+
+	if left+right != 0 || up+down != 0:
+		throttle = 1.0
+		target_angle = atan2(down - up, right - left)
+
+func handleMovementAndCollisions(delta):
 	# First, try to move normally.
 	var collision = move_and_collide(velocity * delta)
 	var push_vector = Vector3.ZERO
@@ -74,39 +79,23 @@ func _physics_process(delta):
 			#sprite_node.modulate = Color(1, 0, 0, 1)
 			HeroHealth.value = HP / max_HP * 100
 			if HP <= 0:
-				music.stop()
-				game_over.play()
-				you_died.show()
-				AudioServer.set_bus_effect_enabled(0, 0, true)
-				get_tree().paused = true
-				
-				focusbutton.grab_focus()
-				#main_node.reset()
-				xp_bar.value = 0
-				
+				die()
 				return
-			
+
 		# Attempt to push the collider by manually adjusting the hero's global_position
 		push_vector = collision.get_remainder().normalized() * pushing_strength * delta
 	
 	global_position += push_vector
-	
-	#var new_position = global_position + push_vector
-	#var smoothed_position = (start_position + sprite_start_position).lerp(new_position + sprite_offset, 0.3)
-	#global_position = global_position + (new_position - global_position) 
-	#smooth_node.position = smoothed_position - new_position
 
-func interact():
-	# int(bool) turns true into 1 and false into 0
-	var right = int(Input.is_action_pressed('ui_right')) 
-	var left = int(Input.is_action_pressed('ui_left'))
-	var up = int(Input.is_action_pressed('ui_up'))
-	var down = int(Input.is_action_pressed('ui_down'))
+func die():
+	music.stop()
+	game_over.play()
+	you_died.show()
+	AudioServer.set_bus_effect_enabled(0, 0, true)
+	get_tree().paused = true
 	
-	animation_player.play("Walk")
-
-	# left makes x = -1, right makes x = 1
-	# up makes z = -1, down makes z = 1
-	throttle = 1
-	target_velocity = Vector3(right - left, 0, down - up).normalized() * speed
-		
+	focusbutton.grab_focus()
+	#main_node.reset()
+	xp_bar.value = 0
+	
+			

@@ -147,13 +147,11 @@ visible = false
 stream = ExtResource("3")
 volume_db = -80.0
 
-[node name="PositionSmoother" type="Node3D" parent="."]
-
-[node name="DuneDrone" parent="PositionSmoother" instance=ExtResource("3_3k41f")]
+[node name="DuneDrone" parent="." instance=ExtResource("3_3k41f")]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0.0794476, 0, 0.0675392)
 visible = false
 
-[node name="YellowBot" parent="PositionSmoother" instance=ExtResource("4_2gfhv")]
+[node name="YellowBot" parent="." instance=ExtResource("4_2gfhv")]
 
 [node name="ExplosionSprite" type="AnimatedSprite3D" parent="."]
 transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 3.40455, 0)

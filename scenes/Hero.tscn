@@ -15,22 +15,22 @@ script = ExtResource("1")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.157753, 3, 0)
 shape = SubResource("CapsuleShape3D_deedt")
 
-[node name="PositionSmoother" type="Node3D" parent="."]
+[node name="OrbOrigin" type="Node3D" parent="."]
 
-[node name="OrbOrigin" type="Node3D" parent="PositionSmoother"]
-
-[node name="Yantra" parent="PositionSmoother" instance=ExtResource("3")]
+[node name="Yantra" parent="." instance=ExtResource("3")]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
 
-[node name="Stan" parent="PositionSmoother" instance=ExtResource("2")]
+[node name="Stan" parent="." instance=ExtResource("2")]
 
-[node name="HealthNode" type="Node" parent="PositionSmoother"]
+[node name="HealthNode" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
 
-[node name="HeroHealth" type="ProgressBar" parent="PositionSmoother/HealthNode"]
-offset_left = 1.0
-offset_top = 28.0
-offset_right = 104.0
-offset_bottom = 42.0
+[node name="HeroHealth" type="ProgressBar" parent="HealthNode"]
+offset_left = -51.0
+offset_top = -13.0
+offset_right = 52.0
+offset_bottom = 14.0
 step = 1.0
 value = 100.0
 rounded = true
