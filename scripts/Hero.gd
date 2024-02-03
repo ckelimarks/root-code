@@ -137,12 +137,15 @@ func update_animation_parameters():
 	if Input.is_action_just_pressed("attack") and animation_tree.get("parameters/conditions/is_moving") == true:
 		var state_machine = animation_tree.get("parameters/playback")
 		state_machine.travel("Walk_and_slash")
+		Sword.slash_progress = 0
 		$SwordSound.play()
 		Sword.slash()
+		
 	if Input.is_action_just_pressed("attack") and !animation_tree.get("parameters/conditions/is_moving"):	
 		#animation_player.play("Walk_and_slash")
 		#animation_tree.set("parameters/Idle/blend_position", 1)
 		animation_tree.set("parameters/conditions/slash", true)
+		Sword.slash_progress = 0
 		$SwordSound.play()
 		Sword.slash()
 	else:

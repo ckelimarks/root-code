@@ -2,6 +2,7 @@ extends CharacterBody3D
 
 var base_power = 10
 var power = 0
+var slash_progress = 100
 
 func _ready():
 	pass
@@ -14,9 +15,7 @@ func slash():
 	#animation_tree.set("parameters/conditions/slash", false)
 
 func _process(delta):
-	power *= .9
-	#slash_elapsed_time_percentage += delta
-	#sin(slash_elapsed_time_percentage*PI)
-	#1 / ( pow(5*(x-.5),2) +1 )
+	slash_progress += delta
+	power = 1 / ( pow(5*(slash_progress-.5),2) +1 )
 	$CollisionShape3D.shape.radius *= .9
 	$CollisionShape3D.shape.radius += 4.0
