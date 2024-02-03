@@ -44,7 +44,8 @@ func _physics_process(delta):
 	updateMomentum()
 	getUserInteraction()
 	handleMovementAndCollisions(delta)
-	update_animation_parameters()	
+	update_animation_parameters()
+	position_healthbar()
 
 func updateMomentum():
 	throttle *= .1
@@ -139,7 +140,12 @@ func update_animation_parameters():
 		Sword.slash()
 	else:
 		animation_tree.set("parameters/conditions/slash", false)
-
 	
 	#animation_tree["parameters/Walk/blend_position"] = direction
 	#animation_tree["parameters/Slash/blend_position"] = direction
+
+func position_healthbar():
+	HeroHealth.position = Cam.unproject_position(global_position)
+	HeroHealth.position.x -= HeroHealth.size.x / 2
+	
+	

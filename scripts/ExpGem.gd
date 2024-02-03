@@ -37,7 +37,7 @@ func _on_body_entered(body):
 		$AudioStreamPlayer.connect("finished", Callable(self, "_on_audio_finished"))
 		xpBar.value = xpBar.value + 1
 		
-	if xpBar.value == 10:
+	if xpBar.value == 1:
 		
 		get_tree().paused = true
 		levelUp.show()

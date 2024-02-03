@@ -19,7 +19,7 @@ func _ready():
 
 
 func _on_Button2_pressed():
-	Hero.speed = Hero.speed + 10
+	Hero.speed += int(Hero.speed < 24)
 	Hero.animation_player.speed_scale = Hero.speed / 10
 	$MarginContainer.hide()
 	AudioServer.set_bus_effect_enabled(0, 0, false)
@@ -28,7 +28,7 @@ func _on_Button2_pressed():
 
 
 func _on_Button1_pressed():
-	Hero.pushing_strength = Hero.pushing_strength + 300
+	Hero.pushing_strength += int(Hero.pushing_strength < 20)
 	$MarginContainer.hide()
 	AudioServer.set_bus_effect_enabled(0, 0, false)
 	get_tree().paused = false
@@ -36,8 +36,10 @@ func _on_Button1_pressed():
 
 
 func _on_Button3_pressed():
-	Hero.max_HP = Hero.max_HP + 50
+	Hero.max_HP += 50
 	Hero.HP = min(Hero.HP + 50, Hero.max_HP)
+	#Hero.HeroHealth.max_value = Hero.max_HP
+	Hero.HeroHealth.value = Hero.HP
 	# lets make the hp bar HP instead of % of maxHP
 	$MarginContainer.hide()
 	AudioServer.set_bus_effect_enabled(0, 0, false)
