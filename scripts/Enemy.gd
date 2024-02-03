@@ -56,6 +56,7 @@ func _physics_process(delta):
 		var collider = collision.get_collider()
 		
 		if weapons.has(collider):
+			$MetalStrike.play()
 			HP -= collider.power
 			momentum += (global_position - Hero.global_position).normalized() * sqrt(collider.power / 2)
 			glow()
