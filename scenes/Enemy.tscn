@@ -1,9 +1,9 @@
 [gd_scene load_steps=23 format=3 uid="uid://j156lpeh0b06"]
 
 [ext_resource type="Script" path="res://scripts/Enemy.gd" id="1"]
-[ext_resource type="AudioStream" uid="uid://dy66cuoui1lpv" path="res://sounds/killsound2.mp3" id="3"]
-[ext_resource type="AudioStream" uid="uid://bkvmm4v7ctgeb" path="res://sounds/sfx/metal_strike.mp3" id="4_sdrmc"]
-[ext_resource type="Texture2D" uid="uid://b1spsdym4n3xb" path="res://images/gem/exp2_0.png" id="5_4ntbs"]
+[ext_resource type="AudioStream" uid="uid://dirwxw7f73mdj" path="res://sounds/killsound2.mp3" id="3"]
+[ext_resource type="AudioStream" uid="uid://qk1veqc5of07" path="res://sounds/sfx/metal_strike.mp3" id="4_sdrmc"]
+[ext_resource type="Texture2D" uid="uid://bnaeo7k6l8r64" path="res://images/gem/exp2_0.png" id="5_4ntbs"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_hg5ar"]
 radius = 2.8072
@@ -154,4 +154,4 @@ animation = &"explosion"
 
 [node name="MetalStrike" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("4_sdrmc")
-volume_db = -5.0
+volume_db = -18.629
