@@ -10,14 +10,10 @@ func _ready():
 	pass
 
 func slash():
-	if power > .05:
-		return
+	if power > .05: return # don't allow a new slash in the middle of a swing
 	slash_progress = 0
 	await get_tree().create_timer(.2).timeout
 	$SwordSound.play()
-	#sword_collision.disabled = false
-	#else:
-	#animation_tree.set("parameters/conditions/slash", false)
 
 func _process(delta):
 	slash_progress += delta * 1.6
