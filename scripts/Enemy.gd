@@ -2,8 +2,9 @@ extends CharacterBody3D
 
 var speed = 10.0  # Adjust as needed
 var pushing_strength = 5.0
-var HP = 30 # hit points
-var power = 1
+var HP = 10 # hit points
+var damage = 1
+var knock_back = 1
 var enemy_color = Color(.9, .8, 1, 1)
 var is_dead = false
 var momentum = Vector3.ZERO
@@ -61,8 +62,8 @@ func _physics_process(delta):
 		if weapons.has(collider):
 			$MetalStrike.play()
 			$MetalStrike.volume_db = -40 + collider.power * 3
-			HP -= collider.power
-			momentum += (global_position - Hero.global_position).normalized() * sqrt(collider.power / 2)
+			HP -= collider.damage
+			momentum += (global_position - Hero.global_position).normalized() * sqrt(collider.knock_back / 2)
 			glow()
 			if HP <= 0:
 				is_dead = true

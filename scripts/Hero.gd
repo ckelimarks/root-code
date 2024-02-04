@@ -1,10 +1,19 @@
 extends CharacterBody3D
 
+var attributes = {
+	"speed": 16, 
+	"defense": 0,
+	"max_HP": 100,
+	"health_regen": 10,
+	"luck": 5
+}
 #stats
 var HP = 100.0
 var max_HP = 100.0
 var speed = 16.0
 var pushing_strength = 10.0
+var health_regen = .5
+var luck = 1 
 
 #movement
 var angle = 0.0
@@ -34,6 +43,7 @@ var Sword: CharacterBody3D
 
 func _ready():
 	animation_tree.active = true
+	
 	#animation_player.speed_scale = speed / 10.0
 	#animation_tree.set("parameters/conditions/is_moving", true)
 	#animation_tree.set("parameters/conditions/idle", false)
@@ -105,7 +115,7 @@ func handleMovementAndCollisions(delta):
 		
 		if collider.is_in_group("enemies"):
 			$ImpactSound.play()
-			HP -= collider.power
+			HP -= collider.damage
 			#sprite_node.modulate = Color(1, 0, 0, 1)
 			HeroHealth.value = HP / max_HP * 100
 			if HP <= 0:
@@ -130,8 +140,8 @@ func die():
 	
 func update_animation_parameters():
 	var init_sword_slash = Input.is_action_just_pressed("attack")
-	var started_walking_while_slashing = !idle and Sword.power > Sword.base_power/2
-	print([idle, Sword.power, Sword.base_power/2, started_walking_while_slashing])
+	var started_walking_while_slashing = !idle and Sword.power > .5
+	#print([idle, Sword.power, Sword.base_power/2, started_walking_while_slashing])
 	if idle:
 		animation_tree.set("parameters/conditions/idle", true)
 		animation_tree.set("parameters/conditions/is_moving", false)
@@ -144,6 +154,7 @@ func update_animation_parameters():
 			animation_tree.set("parameters/conditions/slash_walk", true)
 
 	if init_sword_slash:
+		animation_tree.set("parameters/TimeScale/scale", 5.0)
 		Sword.slash()
 	elif !started_walking_while_slashing:
 		animation_tree.set("parameters/conditions/slash", false)

@@ -1,10 +1,9 @@
-[gd_scene load_steps=18 format=3 uid="uid://3rgmo8vegmv"]
+[gd_scene load_steps=17 format=3 uid="uid://3rgmo8vegmv"]
 
 [ext_resource type="Script" path="res://scripts/Main.gd" id="2"]
 [ext_resource type="PackedScene" uid="uid://b5hidq7fuopte" path="res://scenes/UI.tscn" id="3"]
 [ext_resource type="Texture2D" uid="uid://pl023xvmhfs6" path="res://images/textures/Cracked_Asphalt/Cracked_Asphalt_DIFF.png" id="3_61o8t"]
 [ext_resource type="Shader" uid="uid://bcpe4wiysxuft" path="res://shaders/repitiontexture.tres" id="4_5ucip"]
-[ext_resource type="AudioStream" uid="uid://dteekphhgi3e7" path="res://sounds/Chinese Scale.mp3" id="4_67eqs"]
 [ext_resource type="Texture2D" uid="uid://35r6hmtlpir8" path="res://images/textures/New_Concrete/New_Concrete_DIFF.jpg" id="6_mlrml"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_n8d8q"]
@@ -77,7 +76,6 @@ environment = SubResource("4")
 
 [node name="Music" type="AudioStreamPlayer" parent="."]
 process_mode = 3
-stream = ExtResource("4_67eqs")
 volume_db = -10.0
 
 [node name="GameOverSound" type="AudioStreamPlayer2D" parent="."]
