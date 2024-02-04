@@ -36,6 +36,8 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 7
 size_flags_vertical = 7
+max_value = 10.0
+step = 0.0
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 visible = false

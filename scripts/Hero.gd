@@ -1,16 +1,26 @@
 extends CharacterBody3D
 
+var attributes = {
+	"speed": 16, 
+	"defense": 0,
+	"max_HP": 100,
+	"health_regen": 10,
+	"luck": 5
+}
 #stats
 var HP = 100.0
 var max_HP = 100.0
 var speed = 16.0
 var pushing_strength = 10.0
+var health_regen = .5
+var luck = 1 
 
 #movement
 var angle = 0.0
 var target_angle = 0.0
 var throttle = 0.0
 var dampening = 0.9
+var idle = true
 
 #local nodes
 @onready var robot            = $Stan
@@ -33,18 +43,23 @@ var Sword: CharacterBody3D
 
 func _ready():
 	animation_tree.active = true
-	#sprite_node.play("idle")
-	animation_player.speed_scale = speed / 10.0	
-	var robot_collider = robot.get_node("CollisionShape3D")
-	$CollisionShape3D.shape.radius = robot_collider.shape.radius
-	$CollisionShape3D.shape.height = robot_collider.shape.height	
+	
+	#animation_player.speed_scale = speed / 10.0
+	#animation_tree.set("parameters/conditions/is_moving", true)
+	#animation_tree.set("parameters/conditions/idle", false)
+	
+	var robot_collider = robot.get_node("Collider")
+	$Collider.set_shape(robot_collider.shape)
+	$Collider.position = robot_collider.position
+	$Collider.rotation = robot_collider.rotation
 	Sword = robot.get_node("%Sword")
 
 func _physics_process(delta):
 	updateMomentum()
 	getUserInteraction()
 	handleMovementAndCollisions(delta)
-	update_animation_parameters()	
+	update_animation_parameters()
+	position_healthbar()
 
 func updateMomentum():
 	throttle *= .1
@@ -55,22 +70,26 @@ func updateMomentum():
 	target_angle = angle + fposmod(target_angle - angle + PI, 2*PI) - PI
 	angle = move_toward(angle, target_angle, PI/12)
 	robot.rotation.y = -angle + PI/2
-	animation_player.speed_scale = velocity.length() / 10.0
+	#animation_player.speed_scale = velocity.length() / 10.0
 
 var previous_horizontal_direction = 0
 var previous_vertical_direction = 0
 func getUserInteraction():
+	idle = true
+	
 	# int(bool) turns true into 1 and false into 0
 	var right = int(Input.is_action_pressed('ui_right'))
 	var left = int(Input.is_action_pressed('ui_left'))
 	var up = int(Input.is_action_pressed('ui_up'))
 	var down = int(Input.is_action_pressed('ui_down'))
-	
+	#InputEventScreenTouch.
 	animation_player.play("Walk")
 	
 	var x = right - left
 	var y = down - up
 	if x or y:
+		idle = false
+
 		var bias = 0
 		if x:
 			bias = .1 * previous_vertical_direction * sign(x)
@@ -96,7 +115,7 @@ func handleMovementAndCollisions(delta):
 		
 		if collider.is_in_group("enemies"):
 			$ImpactSound.play()
-			HP -= collider.power
+			HP -= collider.damage
 			#sprite_node.modulate = Color(1, 0, 0, 1)
 			HeroHealth.value = HP / max_HP * 100
 			if HP <= 0:
@@ -119,27 +138,30 @@ func die():
 	#main_node.reset()
 	xp_bar.value = 0
 	
-			
-	#animation_player.play("SwordSlash")
-	
 func update_animation_parameters():
-	if velocity.length_squared() < 0.01:
-		#print("idle = true and is_moving = false")
+	var init_sword_slash = Input.is_action_just_pressed("attack")
+	var started_walking_while_slashing = !idle and Sword.power > .5
+	#print([idle, Sword.power, Sword.base_power/2, started_walking_while_slashing])
+	if idle:
 		animation_tree.set("parameters/conditions/idle", true)
 		animation_tree.set("parameters/conditions/is_moving", false)
+		if init_sword_slash:
+			animation_tree.set("parameters/conditions/slash", true)
 	else:
-		#print(velocity)
-		#print("is_moving = true and idle = false")
 		animation_tree.set("parameters/conditions/idle", false)
 		animation_tree.set("parameters/conditions/is_moving", true)
-	
-	if Input.is_action_just_pressed("attack"):
-		animation_tree.set("parameters/Idle/blend_position", 1)
-		animation_tree.set("parameters/conditions/slash", true)
-		Sword.slash()
-	else:
-		animation_tree.set("parameters/conditions/slash", false)
+		if init_sword_slash or started_walking_while_slashing:
+			animation_tree.set("parameters/conditions/slash_walk", true)
 
+	if init_sword_slash:
+		animation_tree.set("parameters/TimeScale/scale", 5.0)
+		Sword.slash()
+	elif !started_walking_while_slashing:
+		animation_tree.set("parameters/conditions/slash", false)
+		animation_tree.set("parameters/conditions/slash_walk", false)
+		
+func position_healthbar():
+	HeroHealth.position = Cam.unproject_position(global_position)
+	HeroHealth.position.x -= HeroHealth.size.x / 2
 	
-	#animation_tree["parameters/Walk/blend_position"] = direction
-	#animation_tree["parameters/Slash/blend_position"] = direction
+	

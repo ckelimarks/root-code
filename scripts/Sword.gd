@@ -1,19 +1,23 @@
 extends CharacterBody3D
-
-var base_power = 10
 var power = 0
+var base_damage = 10
+var slash_progress = 100
+var knock_back = 10
+var base_knock_back = 1
+var damage = 0
 
 func _ready():
 	pass
 
 func slash():
-	$CollisionShape3D.shape.radius = 25.0
-	power = base_power
-	#sword_collision.disabled = false
-	#else:
-	#animation_tree.set("parameters/conditions/slash", false)
+	if power > .05: return # don't allow a new slash in the middle of a swing
+	slash_progress = 0
+	await get_tree().create_timer(.2).timeout
+	$SwordSound.play()
 
 func _process(delta):
-	power *= .9
-	$CollisionShape3D.shape.radius *= .9
-	$CollisionShape3D.shape.radius += 4.0
+	slash_progress += delta * 1.6
+	power = 1 / ( pow(5*(slash_progress-.8),2) +1 )
+	damage = power * base_damage
+	knock_back = power * base_knock_back
+	$Collider.shape.radius = power * 21.0 + 4.0
