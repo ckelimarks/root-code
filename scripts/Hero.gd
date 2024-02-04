@@ -11,6 +11,7 @@ var angle = 0.0
 var target_angle = 0.0
 var throttle = 0.0
 var dampening = 0.9
+var idle = true
 
 #local nodes
 @onready var robot            = $Stan
@@ -33,8 +34,10 @@ var Sword: CharacterBody3D
 
 func _ready():
 	animation_tree.active = true
-	#sprite_node.play("idle")
-	animation_player.speed_scale = speed / 10.0	
+	#animation_player.speed_scale = speed / 10.0
+	#animation_tree.set("parameters/conditions/is_moving", true)
+	#animation_tree.set("parameters/conditions/idle", false)
+	
 	var robot_collider = robot.get_node("Collider")
 	$Collider.set_shape(robot_collider.shape)
 	$Collider.position = robot_collider.position
@@ -57,11 +60,13 @@ func updateMomentum():
 	target_angle = angle + fposmod(target_angle - angle + PI, 2*PI) - PI
 	angle = move_toward(angle, target_angle, PI/12)
 	robot.rotation.y = -angle + PI/2
-	animation_player.speed_scale = velocity.length() / 10.0
+	#animation_player.speed_scale = velocity.length() / 10.0
 
 var previous_horizontal_direction = 0
 var previous_vertical_direction = 0
 func getUserInteraction():
+	idle = true
+	
 	# int(bool) turns true into 1 and false into 0
 	var right = int(Input.is_action_pressed('ui_right'))
 	var left = int(Input.is_action_pressed('ui_left'))
@@ -73,6 +78,8 @@ func getUserInteraction():
 	var x = right - left
 	var y = down - up
 	if x or y:
+		idle = false
+
 		var bias = 0
 		if x:
 			bias = .1 * previous_vertical_direction * sign(x)
@@ -121,41 +128,27 @@ func die():
 	#main_node.reset()
 	xp_bar.value = 0
 	
-			
-	#animation_player.play("SwordSlash")
-	
 func update_animation_parameters():
-	if velocity.length_squared() < 0.01:
-		#print("idle = true and is_moving = false")
+	var init_sword_slash = Input.is_action_just_pressed("attack")
+	var started_walking_while_slashing = !idle and Sword.power > Sword.base_power/2
+	print([idle, Sword.power, Sword.base_power/2, started_walking_while_slashing])
+	if idle:
 		animation_tree.set("parameters/conditions/idle", true)
 		animation_tree.set("parameters/conditions/is_moving", false)
+		if init_sword_slash:
+			animation_tree.set("parameters/conditions/slash", true)
 	else:
-		#print(velocity)
-		#print("is_moving = true and idle = false")
 		animation_tree.set("parameters/conditions/idle", false)
 		animation_tree.set("parameters/conditions/is_moving", true)
-	
-	if Input.is_action_just_pressed("attack") and animation_tree.get("parameters/conditions/is_moving") == true:
-		var state_machine = animation_tree.get("parameters/playback")
-		state_machine.travel("Walk_and_slash")
-		Sword.slash_progress = 0
-		$SwordSound.play()
+		if init_sword_slash or started_walking_while_slashing:
+			animation_tree.set("parameters/conditions/slash_walk", true)
+
+	if init_sword_slash:
 		Sword.slash()
-		
-	if Input.is_action_just_pressed("attack") and !animation_tree.get("parameters/conditions/is_moving"):	
-		#animation_player.play("Walk_and_slash")
-		#animation_tree.set("parameters/Idle/blend_position", 1)
-		animation_tree.set("parameters/conditions/slash", true)
-		Sword.slash_progress = 0
-		$SwordSound.play()
-		Sword.slash()
-	else:
+	elif !started_walking_while_slashing:
 		animation_tree.set("parameters/conditions/slash", false)
 		animation_tree.set("parameters/conditions/slash_walk", false)
-	
-	#animation_tree["parameters/Walk/blend_position"] = direction
-	#animation_tree["parameters/Slash/blend_position"] = direction
-
+		
 func position_healthbar():
 	HeroHealth.position = Cam.unproject_position(global_position)
 	HeroHealth.position.x -= HeroHealth.size.x / 2
