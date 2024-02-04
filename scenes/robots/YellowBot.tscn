@@ -6,8 +6,8 @@
 [ext_resource type="Texture2D" uid="uid://ccifqqys2swid" path="res://models/sci-fi_camera_drone/textures/M_0_0_normal.png" id="4_svkqt"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_gkoyd"]
-radius = 2.0
-height = 4.0
+radius = 1.21164
+height = 2.89425
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bxtdh"]
 resource_name = "M_0_0"
@@ -787,9 +787,10 @@ _data = {
 }
 
 [node name="YellowBot" type="CharacterBody3D"]
+motion_mode = 1
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 3, -0.5)
+[node name="Collider" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 3, -0.242097)
 shape = SubResource("CapsuleShape3D_gkoyd")
 disabled = true
 

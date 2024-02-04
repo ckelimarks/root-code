@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://3rgmo8vegmv"]
+[gd_scene load_steps=18 format=3 uid="uid://3rgmo8vegmv"]
 
 [ext_resource type="Script" path="res://scripts/Main.gd" id="2"]
 [ext_resource type="PackedScene" uid="uid://b5hidq7fuopte" path="res://scenes/UI.tscn" id="3"]
@@ -6,7 +6,6 @@
 [ext_resource type="Shader" uid="uid://bcpe4wiysxuft" path="res://shaders/repitiontexture.tres" id="4_5ucip"]
 [ext_resource type="AudioStream" uid="uid://dteekphhgi3e7" path="res://sounds/Chinese Scale.mp3" id="4_67eqs"]
 [ext_resource type="Texture2D" uid="uid://35r6hmtlpir8" path="res://images/textures/New_Concrete/New_Concrete_DIFF.jpg" id="6_mlrml"]
-[ext_resource type="PackedScene" uid="uid://c1eksyt1bexd4" path="res://scenes/robots/Stan.tscn" id="7_yjxj4"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_n8d8q"]
 size = Vector3(1000, 2, 1000)
@@ -168,6 +167,3 @@ transform = Transform3D(3, -1.81195e-05, -4.52987e-07, -4.52987e-07, -120, 2.622
 transform = Transform3D(1, 4.05275e-07, -6.70964e-15, -7.45248e-10, 1, -1.20153e-15, -2.32109e-14, -1.80005e-12, 1, -11.0261, -0.213213, 9.08426)
 mesh = SubResource("CylinderMesh_3651w")
 skeleton = NodePath("../..")
-
-[node name="Stan" parent="." instance=ExtResource("7_yjxj4")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.53501, 0, 5.41744)

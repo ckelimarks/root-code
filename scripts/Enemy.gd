@@ -2,7 +2,7 @@ extends CharacterBody3D
 
 var speed = 10.0  # Adjust as needed
 var pushing_strength = 5.0
-var HP = 1000 # hit points
+var HP = 30 # hit points
 var power = 1
 var enemy_color = Color(.9, .8, 1, 1)
 var is_dead = false
@@ -22,9 +22,12 @@ func _ready():
 	#sprite_node.speed_scale = speed / 300.0
 	#animation_player.speed_scale = speed / 10.0
 	add_child(robot)
-	pass
+	var robot_collider = robot.get_node("Collider")
+	$Collider.set_shape(robot_collider.shape)
+	$Collider.position = robot_collider.position
+	$Collider.rotation = robot_collider.rotation
+
 	#robot_animation.play("Take 001")
-	
 	#modulate = enemy_color
 	#$CollisionShape3D.radius = stan.collisionshape.radius
 	#etc
@@ -98,7 +101,7 @@ func dead():
 	EnemyManager.enemies.erase(self)
 	explosion.visible = true
 	robot.visible = false
-	$CollisionShape3D.disabled = true
+	$Collider.disabled = true
 	explosion.rotation = Vector3(-35,0,0) - global_rotation
 	explosion.play("explosion")
 	await get_tree().create_timer(2).timeout	

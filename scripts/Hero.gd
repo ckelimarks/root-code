@@ -35,9 +35,10 @@ func _ready():
 	animation_tree.active = true
 	#sprite_node.play("idle")
 	animation_player.speed_scale = speed / 10.0	
-	var robot_collider = robot.get_node("CollisionShape3D")
-	$CollisionShape3D.shape.radius = robot_collider.shape.radius
-	$CollisionShape3D.shape.height = robot_collider.shape.height	
+	var robot_collider = robot.get_node("Collider")
+	$Collider.set_shape(robot_collider.shape)
+	$Collider.position = robot_collider.position
+	$Collider.rotation = robot_collider.rotation
 	Sword = robot.get_node("%Sword")
 
 func _physics_process(delta):
@@ -66,7 +67,7 @@ func getUserInteraction():
 	var left = int(Input.is_action_pressed('ui_left'))
 	var up = int(Input.is_action_pressed('ui_up'))
 	var down = int(Input.is_action_pressed('ui_down'))
-	
+	#InputEventScreenTouch.
 	animation_player.play("Walk")
 	
 	var x = right - left
