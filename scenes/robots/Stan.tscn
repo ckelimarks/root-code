@@ -1,6 +1,6 @@
 [gd_scene load_steps=67 format=3 uid="uid://c1eksyt1bexd4"]
 
-[ext_resource type="Texture2D" uid="uid://cdr0etm77exju" path="res://models/Stan_Stan_Texture.png" id="1_biqsn"]
+[ext_resource type="Texture2D" uid="uid://dokwt3mhjyoim" path="res://models/Stan_Stan_Texture.png" id="1_biqsn"]
 [ext_resource type="PackedScene" uid="uid://bnnbjmrqxwrhl" path="res://scenes/weapons/Sword.tscn" id="2_rs6xa"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_rrqng"]
@@ -5643,7 +5643,7 @@ spot_range = 135.798
 spot_angle = 26.2184
 
 [node name="BoneAttachment3D" type="BoneAttachment3D" parent="RobotArmature/Skeleton3D"]
-transform = Transform3D(-0.515292, -0.408671, -0.753301, -0.819416, -0.0225584, 0.572756, -0.251062, 0.912403, -0.323247, -2.28438, 3.58327, -0.00656232)
+transform = Transform3D(-0.515293, -0.408671, -0.7533, -0.819415, -0.0225573, 0.572756, -0.251061, 0.912403, -0.323247, -2.28438, 3.58327, -0.00656316)
 bone_name = "PalmI.R"
 bone_idx = 29
 
@@ -5652,7 +5652,7 @@ unique_name_in_owner = true
 transform = Transform3D(0.0707107, 1.28028e-09, 0.0707108, 0.0707107, -3.09087e-09, -0.0707108, 1.28028e-09, 0.1, -3.09087e-09, 0, 0, 0)
 
 [node name="BoneAttachment3D2" type="BoneAttachment3D" parent="RobotArmature/Skeleton3D"]
-transform = Transform3D(0.999563, 0.0142006, -0.025917, -0.0128262, 0.998541, 0.0524501, 0.0266241, -0.0520948, 0.998287, 0.058083, 5.46594, -0.262278)
+transform = Transform3D(0.999563, 0.0142006, -0.0259171, -0.0128261, 0.998541, 0.052451, 0.0266241, -0.0520957, 0.998287, 0.0580831, 5.46594, -0.262281)
 bone_name = "Head"
 bone_idx = 4
 

@@ -2,10 +2,10 @@
 
 [ext_resource type="Script" path="res://scripts/UI.gd" id="2"]
 [ext_resource type="Script" path="res://scripts/Button1.gd" id="3"]
-[ext_resource type="Texture2D" uid="uid://coi7l76eanueu" path="res://images/weapons/yantra/weapon2.png" id="4"]
-[ext_resource type="Texture2D" uid="uid://cc4n1wqqxwyc4" path="res://images/UIgraphics/weaponmodal.png" id="5"]
-[ext_resource type="Texture2D" uid="uid://46l542p0vyh0" path="res://images/UIgraphics/weaponmodel2.png" id="6"]
-[ext_resource type="FontFile" uid="uid://dp8dfcyv2fsrb" path="res://images/UIgraphics/PT_Sans-Web-Bold.ttf" id="7"]
+[ext_resource type="Texture2D" uid="uid://b320l4k8ap1f5" path="res://images/weapons/yantra/weapon2.png" id="4"]
+[ext_resource type="Texture2D" uid="uid://c2dhgac0qfakh" path="res://images/UIgraphics/weaponmodal.png" id="5"]
+[ext_resource type="Texture2D" uid="uid://cjtr48eyfp021" path="res://images/UIgraphics/weaponmodel2.png" id="6"]
+[ext_resource type="FontFile" uid="uid://6gr8x0yururf" path="res://images/UIgraphics/PT_Sans-Web-Bold.ttf" id="7"]
 
 [sub_resource type="FontFile" id="1"]
 fallbacks = Array[Font]([ExtResource("7"), ExtResource("7")])

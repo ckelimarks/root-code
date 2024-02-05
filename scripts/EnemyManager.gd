@@ -19,7 +19,6 @@ func spawn_enemy():
 	# Set the enemy's position and add it to the scene
 	var enemy_instance = enemy_scene.instantiate()
 	enemy_instance.robot = robot_types[randi_range(0,robot_types.size()-1)].instantiate()
-	print(enemy_instance.robot)
 	enemy_instance.global_position = position
 	enemy_instance.add_to_group("enemies")
 	add_child(enemy_instance)

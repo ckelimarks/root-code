@@ -1,12 +1,5 @@
 extends CharacterBody3D
 
-var attributes = {
-	"speed": 16, 
-	"defense": 0,
-	"max_HP": 100,
-	"health_regen": 10,
-	"luck": 5
-}
 #stats
 var HP = 100.0
 var max_HP = 100.0

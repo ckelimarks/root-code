@@ -22,6 +22,7 @@ EnemyManager="*res://scripts/EnemyManager.gd"
 WeaponManager="*res://scenes/WeaponManager.tscn"
 EcologyManager="*res://scenes/EcologyManager.tscn"
 Cam="*res://scenes/Camera.tscn"
+Mainframe="*res://scripts/Mainframe.gd"
 
 [gui]
 

@@ -15,11 +15,12 @@ func reset():
 	#$WeaponManager.weapons = []
 
 	# reset/respawn Hero
-	Hero.HP = Hero.max_HP + Hero.attributes.max_HP
-	Hero.speed = Hero.speed + Hero.attributes.speed
-	Hero.defense = Hero.attributes.defense
-	Hero.luck = Hero.attributes.luck
-	Hero.HeroHealth.value = 100
+	Hero.max_HP = Mainframe.saved_attributes.Hero.max_HP
+	Hero.HP = Hero.max_HP
+	Hero.HeroHealth.value = Hero.HP
+	Hero.speed = Mainframe.saved_attributes.Hero.speed
+	Hero.defense = Mainframe.saved_attributes.Hero.defense
+	Hero.luck = Mainframe.saved_attributes.Hero.luck
 	Hero.global_position = Vector3.ZERO
 	
 
