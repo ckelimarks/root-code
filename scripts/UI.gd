@@ -1,5 +1,26 @@
 extends CanvasLayer
 
+var upgrades = [
+	{
+		"image": preload("res://images/UIgraphics/upgradePanel/sword.jpg"),
+		"name": "ELECTRIC SWORD",
+		"description": "Increase damage",
+		"target node": ""
+	},
+	{
+		"image": preload("res://images/UIgraphics/upgradePanel/health.jpg"),
+		"name": "HEALTH",
+		"description": "Increase your max health",
+		"target node": 	""
+	},
+	{
+		"image": preload("res://images/UIgraphics/upgradePanel/emp.jpg"),
+		"name": "EMP",
+		"description": "Increase your EMP pulse‘s radius by 2%",
+		"target node": 	""
+	},
+]
+
 #onready var healthbar_node = Hero.HeroHealth
 @onready var main_node = get_node("/root/Main")
 @onready var music_node = get_node("/root/Main/Music")
@@ -10,7 +31,23 @@ extends CanvasLayer
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	var selected_upgrades = upgrades.duplicate()
+	randomize()
+	selected_upgrades.shuffle()
+	$MarginContainer/MarginContainer/VBoxContainer/Button/RichTextLabel.text = selected_upgrades[0].name 
+	$MarginContainer/MarginContainer/VBoxContainer/Button2/RichTextLabel.text = selected_upgrades[1].name
+	$MarginContainer/MarginContainer/VBoxContainer/Button3/RichTextLabel.text = selected_upgrades[2].name
+	
+	$MarginContainer/MarginContainer/VBoxContainer/Button/Description.text = selected_upgrades[0].description
+	$MarginContainer/MarginContainer/VBoxContainer/Button2/Description.text = selected_upgrades[1].description
+	$MarginContainer/MarginContainer/VBoxContainer/Button3/Description.text = selected_upgrades[2].description
+	
+	$MarginContainer/MarginContainer/VBoxContainer/Button.icon = selected_upgrades[0].image
+	$MarginContainer/MarginContainer/VBoxContainer/Button2.icon = selected_upgrades[1].image
+	$MarginContainer/MarginContainer/VBoxContainer/Button3.icon = selected_upgrades[2].image
+	
 	pass # Replace with function body.
+
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
