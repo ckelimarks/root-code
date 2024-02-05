@@ -1,9 +1,9 @@
 [gd_scene load_steps=6 format=3 uid="uid://b5hidq7fuopte"]
 
 [ext_resource type="Script" path="res://scripts/UI.gd" id="2"]
-[ext_resource type="Texture2D" uid="uid://bhx5r06yphvv8" path="res://images/UIgraphics/upgradePanel/panelBG.png" id="2_uey1n"]
-[ext_resource type="Texture2D" uid="uid://dpk3s565oxsyw" path="res://images/UIgraphics/upgradePanel/emp.jpg" id="4_v3yfc"]
-[ext_resource type="FontFile" uid="uid://dp8dfcyv2fsrb" path="res://images/UIgraphics/PT_Sans-Web-Bold.ttf" id="7"]
+[ext_resource type="Texture2D" uid="uid://cxsocupwk1n0k" path="res://images/UIgraphics/upgradePanel/panelBG.png" id="2_uey1n"]
+[ext_resource type="Texture2D" uid="uid://dtqnl5xk8r0mq" path="res://images/UIgraphics/upgradePanel/emp.jpg" id="4_v3yfc"]
+[ext_resource type="FontFile" uid="uid://6gr8x0yururf" path="res://images/UIgraphics/PT_Sans-Web-Bold.ttf" id="7"]
 
 [sub_resource type="FontFile" id="1"]
 fallbacks = Array[Font]([ExtResource("7"), ExtResource("7")])
@@ -37,6 +37,8 @@ cache/0/75/0/kerning_overrides/75/0 = Vector2(0, 0)
 
 [node name="UICanvas" type="CanvasLayer"]
 process_mode = 3
+follow_viewport_enabled = true
+follow_viewport_scale = 0.5
 script = ExtResource("2")
 
 [node name="xpBar" type="ProgressBar" parent="."]

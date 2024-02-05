@@ -5,7 +5,7 @@ var upgrades = [
 		"image": preload("res://images/UIgraphics/upgradePanel/sword.jpg"),
 		"name": "ELECTRIC SWORD",
 		"description": "Increase damage",
-		"target node": 	""
+		"target node": ""
 	},
 	{
 		"image": preload("res://images/UIgraphics/upgradePanel/health.jpg"),
