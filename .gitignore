@@ -3,5 +3,4 @@
 .mono/
 .DS_Store
 *.import
-sounds/
 mono_crash*
