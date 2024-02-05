@@ -1,10 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://b5hidq7fuopte"]
+[gd_scene load_steps=6 format=3 uid="uid://b5hidq7fuopte"]
 
 [ext_resource type="Script" path="res://scripts/UI.gd" id="2"]
-[ext_resource type="Script" path="res://scripts/Button1.gd" id="3"]
-[ext_resource type="Texture2D" uid="uid://coi7l76eanueu" path="res://images/weapons/yantra/weapon2.png" id="4"]
-[ext_resource type="Texture2D" uid="uid://cc4n1wqqxwyc4" path="res://images/UIgraphics/weaponmodal.png" id="5"]
-[ext_resource type="Texture2D" uid="uid://46l542p0vyh0" path="res://images/UIgraphics/weaponmodel2.png" id="6"]
+[ext_resource type="Texture2D" uid="uid://bhx5r06yphvv8" path="res://images/UIgraphics/upgradePanel/panelBG.png" id="2_uey1n"]
+[ext_resource type="Texture2D" uid="uid://dpk3s565oxsyw" path="res://images/UIgraphics/upgradePanel/emp.jpg" id="4_v3yfc"]
 [ext_resource type="FontFile" uid="uid://dp8dfcyv2fsrb" path="res://images/UIgraphics/PT_Sans-Web-Bold.ttf" id="7"]
 
 [sub_resource type="FontFile" id="1"]
@@ -18,6 +16,24 @@ cache/0/16/0/underline_position = 0.0
 cache/0/16/0/underline_thickness = 0.0
 cache/0/16/0/scale = 1.0
 cache/0/16/0/kerning_overrides/16/0 = Vector2(0, 0)
+cache/0/16/0/kerning_overrides/20/0 = Vector2(0, 0)
+cache/0/16/0/kerning_overrides/75/0 = Vector2(0, 0)
+cache/0/20/0/ascent = 0.0
+cache/0/20/0/descent = 0.0
+cache/0/20/0/underline_position = 0.0
+cache/0/20/0/underline_thickness = 0.0
+cache/0/20/0/scale = 1.0
+cache/0/20/0/kerning_overrides/16/0 = Vector2(0, 0)
+cache/0/20/0/kerning_overrides/20/0 = Vector2(0, 0)
+cache/0/20/0/kerning_overrides/75/0 = Vector2(0, 0)
+cache/0/75/0/ascent = 0.0
+cache/0/75/0/descent = 0.0
+cache/0/75/0/underline_position = 0.0
+cache/0/75/0/underline_thickness = 0.0
+cache/0/75/0/scale = 1.0
+cache/0/75/0/kerning_overrides/16/0 = Vector2(0, 0)
+cache/0/75/0/kerning_overrides/20/0 = Vector2(0, 0)
+cache/0/75/0/kerning_overrides/75/0 = Vector2(0, 0)
 
 [node name="UICanvas" type="CanvasLayer"]
 process_mode = 3
@@ -40,166 +56,122 @@ max_value = 10.0
 step = 0.0
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
-visible = false
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -439.0
-offset_top = -236.0
-offset_right = 461.0
-offset_bottom = 298.0
+offset_left = -957.0
+offset_top = -613.0
+offset_right = 957.0
+offset_bottom = 613.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
 
-[node name="LevelupMessage" type="Label" parent="MarginContainer"]
+[node name="TextureRect" type="TextureRect" parent="MarginContainer"]
+layout_mode = 2
+texture = ExtResource("2_uey1n")
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 300
+theme_override_constants/margin_top = 200
+theme_override_constants/margin_right = 300
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="LevelupMessage" type="Label" parent="MarginContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 1
 theme_override_fonts/font = SubResource("1")
-text = "YOU'VE LEVELED UP!"
+theme_override_font_sizes/font_size = 75
+text = "        YOU'VE LEVELED UP!        "
+horizontal_alignment = 1
 uppercase = true
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
-visible = false
+[node name="ColorRect3" type="ColorRect" parent="MarginContainer/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(2.08165e-12, 20)
 layout_mode = 2
+color = Color(0.227451, 1, 1, 0)
 
-[node name="ColorRect" type="TextureRect" parent="MarginContainer/HBoxContainer"]
-visible = false
+[node name="Button" type="Button" parent="MarginContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-texture = ExtResource("5")
+icon = ExtResource("4_v3yfc")
 
-[node name="Label" type="Label" parent="MarginContainer/HBoxContainer/ColorRect"]
-visible = false
+[node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer/MarginContainer/VBoxContainer/Button"]
 layout_mode = 0
-offset_right = 335.0
-offset_bottom = 596.0
-text = "WEAPON 1"
+offset_left = 272.0
+offset_top = 45.0
+offset_right = 823.0
+offset_bottom = 198.0
+theme_override_font_sizes/normal_font_size = 32
+text = "TITLE"
 
-[node name="TextureRect" type="TextureRect" parent="MarginContainer/HBoxContainer/ColorRect"]
-visible = false
+[node name="Description" type="RichTextLabel" parent="MarginContainer/MarginContainer/VBoxContainer/Button"]
 layout_mode = 0
-offset_left = 67.5
-offset_top = 50.0
-offset_right = 1091.5
-offset_bottom = 1074.0
-scale = Vector2(0.2, 0.2)
-texture = ExtResource("4")
+offset_left = 272.0
+offset_top = 94.0
+offset_right = 1203.0
+offset_bottom = 198.0
+theme_override_font_sizes/normal_font_size = 32
+text = "Description"
 
-[node name="ColorRect4" type="TextureRect" parent="MarginContainer/HBoxContainer"]
-visible = false
+[node name="ColorRect" type="ColorRect" parent="MarginContainer/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(2.08165e-12, 20)
 layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-texture = ExtResource("6")
+color = Color(0.227451, 1, 1, 0)
 
-[node name="Label" type="Label" parent="MarginContainer/HBoxContainer/ColorRect4"]
-visible = false
+[node name="Button2" type="Button" parent="MarginContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+icon = ExtResource("4_v3yfc")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer/MarginContainer/VBoxContainer/Button2"]
 layout_mode = 0
-offset_right = 335.0
-offset_bottom = 596.0
-text = "WEAPON 1"
+offset_left = 272.0
+offset_top = 45.0
+offset_right = 833.0
+offset_bottom = 198.0
+theme_override_font_sizes/normal_font_size = 32
+text = "TITLE"
 
-[node name="TextureRect" type="TextureRect" parent="MarginContainer/HBoxContainer/ColorRect4"]
-visible = false
+[node name="Description" type="RichTextLabel" parent="MarginContainer/MarginContainer/VBoxContainer/Button2"]
 layout_mode = 0
-offset_left = 67.5
-offset_top = 50.0
-offset_right = 1091.5
-offset_bottom = 1074.0
-scale = Vector2(0.2, 0.2)
-texture = ExtResource("4")
+offset_left = 272.0
+offset_top = 94.0
+offset_right = 1197.0
+offset_bottom = 198.0
+theme_override_font_sizes/normal_font_size = 32
+text = "Description"
 
-[node name="ColorRect5" type="ColorRect" parent="MarginContainer/HBoxContainer"]
+[node name="ColorRect2" type="ColorRect" parent="MarginContainer/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(2.08165e-12, 20)
 layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-color = Color(0, 0, 0, 0.619608)
+color = Color(0.227451, 1, 1, 0)
 
-[node name="Label" type="Label" parent="MarginContainer/HBoxContainer/ColorRect5"]
+[node name="Button3" type="Button" parent="MarginContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+icon = ExtResource("4_v3yfc")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer/MarginContainer/VBoxContainer/Button3"]
 layout_mode = 0
-offset_right = 296.0
-offset_bottom = 528.0
-text = "CHAKRA
-"
+offset_left = 272.0
+offset_top = 45.0
+offset_right = 820.0
+offset_bottom = 198.0
+theme_override_font_sizes/normal_font_size = 32
+text = "TITLE"
 
-[node name="TextureRect" type="TextureRect" parent="MarginContainer/HBoxContainer/ColorRect5"]
-visible = false
+[node name="Description" type="RichTextLabel" parent="MarginContainer/MarginContainer/VBoxContainer/Button3"]
 layout_mode = 0
-offset_left = 49.0
-offset_top = 48.0
-offset_right = 1073.0
-offset_bottom = 1072.0
-scale = Vector2(0.2, 0.2)
-texture = ExtResource("4")
-stretch_mode = 4
-
-[node name="ColorRect3" type="ColorRect" parent="MarginContainer/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-color = Color(0, 0, 0, 0.619608)
-
-[node name="Label" type="Label" parent="MarginContainer/HBoxContainer/ColorRect3"]
-layout_mode = 0
-offset_right = 297.0
-offset_bottom = 531.0
-text = "BLUE ORB
-"
-
-[node name="TextureRect" type="TextureRect" parent="MarginContainer/HBoxContainer/ColorRect3"]
-visible = false
-layout_mode = 0
-offset_left = 43.0
-offset_top = 52.0
-offset_right = 1067.0
-offset_bottom = 1076.0
-scale = Vector2(0.2, 0.2)
-texture = ExtResource("4")
-stretch_mode = 4
-
-[node name="ColorRect6" type="ColorRect" parent="MarginContainer/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-color = Color(0, 0, 0, 0.619608)
-
-[node name="Label" type="Label" parent="MarginContainer/HBoxContainer/ColorRect6"]
-layout_mode = 0
-offset_right = 292.0
-offset_bottom = 530.0
-text = "SPINACH
-"
-
-[node name="TextureRect" type="TextureRect" parent="MarginContainer/HBoxContainer/ColorRect6"]
-visible = false
-layout_mode = 0
-offset_left = 43.0
-offset_top = 54.0
-offset_right = 1067.0
-offset_bottom = 1078.0
-scale = Vector2(0.2, 0.2)
-texture = ExtResource("4")
-
-[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer"]
-layout_mode = 2
-alignment = 1
-
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
-layout_mode = 2
-
-[node name="Button1" type="Button" parent="MarginContainer/VBoxContainer"]
-layout_mode = 2
-text = "PUSH STRENGTH"
-script = ExtResource("3")
-
-[node name="Button2" type="Button" parent="MarginContainer/VBoxContainer"]
-layout_mode = 2
-text = "SPEED"
-
-[node name="Button3" type="Button" parent="MarginContainer/VBoxContainer"]
-layout_mode = 2
-text = "HEALTH"
+offset_left = 272.0
+offset_top = 94.0
+offset_right = 1193.0
+offset_bottom = 198.0
+theme_override_font_sizes/normal_font_size = 32
+text = "Description"
 
 [node name="youdied" type="MarginContainer" parent="."]
 visible = false
@@ -224,7 +196,4 @@ text = "YOU DIED"
 layout_mode = 2
 text = "RESTART?"
 
-[connection signal="pressed" from="MarginContainer/VBoxContainer/Button1" to="." method="_on_Button1_pressed"]
-[connection signal="pressed" from="MarginContainer/VBoxContainer/Button2" to="." method="_on_Button2_pressed"]
-[connection signal="pressed" from="MarginContainer/VBoxContainer/Button3" to="." method="_on_Button3_pressed"]
 [connection signal="pressed" from="youdied/VBoxContainer/restartbutton" to="." method="_on_restartbutton_pressed"]

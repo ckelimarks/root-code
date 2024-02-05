@@ -134,7 +134,7 @@ func die():
 	AudioServer.set_bus_effect_enabled(0, 0, true)
 	get_tree().paused = true
 	
-	focusbutton.grab_focus()
+	#focusbutton.grab_focus()
 	#main_node.reset()
 	xp_bar.value = 0
 	
