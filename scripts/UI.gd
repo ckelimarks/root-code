@@ -5,19 +5,19 @@ var upgrades = [
 		"image": preload("res://images/UIgraphics/upgradePanel/sword.jpg"),
 		"name": "ELECTRIC SWORD",
 		"description": "Increases sword damage",
-		"target node": ""
+		"callback": upgrade_sword
 	},
 	{
 		"image": preload("res://images/UIgraphics/upgradePanel/health.jpg"),
 		"name": "MAX HP",
 		"description": "Increase your max health by 5%",
-		"target node": 	""
+		"callback": upgrade_hp
 	},
 	{
 		"image": preload("res://images/UIgraphics/upgradePanel/emp.jpg"),
 		"name": "EMP",
 		"description": "Increase your EMP pulse‘s radius by 2%",
-		"target node": 	""
+		"callback": upgrade_emp
 	},
 ]
 
@@ -31,9 +31,12 @@ var upgrades = [
 ]
 
 func _ready():
+	get_viewport().connect("size_changed", resize_upgrade_modal)
 	resize_upgrade_modal()	
 	shuffle_upgrades()
 
+func _process(delta):
+	pass
 
 func shuffle_upgrades():
 	var selected_upgrades = upgrades.duplicate()
@@ -45,14 +48,7 @@ func shuffle_upgrades():
 		button.get_node("%Image").texture    = upgrade.image
 		button.get_node("%Name").text        = upgrade.name 
 		button.get_node("%Description").text = upgrade.description 
-		# using this button callback just for testing
-		# the callback should be generic and receive a behaviour from the upgrade object
-		button.pressed.connect(self._on_health_pressed)
-
-func _process(delta):
-	if $UpgradeModal.visible:
-		# link this to viewport size change
-		resize_upgrade_modal()
+		button.pressed.connect(upgrade.callback)
 
 func resize_upgrade_modal():
 	var scale_to = 0.75
@@ -66,36 +62,28 @@ func resize_upgrade_modal():
 	$UpgradeModal.scale = Vector2(scale, scale)
 	$UpgradeModal.position = view_size / 2.0 - ($UpgradeModal.size * $UpgradeModal.scale) / 2.0
 
-func _on_speed_pressed():
+func release_modal(node):
+	node.hide()
+	AudioServer.set_bus_effect_enabled(0, 0, false)
+	get_tree().paused = false
+	shuffle_upgrades() # belongs before showing upgrade modal, not here
+
+func upgrade_sword():
 	Hero.speed += int(Hero.speed < 24)
 	Hero.animation_player.speed_scale = Hero.speed / 10
-	$MarginContainer.hide()
-	AudioServer.set_bus_effect_enabled(0, 0, false)
-	get_tree().paused = false
-	#pass # Replace with function body.
+	release_modal($UpgradeModal)
 
-func _on_push_pressed():
+func upgrade_emp():
 	Hero.pushing_strength += int(Hero.pushing_strength < 20)
-	$MarginContainer.hide()
-	AudioServer.set_bus_effect_enabled(0, 0, false)
-	get_tree().paused = false
+	release_modal($UpgradeModal)
 	
-func _on_health_pressed():
+func upgrade_hp():
 	Hero.max_HP += 50
 	Hero.HP = min(Hero.HP + 50, Hero.max_HP)
-	#Hero.HeroHealth.max_value = Hero.max_HP
 	Hero.HeroHealth.value = Hero.HP
-	# lets make the hp bar HP instead of % of maxHP
-	#$MarginContainer.hide()
-	AudioServer.set_bus_effect_enabled(0, 0, false)
-	get_tree().paused = false
-	shuffle_upgrades()
-	pass # Replace with function body.
-
+	release_modal($UpgradeModal)
 
 func _on_restartbutton_pressed():
-	$youdied.hide()
-	get_tree().paused = false
-	AudioServer.set_bus_effect_enabled(0, 0, false)
+	release_modal($youdied)
 	main_node.reset()
 	music_node.play()

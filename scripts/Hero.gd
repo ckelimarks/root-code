@@ -1,7 +1,7 @@
 extends CharacterBody3D
 
 #stats
-var HP = 10000.0
+var HP = 100.0
 var max_HP = 100.0
 var speed = 16.0
 var defense = 0
