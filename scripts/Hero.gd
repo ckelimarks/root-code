@@ -8,8 +8,8 @@ var attributes = {
 	"luck": 5
 }
 #stats
-var HP = 100.0
-var max_HP = 100.0
+var HP = 400.0
+var max_HP = 300.0
 var speed = 16.0
 var pushing_strength = 10.0
 var health_regen = .5
