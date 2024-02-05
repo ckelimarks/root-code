@@ -1,12 +1,13 @@
 extends CharacterBody3D
 
 #stats
-var HP = 100.0
+var HP = 10000.0
 var max_HP = 100.0
 var speed = 16.0
+var defense = 0
 var pushing_strength = 10.0
-var health_regen = .5
-var luck = 1 
+var health_regen = 0.1
+var luck = 1
 
 #movement
 var angle = 0.0
@@ -127,7 +128,7 @@ func die():
 	AudioServer.set_bus_effect_enabled(0, 0, true)
 	get_tree().paused = true
 	
-	focusbutton.grab_focus()
+	#focusbutton.grab_focus()
 	#main_node.reset()
 	xp_bar.value = 0
 	

@@ -15,7 +15,7 @@ var audio_samples := [
 ]
 
 @onready var xpBar = get_node("/root/Main/UICanvas/xpBar")
-@onready var levelUp = get_node("/root/Main/UICanvas/MarginContainer")
+@onready var levelUp = get_node("/root/Main/UICanvas/UpgradeModal")
 
 func _ready():
 	connect("body_entered", Callable(self, "_on_body_entered"))
@@ -41,7 +41,7 @@ func _on_body_entered(body):
 		
 		get_tree().paused = true
 		levelUp.show()
-		focusbutton.grab_focus()
+		#focusbutton.grab_focus()
 		
 		#AudioServer.add_bus_effect(1, AudioEffectLowPassFilter.new(), 0)
 		#AudioServer.cutoff_hz = 400.0

@@ -2,43 +2,15 @@
 
 [ext_resource type="Script" path="res://scripts/UI.gd" id="2"]
 [ext_resource type="Texture2D" uid="uid://cxsocupwk1n0k" path="res://images/UIgraphics/upgradePanel/panelBG.png" id="2_uey1n"]
-[ext_resource type="Texture2D" uid="uid://dtqnl5xk8r0mq" path="res://images/UIgraphics/upgradePanel/emp.jpg" id="4_v3yfc"]
-[ext_resource type="FontFile" uid="uid://6gr8x0yururf" path="res://images/UIgraphics/PT_Sans-Web-Bold.ttf" id="7"]
+[ext_resource type="FontFile" uid="uid://dc8dkaxhhekhr" path="res://images/UIgraphics/DIN Condensed Bold.ttf" id="3_oc6jy"]
+[ext_resource type="PackedScene" uid="uid://dkbmvhbvo33hn" path="res://scenes/UI/button.tscn" id="4_qfrau"]
 
-[sub_resource type="FontFile" id="1"]
-fallbacks = Array[Font]([ExtResource("7"), ExtResource("7")])
-subpixel_positioning = 0
-msdf_pixel_range = 14
-msdf_size = 128
-cache/0/16/0/ascent = 0.0
-cache/0/16/0/descent = 0.0
-cache/0/16/0/underline_position = 0.0
-cache/0/16/0/underline_thickness = 0.0
-cache/0/16/0/scale = 1.0
-cache/0/16/0/kerning_overrides/16/0 = Vector2(0, 0)
-cache/0/16/0/kerning_overrides/20/0 = Vector2(0, 0)
-cache/0/16/0/kerning_overrides/75/0 = Vector2(0, 0)
-cache/0/20/0/ascent = 0.0
-cache/0/20/0/descent = 0.0
-cache/0/20/0/underline_position = 0.0
-cache/0/20/0/underline_thickness = 0.0
-cache/0/20/0/scale = 1.0
-cache/0/20/0/kerning_overrides/16/0 = Vector2(0, 0)
-cache/0/20/0/kerning_overrides/20/0 = Vector2(0, 0)
-cache/0/20/0/kerning_overrides/75/0 = Vector2(0, 0)
-cache/0/75/0/ascent = 0.0
-cache/0/75/0/descent = 0.0
-cache/0/75/0/underline_position = 0.0
-cache/0/75/0/underline_thickness = 0.0
-cache/0/75/0/scale = 1.0
-cache/0/75/0/kerning_overrides/16/0 = Vector2(0, 0)
-cache/0/75/0/kerning_overrides/20/0 = Vector2(0, 0)
-cache/0/75/0/kerning_overrides/75/0 = Vector2(0, 0)
+[sub_resource type="FontVariation" id="FontVariation_x3ktr"]
+base_font = ExtResource("3_oc6jy")
+spacing_glyph = 5
 
 [node name="UICanvas" type="CanvasLayer"]
 process_mode = 3
-follow_viewport_enabled = true
-follow_viewport_scale = 0.5
 script = ExtResource("2")
 
 [node name="xpBar" type="ProgressBar" parent="."]
@@ -57,124 +29,49 @@ size_flags_vertical = 7
 max_value = 10.0
 step = 0.0
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
-visible = false
+[node name="UpgradeModal" type="MarginContainer" parent="."]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -957.0
-offset_top = -613.0
-offset_right = 957.0
-offset_bottom = 613.0
+offset_left = -576.0
+offset_top = -324.0
+offset_right = 578.0
+offset_bottom = 373.0
 grow_horizontal = 2
 grow_vertical = 2
-size_flags_horizontal = 6
-size_flags_vertical = 6
 
-[node name="TextureRect" type="TextureRect" parent="MarginContainer"]
+[node name="Background" type="TextureRect" parent="UpgradeModal"]
 layout_mode = 2
 texture = ExtResource("2_uey1n")
+expand_mode = 1
 
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer"]
-layout_mode = 2
-theme_override_constants/margin_left = 300
-theme_override_constants/margin_top = 200
-theme_override_constants/margin_right = 300
-
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/MarginContainer"]
+[node name="ButtonsMargin" type="CenterContainer" parent="UpgradeModal"]
 layout_mode = 2
 
-[node name="LevelupMessage" type="Label" parent="MarginContainer/MarginContainer/VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="UpgradeModal/ButtonsMargin"]
+layout_mode = 2
+theme_override_constants/separation = 24
+alignment = 1
+
+[node name="LevelupMessage" type="Label" parent="UpgradeModal/ButtonsMargin/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 1
-theme_override_fonts/font = SubResource("1")
-theme_override_font_sizes/font_size = 75
-text = "        YOU'VE LEVELED UP!        "
+theme_override_fonts/font = SubResource("FontVariation_x3ktr")
+theme_override_font_sizes/font_size = 56
+text = " NEW UPGRADES AVAILABLE! "
 horizontal_alignment = 1
 uppercase = true
 
-[node name="ColorRect3" type="ColorRect" parent="MarginContainer/MarginContainer/VBoxContainer"]
-custom_minimum_size = Vector2(2.08165e-12, 20)
+[node name="Button1" parent="UpgradeModal/ButtonsMargin/VBoxContainer" instance=ExtResource("4_qfrau")]
 layout_mode = 2
-color = Color(0.227451, 1, 1, 0)
 
-[node name="Button" type="Button" parent="MarginContainer/MarginContainer/VBoxContainer"]
+[node name="Button2" parent="UpgradeModal/ButtonsMargin/VBoxContainer" instance=ExtResource("4_qfrau")]
 layout_mode = 2
-icon = ExtResource("4_v3yfc")
 
-[node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer/MarginContainer/VBoxContainer/Button"]
-layout_mode = 0
-offset_left = 272.0
-offset_top = 45.0
-offset_right = 823.0
-offset_bottom = 198.0
-theme_override_font_sizes/normal_font_size = 32
-text = "TITLE"
-
-[node name="Description" type="RichTextLabel" parent="MarginContainer/MarginContainer/VBoxContainer/Button"]
-layout_mode = 0
-offset_left = 272.0
-offset_top = 94.0
-offset_right = 1203.0
-offset_bottom = 198.0
-theme_override_font_sizes/normal_font_size = 32
-text = "Description"
-
-[node name="ColorRect" type="ColorRect" parent="MarginContainer/MarginContainer/VBoxContainer"]
-custom_minimum_size = Vector2(2.08165e-12, 20)
+[node name="Button3" parent="UpgradeModal/ButtonsMargin/VBoxContainer" instance=ExtResource("4_qfrau")]
 layout_mode = 2
-color = Color(0.227451, 1, 1, 0)
-
-[node name="Button2" type="Button" parent="MarginContainer/MarginContainer/VBoxContainer"]
-layout_mode = 2
-icon = ExtResource("4_v3yfc")
-
-[node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer/MarginContainer/VBoxContainer/Button2"]
-layout_mode = 0
-offset_left = 272.0
-offset_top = 45.0
-offset_right = 833.0
-offset_bottom = 198.0
-theme_override_font_sizes/normal_font_size = 32
-text = "TITLE"
-
-[node name="Description" type="RichTextLabel" parent="MarginContainer/MarginContainer/VBoxContainer/Button2"]
-layout_mode = 0
-offset_left = 272.0
-offset_top = 94.0
-offset_right = 1197.0
-offset_bottom = 198.0
-theme_override_font_sizes/normal_font_size = 32
-text = "Description"
-
-[node name="ColorRect2" type="ColorRect" parent="MarginContainer/MarginContainer/VBoxContainer"]
-custom_minimum_size = Vector2(2.08165e-12, 20)
-layout_mode = 2
-color = Color(0.227451, 1, 1, 0)
-
-[node name="Button3" type="Button" parent="MarginContainer/MarginContainer/VBoxContainer"]
-layout_mode = 2
-icon = ExtResource("4_v3yfc")
-
-[node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer/MarginContainer/VBoxContainer/Button3"]
-layout_mode = 0
-offset_left = 272.0
-offset_top = 45.0
-offset_right = 820.0
-offset_bottom = 198.0
-theme_override_font_sizes/normal_font_size = 32
-text = "TITLE"
-
-[node name="Description" type="RichTextLabel" parent="MarginContainer/MarginContainer/VBoxContainer/Button3"]
-layout_mode = 0
-offset_left = 272.0
-offset_top = 94.0
-offset_right = 1193.0
-offset_bottom = 198.0
-theme_override_font_sizes/normal_font_size = 32
-text = "Description"
 
 [node name="youdied" type="MarginContainer" parent="."]
 visible = false
