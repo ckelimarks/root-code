@@ -1,56 +1,89 @@
 extends CanvasLayer
 
+var upgrades = [
+	{
+		"image": preload("res://images/UIgraphics/upgradePanel/sword.jpg"),
+		"name": "ELECTRIC SWORD",
+		"description": "Increases sword damage",
+		"callback": upgrade_sword
+	},
+	{
+		"image": preload("res://images/UIgraphics/upgradePanel/health.jpg"),
+		"name": "MAX HP",
+		"description": "Increase your max health by 5%",
+		"callback": upgrade_hp
+	},
+	{
+		"image": preload("res://images/UIgraphics/upgradePanel/emp.jpg"),
+		"name": "EMP",
+		"description": "Increase your EMP pulse‘s radius by 2%",
+		"callback": upgrade_emp
+	},
+]
+
 #onready var healthbar_node = Hero.HeroHealth
 @onready var main_node = get_node("/root/Main")
 @onready var music_node = get_node("/root/Main/Music")
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
+@onready var upgrade_buttons = [
+	$UpgradeModal/ButtonsMargin/VBoxContainer/Button1,
+	$UpgradeModal/ButtonsMargin/VBoxContainer/Button2,
+	$UpgradeModal/ButtonsMargin/VBoxContainer/Button3,
+]
 
-
-# Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	get_viewport().connect("size_changed", resize_upgrade_modal)
+	resize_upgrade_modal()	
+	shuffle_upgrades()
 
+func _process(delta):
+	pass
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+func shuffle_upgrades():
+	var selected_upgrades = upgrades.duplicate()
+	randomize()
+	selected_upgrades.shuffle()
+	for i in len(upgrade_buttons):
+		var button = upgrade_buttons[i]
+		var upgrade = selected_upgrades[i]
+		button.get_node("%Image").texture    = upgrade.image
+		button.get_node("%Name").text        = upgrade.name 
+		button.get_node("%Description").text = upgrade.description 
+		button.pressed.connect(upgrade.callback)
 
+func resize_upgrade_modal():
+	var scale_to = 0.75
+	var view_size = get_viewport().size
+	var target_size = Vector2(1200, 800) * scale_to
+	var margin = view_size * 0.2
+	var available_space = Vector2(view_size) - margin * 2.0
+	var scale_x = available_space.x / target_size.x
+	var scale_y = available_space.y / target_size.y
+	var scale = min(scale_x, scale_y, scale_to)
+	$UpgradeModal.scale = Vector2(scale, scale)
+	$UpgradeModal.position = view_size / 2.0 - ($UpgradeModal.size * $UpgradeModal.scale) / 2.0
 
-func _on_Button2_pressed():
+func release_modal(node):
+	node.hide()
+	AudioServer.set_bus_effect_enabled(0, 0, false)
+	get_tree().paused = false
+	shuffle_upgrades() # belongs before showing upgrade modal, not here
+
+func upgrade_sword():
 	Hero.speed += int(Hero.speed < 24)
 	Hero.animation_player.speed_scale = Hero.speed / 10
-	$MarginContainer.hide()
-	AudioServer.set_bus_effect_enabled(0, 0, false)
-	get_tree().paused = false
-	#pass # Replace with function body.
+	release_modal($UpgradeModal)
 
-
-func _on_Button1_pressed():
+func upgrade_emp():
 	Hero.pushing_strength += int(Hero.pushing_strength < 20)
-	$MarginContainer.hide()
-	AudioServer.set_bus_effect_enabled(0, 0, false)
-	get_tree().paused = false
+	release_modal($UpgradeModal)
 	
-
-
-func _on_Button3_pressed():
+func upgrade_hp():
 	Hero.max_HP += 50
 	Hero.HP = min(Hero.HP + 50, Hero.max_HP)
-	#Hero.HeroHealth.max_value = Hero.max_HP
 	Hero.HeroHealth.value = Hero.HP
-	# lets make the hp bar HP instead of % of maxHP
-	$MarginContainer.hide()
-	AudioServer.set_bus_effect_enabled(0, 0, false)
-	get_tree().paused = false
-	pass # Replace with function body.
-
+	release_modal($UpgradeModal)
 
 func _on_restartbutton_pressed():
-
-	$youdied.hide()
-	get_tree().paused = false
-	AudioServer.set_bus_effect_enabled(0, 0, false)
+	release_modal($youdied)
 	main_node.reset()
 	music_node.play()

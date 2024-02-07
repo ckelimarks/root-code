@@ -1,23 +1,47 @@
 [gd_scene load_steps=43 format=3 uid="uid://7mo00dv2g31f"]
 
 [ext_resource type="Script" path="res://scripts/Yantra.gd" id="1"]
-[ext_resource type="Texture2D" uid="uid://cal8esaqc6jp1" path="res://images/weapons/yantra/weapon1_0008.png" id="2"]
-[ext_resource type="Texture2D" uid="uid://bfkejms38fsp3" path="res://images/weapons/yantra/weapon1_0002.png" id="3"]
-[ext_resource type="Texture2D" uid="uid://cqg7vf6ivur47" path="res://images/weapons/yantra/weapon1_0006.png" id="4"]
-[ext_resource type="Texture2D" uid="uid://ds4efxnm4wimn" path="res://images/weapons/yantra/weapon1_0005.png" id="5"]
-[ext_resource type="Texture2D" uid="uid://c30kb2a2beme4" path="res://images/weapons/yantra/weapon1_0000.png" id="6"]
-[ext_resource type="Texture2D" uid="uid://bg8q7y1plm3uw" path="res://images/weapons/yantra/weapon1_0009.png" id="7"]
-[ext_resource type="Texture2D" uid="uid://dpy0m8lfmqjbh" path="res://images/weapons/yantra/weapon1_0004.png" id="8"]
-[ext_resource type="Texture2D" uid="uid://brb3rvckrmoqf" path="res://images/weapons/yantra/weapon1_0007.png" id="9"]
-[ext_resource type="Texture2D" uid="uid://txatwion8xtt" path="res://images/weapons/yantra/weapon1_0010.png" id="10"]
-[ext_resource type="Texture2D" uid="uid://dfmkrv1t4852k" path="res://images/weapons/yantra/weapon1_0011.png" id="11"]
-[ext_resource type="Texture2D" uid="uid://gtvlbmsgyax7" path="res://images/weapons/yantra/weapon1_0001.png" id="12"]
-[ext_resource type="Texture2D" uid="uid://clnpnrq8hgg4a" path="res://images/weapons/yantra/weapon1_0003.png" id="13"]
-[ext_resource type="Texture2D" uid="uid://txqduaw0wvok" path="res://images/weapons/orb/electricorb.png" id="14_j3jmb"]
-[ext_resource type="AudioStream" uid="uid://bsmy3vkw5info" path="res://sounds/orbSound.mp3" id="15_56j0s"]
+[ext_resource type="Texture2D" uid="uid://m6wdr1abieab" path="res://images/weapons/orb/electricorb.png" id="14_j3jmb"]
+[ext_resource type="AudioStream" uid="uid://bgqmjgpy1oerl" path="res://sounds/orbSound.mp3" id="15_56j0s"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_qumsj"]
 radius = 7.32062
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_n2mte"]
+load_path = "res://.godot/imported/weapon1_0000.png-6780794b3f68d0af003582fe054e6f7c.s3tc.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_h2tmr"]
+load_path = "res://.godot/imported/weapon1_0001.png-e5fd8f40306b2597c66704ad44369aae.s3tc.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_xerho"]
+load_path = "res://.godot/imported/weapon1_0002.png-9cc9bb68d3b4d254a5a0007ff49bbf0f.s3tc.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_i8wcd"]
+load_path = "res://.godot/imported/weapon1_0003.png-59eadfb6a35b2f9f25ed47732d466209.s3tc.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_a4142"]
+load_path = "res://.godot/imported/weapon1_0004.png-aee4703fdc64480bf6c142a22e02f33f.s3tc.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_uvck4"]
+load_path = "res://.godot/imported/weapon1_0005.png-2525b4071d64e7d01d959622c3928a33.s3tc.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_g634r"]
+load_path = "res://.godot/imported/weapon1_0006.png-2ad7c45cc3a28a4a140b00124fe08e1f.s3tc.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_7ehax"]
+load_path = "res://.godot/imported/weapon1_0007.png-4da027e149e3fe9613489c0fc3f0d0dd.s3tc.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_evqpa"]
+load_path = "res://.godot/imported/weapon1_0008.png-f8ba953dd2c3ef6cb77e2a18295a3a96.s3tc.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_vtctp"]
+load_path = "res://.godot/imported/weapon1_0009.png-14badf38b301db59c304bc5759fafe10.s3tc.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_fhhue"]
+load_path = "res://.godot/imported/weapon1_0010.png-93eab01a2b142f1f81c7844dae973b0a.s3tc.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_18w6a"]
+load_path = "res://.godot/imported/weapon1_0011.png-a83d30b07c720c84fa5e2c6008e20e88.s3tc.ctex"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_plbrc"]
 atlas = ExtResource("14_j3jmb")
@@ -123,40 +147,40 @@ region = Rect2(768, 768, 192, 192)
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("6")
+"texture": SubResource("CompressedTexture2D_n2mte")
 }, {
 "duration": 1.0,
-"texture": ExtResource("12")
+"texture": SubResource("CompressedTexture2D_h2tmr")
 }, {
 "duration": 1.0,
-"texture": ExtResource("3")
+"texture": SubResource("CompressedTexture2D_xerho")
 }, {
 "duration": 1.0,
-"texture": ExtResource("13")
+"texture": SubResource("CompressedTexture2D_i8wcd")
 }, {
 "duration": 1.0,
-"texture": ExtResource("8")
+"texture": SubResource("CompressedTexture2D_a4142")
 }, {
 "duration": 1.0,
-"texture": ExtResource("5")
+"texture": SubResource("CompressedTexture2D_uvck4")
 }, {
 "duration": 1.0,
-"texture": ExtResource("4")
+"texture": SubResource("CompressedTexture2D_g634r")
 }, {
 "duration": 1.0,
-"texture": ExtResource("9")
+"texture": SubResource("CompressedTexture2D_7ehax")
 }, {
 "duration": 1.0,
-"texture": ExtResource("2")
+"texture": SubResource("CompressedTexture2D_evqpa")
 }, {
 "duration": 1.0,
-"texture": ExtResource("7")
+"texture": SubResource("CompressedTexture2D_vtctp")
 }, {
 "duration": 1.0,
-"texture": ExtResource("10")
+"texture": SubResource("CompressedTexture2D_fhhue")
 }, {
 "duration": 1.0,
-"texture": ExtResource("11")
+"texture": SubResource("CompressedTexture2D_18w6a")
 }],
 "loop": false,
 "name": &"default",

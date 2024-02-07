@@ -1,23 +1,13 @@
-[gd_scene load_steps=8 format=3 uid="uid://b5hidq7fuopte"]
+[gd_scene load_steps=6 format=3 uid="uid://b5hidq7fuopte"]
 
 [ext_resource type="Script" path="res://scripts/UI.gd" id="2"]
-[ext_resource type="Script" path="res://scripts/Button1.gd" id="3"]
-[ext_resource type="Texture2D" uid="uid://coi7l76eanueu" path="res://images/weapons/yantra/weapon2.png" id="4"]
-[ext_resource type="Texture2D" uid="uid://cc4n1wqqxwyc4" path="res://images/UIgraphics/weaponmodal.png" id="5"]
-[ext_resource type="Texture2D" uid="uid://46l542p0vyh0" path="res://images/UIgraphics/weaponmodel2.png" id="6"]
-[ext_resource type="FontFile" uid="uid://dp8dfcyv2fsrb" path="res://images/UIgraphics/PT_Sans-Web-Bold.ttf" id="7"]
+[ext_resource type="Texture2D" uid="uid://cxsocupwk1n0k" path="res://images/UIgraphics/upgradePanel/panelBG.png" id="2_uey1n"]
+[ext_resource type="FontFile" uid="uid://dc8dkaxhhekhr" path="res://images/UIgraphics/DIN Condensed Bold.ttf" id="3_oc6jy"]
+[ext_resource type="PackedScene" uid="uid://dkbmvhbvo33hn" path="res://scenes/UI/button.tscn" id="4_qfrau"]
 
-[sub_resource type="FontFile" id="1"]
-fallbacks = Array[Font]([ExtResource("7"), ExtResource("7")])
-subpixel_positioning = 0
-msdf_pixel_range = 14
-msdf_size = 128
-cache/0/16/0/ascent = 0.0
-cache/0/16/0/descent = 0.0
-cache/0/16/0/underline_position = 0.0
-cache/0/16/0/underline_thickness = 0.0
-cache/0/16/0/scale = 1.0
-cache/0/16/0/kerning_overrides/16/0 = Vector2(0, 0)
+[sub_resource type="FontVariation" id="FontVariation_x3ktr"]
+base_font = ExtResource("3_oc6jy")
+spacing_glyph = 5
 
 [node name="UICanvas" type="CanvasLayer"]
 process_mode = 3
@@ -39,167 +29,49 @@ size_flags_vertical = 7
 max_value = 10.0
 step = 0.0
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
-visible = false
+[node name="UpgradeModal" type="MarginContainer" parent="."]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -439.0
-offset_top = -236.0
-offset_right = 461.0
-offset_bottom = 298.0
+offset_left = -576.0
+offset_top = -324.0
+offset_right = 578.0
+offset_bottom = 373.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="LevelupMessage" type="Label" parent="MarginContainer"]
+[node name="Background" type="TextureRect" parent="UpgradeModal"]
 layout_mode = 2
-size_flags_vertical = 1
-theme_override_fonts/font = SubResource("1")
-text = "YOU'VE LEVELED UP!"
-uppercase = true
+texture = ExtResource("2_uey1n")
+expand_mode = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
-visible = false
+[node name="ButtonsMargin" type="CenterContainer" parent="UpgradeModal"]
 layout_mode = 2
 
-[node name="ColorRect" type="TextureRect" parent="MarginContainer/HBoxContainer"]
-visible = false
+[node name="VBoxContainer" type="VBoxContainer" parent="UpgradeModal/ButtonsMargin"]
 layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-texture = ExtResource("5")
-
-[node name="Label" type="Label" parent="MarginContainer/HBoxContainer/ColorRect"]
-visible = false
-layout_mode = 0
-offset_right = 335.0
-offset_bottom = 596.0
-text = "WEAPON 1"
-
-[node name="TextureRect" type="TextureRect" parent="MarginContainer/HBoxContainer/ColorRect"]
-visible = false
-layout_mode = 0
-offset_left = 67.5
-offset_top = 50.0
-offset_right = 1091.5
-offset_bottom = 1074.0
-scale = Vector2(0.2, 0.2)
-texture = ExtResource("4")
-
-[node name="ColorRect4" type="TextureRect" parent="MarginContainer/HBoxContainer"]
-visible = false
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-texture = ExtResource("6")
-
-[node name="Label" type="Label" parent="MarginContainer/HBoxContainer/ColorRect4"]
-visible = false
-layout_mode = 0
-offset_right = 335.0
-offset_bottom = 596.0
-text = "WEAPON 1"
-
-[node name="TextureRect" type="TextureRect" parent="MarginContainer/HBoxContainer/ColorRect4"]
-visible = false
-layout_mode = 0
-offset_left = 67.5
-offset_top = 50.0
-offset_right = 1091.5
-offset_bottom = 1074.0
-scale = Vector2(0.2, 0.2)
-texture = ExtResource("4")
-
-[node name="ColorRect5" type="ColorRect" parent="MarginContainer/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-color = Color(0, 0, 0, 0.619608)
-
-[node name="Label" type="Label" parent="MarginContainer/HBoxContainer/ColorRect5"]
-layout_mode = 0
-offset_right = 296.0
-offset_bottom = 528.0
-text = "CHAKRA
-"
-
-[node name="TextureRect" type="TextureRect" parent="MarginContainer/HBoxContainer/ColorRect5"]
-visible = false
-layout_mode = 0
-offset_left = 49.0
-offset_top = 48.0
-offset_right = 1073.0
-offset_bottom = 1072.0
-scale = Vector2(0.2, 0.2)
-texture = ExtResource("4")
-stretch_mode = 4
-
-[node name="ColorRect3" type="ColorRect" parent="MarginContainer/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-color = Color(0, 0, 0, 0.619608)
-
-[node name="Label" type="Label" parent="MarginContainer/HBoxContainer/ColorRect3"]
-layout_mode = 0
-offset_right = 297.0
-offset_bottom = 531.0
-text = "BLUE ORB
-"
-
-[node name="TextureRect" type="TextureRect" parent="MarginContainer/HBoxContainer/ColorRect3"]
-visible = false
-layout_mode = 0
-offset_left = 43.0
-offset_top = 52.0
-offset_right = 1067.0
-offset_bottom = 1076.0
-scale = Vector2(0.2, 0.2)
-texture = ExtResource("4")
-stretch_mode = 4
-
-[node name="ColorRect6" type="ColorRect" parent="MarginContainer/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-color = Color(0, 0, 0, 0.619608)
-
-[node name="Label" type="Label" parent="MarginContainer/HBoxContainer/ColorRect6"]
-layout_mode = 0
-offset_right = 292.0
-offset_bottom = 530.0
-text = "SPINACH
-"
-
-[node name="TextureRect" type="TextureRect" parent="MarginContainer/HBoxContainer/ColorRect6"]
-visible = false
-layout_mode = 0
-offset_left = 43.0
-offset_top = 54.0
-offset_right = 1067.0
-offset_bottom = 1078.0
-scale = Vector2(0.2, 0.2)
-texture = ExtResource("4")
-
-[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer"]
-layout_mode = 2
+theme_override_constants/separation = 24
 alignment = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+[node name="LevelupMessage" type="Label" parent="UpgradeModal/ButtonsMargin/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_fonts/font = SubResource("FontVariation_x3ktr")
+theme_override_font_sizes/font_size = 56
+text = " NEW UPGRADES AVAILABLE! "
+horizontal_alignment = 1
+uppercase = true
+
+[node name="Button1" parent="UpgradeModal/ButtonsMargin/VBoxContainer" instance=ExtResource("4_qfrau")]
 layout_mode = 2
 
-[node name="Button1" type="Button" parent="MarginContainer/VBoxContainer"]
+[node name="Button2" parent="UpgradeModal/ButtonsMargin/VBoxContainer" instance=ExtResource("4_qfrau")]
 layout_mode = 2
-text = "PUSH STRENGTH"
-script = ExtResource("3")
 
-[node name="Button2" type="Button" parent="MarginContainer/VBoxContainer"]
+[node name="Button3" parent="UpgradeModal/ButtonsMargin/VBoxContainer" instance=ExtResource("4_qfrau")]
 layout_mode = 2
-text = "SPEED"
-
-[node name="Button3" type="Button" parent="MarginContainer/VBoxContainer"]
-layout_mode = 2
-text = "HEALTH"
 
 [node name="youdied" type="MarginContainer" parent="."]
 visible = false
@@ -224,7 +96,4 @@ text = "YOU DIED"
 layout_mode = 2
 text = "RESTART?"
 
-[connection signal="pressed" from="MarginContainer/VBoxContainer/Button1" to="." method="_on_Button1_pressed"]
-[connection signal="pressed" from="MarginContainer/VBoxContainer/Button2" to="." method="_on_Button2_pressed"]
-[connection signal="pressed" from="MarginContainer/VBoxContainer/Button3" to="." method="_on_Button3_pressed"]
 [connection signal="pressed" from="youdied/VBoxContainer/restartbutton" to="." method="_on_restartbutton_pressed"]
