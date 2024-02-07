@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://cj62khqgcqors" path="res://models/jade_sword/textures/MAT_Lowpoly_baseColor.png" id="2_yiuox"]
 [ext_resource type="Texture2D" uid="uid://cghclpi6buo46" path="res://models/jade_sword/textures/MAT_Lowpoly_metallicRoughness.png" id="3_i4p1k"]
 [ext_resource type="Texture2D" uid="uid://4pdvg47uta24" path="res://models/jade_sword/textures/MAT_Lowpoly_normal.png" id="4_dg1kg"]
-[ext_resource type="AudioStream" uid="uid://cn2t5npgpa2db" path="res://sounds/sfx/sword_slash.mp3" id="5_uk3jy"]
+[ext_resource type="AudioStream" uid="uid://cotulhxlwiqpn" path="res://sounds/sfx/sword_slash.mp3" id="5_uk3jy"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_mkxix"]
 radius = 4.0

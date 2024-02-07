@@ -30,6 +30,7 @@ max_value = 10.0
 step = 0.0
 
 [node name="UpgradeModal" type="MarginContainer" parent="."]
+visible = false
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -55,7 +56,7 @@ layout_mode = 2
 theme_override_constants/separation = 24
 alignment = 1
 
-[node name="LevelupMessage" type="Label" parent="UpgradeModal/ButtonsMargin/VBoxContainer"]
+[node name="Heading" type="Label" parent="UpgradeModal/ButtonsMargin/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 1
 theme_override_fonts/font = SubResource("FontVariation_x3ktr")

@@ -3,7 +3,7 @@ extends CharacterBody3D
 #stats
 var HP = 100.0
 var max_HP = 100.0
-var speed = 16.0
+var speed = 24.0
 var defense = 0
 var pushing_strength = 10.0
 var health_regen = 0.1
@@ -13,17 +13,16 @@ var luck = 1
 var angle = 0.0
 var target_angle = 0.0
 var throttle = 0.0
-var dampening = 0.9
-var idle = true
+var dampening = 0.8
 
 #local nodes
+@onready var HeroHealth       = $HealthNode/HeroHealth
+@onready var Emp              = $Emp
+@onready var OrbOrigin        = $OrbOrigin
 @onready var robot            = $Stan
 @onready var animation_player = $Stan/AnimationPlayer
-@onready var HeroHealth       = $HealthNode/HeroHealth
-@onready var Yantra           = $Yantra
-@onready var OrbOrigin        = $OrbOrigin
-@onready var sword_collision  = $Stan/RobotArmature/Skeleton3D/BoneAttachment3D/Sword/CollisionShape3D
 @onready var animation_tree   = $Stan/AnimationTree
+@onready var sword_collision  = $Stan/RobotArmature/Skeleton3D/BoneAttachment3D/Sword/CollisionShape3D
 
 # autoload these, and put these vars in their top-level scopes
 @onready var main_node = get_node("/root/Main")
@@ -34,19 +33,24 @@ var idle = true
 @onready var music = get_node("/root/Main/Music")
 
 var Sword: CharacterBody3D  
+#var Emp: 
 
 func _ready():
 	animation_tree.active = true
-	
-	#animation_player.speed_scale = speed / 10.0
-	#animation_tree.set("parameters/conditions/is_moving", true)
-	#animation_tree.set("parameters/conditions/idle", false)
-	
 	var robot_collider = robot.get_node("Collider")
 	$Collider.set_shape(robot_collider.shape)
 	$Collider.position = robot_collider.position
 	$Collider.rotation = robot_collider.rotation
 	Sword = robot.get_node("%Sword")
+	#print_tree_properties(animation_tree, "")
+
+func print_tree_properties(object, path):
+	for property in object.get_property_list():
+		var property_path = path + "/" + property.name
+		print(property_path)
+		var property_value = object.get(property.name)
+		if property_value is AnimationNode:
+			print_tree_properties(property_value, property_path)
 
 func _physics_process(delta):
 	updateMomentum()
@@ -61,36 +65,34 @@ func updateMomentum():
 	velocity += Vector3(cos(angle), 0, sin(angle)) * throttle * speed
 	
 	# Adjust target_angle for the shortest rotation path and update angle
+	angle = fposmod(angle + PI, 2*PI) - PI
 	target_angle = angle + fposmod(target_angle - angle + PI, 2*PI) - PI
-	angle = move_toward(angle, target_angle, PI/12)
+	angle = move_toward(angle, target_angle, PI/24)
 	robot.rotation.y = -angle + PI/2
-	#animation_player.speed_scale = velocity.length() / 10.0
 
 var previous_horizontal_direction = 0
 var previous_vertical_direction = 0
 func getUserInteraction():
-	idle = true
-	
 	# int(bool) turns true into 1 and false into 0
 	var right = int(Input.is_action_pressed('ui_right'))
 	var left = int(Input.is_action_pressed('ui_left'))
 	var up = int(Input.is_action_pressed('ui_up'))
 	var down = int(Input.is_action_pressed('ui_down'))
+	var slash = Input.is_action_just_pressed("attack")
+	
 	#InputEventScreenTouch.
-	animation_player.play("Walk")
+	if slash: Sword.slash()
 	
 	var x = right - left
 	var y = down - up
 	if x or y:
-		idle = false
-
 		var bias = 0
 		if x:
-			bias = .1 * previous_vertical_direction * sign(x)
+			bias = PI/36 * previous_vertical_direction * sign(x)
 			previous_horizontal_direction = x
 
 		if y:
-			bias = .1 * previous_horizontal_direction * sign(-y)
+			bias = PI/36 * previous_horizontal_direction * sign(-y)
 			previous_vertical_direction = y
 
 		target_angle = atan2(y, x)
@@ -132,30 +134,32 @@ func die():
 	#main_node.reset()
 	xp_bar.value = 0
 	
+func get_slash_curve(x):
+	# https://www.desmos.com/calculator/zh8hnxofkx -- cosine based
+	var a = 4.0 # { a > 2, a%2 == 0 }
+	var y = (1 - cos(a*PI*x)) / 2
+	if x > 1/a and x < 1-1/a: y = 1.0
+	return y
+	
 func update_animation_parameters():
-	var init_sword_slash = Input.is_action_just_pressed("attack")
-	var started_walking_while_slashing = !idle and Sword.power > .5
-	#print([idle, Sword.power, Sword.base_power/2, started_walking_while_slashing])
-	if idle:
-		animation_tree.set("parameters/conditions/idle", true)
-		animation_tree.set("parameters/conditions/is_moving", false)
-		if init_sword_slash:
-			animation_tree.set("parameters/conditions/slash", true)
-	else:
-		animation_tree.set("parameters/conditions/idle", false)
-		animation_tree.set("parameters/conditions/is_moving", true)
-		if init_sword_slash or started_walking_while_slashing:
-			animation_tree.set("parameters/conditions/slash_walk", true)
-
-	if init_sword_slash:
-		animation_tree.set("parameters/TimeScale/scale", 5.0)
-		Sword.slash()
-	elif !started_walking_while_slashing:
-		animation_tree.set("parameters/conditions/slash", false)
-		animation_tree.set("parameters/conditions/slash_walk", false)
-		
+	var speed_percent = velocity.length() * 2 / speed
+	var slash_speed = 1
+	var slash_progress = minf(Sword.slash_progress*slash_speed, 1)
+	var slash_duration = Sword.slash_duration
+	var slash_blend = get_slash_curve(slash_progress)
+	animation_tree.set("parameters/Tree/BlendMove/blend_amount", speed_percent)
+	animation_tree.set("parameters/Tree/BlendSlash/blend_amount", slash_blend)
+	animation_tree.set("parameters/Tree/BlendWalkSlash/blend_amount", slash_blend * speed_percent)
+	#animation_tree.set("parameters/Tree/Idle/time", x)
+	animation_tree.set("parameters/Tree/Slash/time", slash_progress * slash_duration)
+	#animation_tree.set("parameters/Tree/WalkHold/time", x)
+	animation_tree.set("parameters/Tree/WalkSlash/time", slash_progress * slash_duration)
+	animation_tree.set("parameters/Tree/WalkSpeed/scale", velocity.length() / 12)
+	
 func position_healthbar():
+	# healthbar should be a ring on the floor or slightly off the floor like KLee said
 	HeroHealth.position = Cam.unproject_position(global_position)
 	HeroHealth.position.x -= HeroHealth.size.x / 2
+	HeroHealth.position.y += HeroHealth.size.y
 	
 	
