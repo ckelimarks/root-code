@@ -6,8 +6,7 @@ var weapons = []
 
 func _ready():
 	weapons.append(Hero.Emp)
-	weapons.append(Hero.Sword)
-	pass # Replace with function body.
+	#weapons.append(Hero.Sword)
 
 #func _process(delta):
 #	pass
