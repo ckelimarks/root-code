@@ -1,6 +1,6 @@
 [gd_scene load_steps=43 format=3 uid="uid://7mo00dv2g31f"]
 
-[ext_resource type="Script" path="res://scripts/Yantra.gd" id="1"]
+[ext_resource type="Script" path="res://scripts/Emp.gd" id="1_8yinj"]
 [ext_resource type="Texture2D" uid="uid://m6wdr1abieab" path="res://images/weapons/orb/electricorb.png" id="14_j3jmb"]
 [ext_resource type="AudioStream" uid="uid://bgqmjgpy1oerl" path="res://sounds/orbSound.mp3" id="15_56j0s"]
 
@@ -270,11 +270,11 @@ animations = [{
 "speed": 30.0
 }]
 
-[node name="Yantra" type="CharacterBody3D"]
+[node name="Emp" type="CharacterBody3D"]
 collision_layer = 2
 collision_mask = 2
 motion_mode = 1
-script = ExtResource("1")
+script = ExtResource("1_8yinj")
 
 [node name="Collider" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)

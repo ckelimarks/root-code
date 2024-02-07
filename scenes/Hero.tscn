@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://c7mt66i7ljer8"]
+[gd_scene load_steps=7 format=3 uid="uid://c7mt66i7ljer8"]
 
 [ext_resource type="Script" path="res://scripts/Hero.gd" id="1"]
 [ext_resource type="PackedScene" uid="uid://c1eksyt1bexd4" path="res://scenes/robots/Stan.tscn" id="2"]
-[ext_resource type="PackedScene" uid="uid://7mo00dv2g31f" path="res://scenes/weapons/Yantra.tscn" id="3"]
+[ext_resource type="PackedScene" uid="uid://7mo00dv2g31f" path="res://scenes/weapons/Emp.tscn" id="3"]
+[ext_resource type="FontFile" uid="uid://dc8dkaxhhekhr" path="res://images/UIgraphics/DIN Condensed Bold.ttf" id="4_8kjeu"]
 [ext_resource type="AudioStream" uid="uid://bxicy412bk758" path="res://sounds/hpDownSound.mp3" id="211"]
 [ext_resource type="AudioStream" uid="uid://cwicowrxy2s7o" path="res://sounds/steps.mp3" id="212"]
 
@@ -14,7 +15,7 @@ script = ExtResource("1")
 
 [node name="OrbOrigin" type="Node3D" parent="."]
 
-[node name="Yantra" parent="." instance=ExtResource("3")]
+[node name="Emp" parent="." instance=ExtResource("3")]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
 
 [node name="Stan" parent="." instance=ExtResource("2")]
@@ -27,11 +28,12 @@ anchors_preset = 0
 layout_mode = 0
 offset_left = -50.0
 offset_right = 50.0
-offset_bottom = 27.0
+offset_bottom = 13.0
+theme_override_fonts/font = ExtResource("4_8kjeu")
 max_value = 1000.0
-step = 1.0
 value = 100.0
 rounded = true
+show_percentage = false
 
 [node name="WalkingSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("212")

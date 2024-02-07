@@ -5,7 +5,7 @@ var weapons = []
 @onready var BlueOrbEmitter = $BlueOrbEmitter
 
 func _ready():
-	weapons.append(Hero.Yantra)
+	weapons.append(Hero.Emp)
 	weapons.append(Hero.Sword)
 	pass # Replace with function body.
 

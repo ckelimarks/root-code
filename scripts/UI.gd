@@ -52,13 +52,13 @@ func shuffle_upgrades():
 
 func resize_upgrade_modal():
 	var scale_to = 0.75
-	var view_size = get_viewport().size
-	var target_size = Vector2(1200, 800) * scale_to
-	var margin = view_size * 0.2
-	var available_space = Vector2(view_size) - margin * 2.0
-	var scale_x = available_space.x / target_size.x
-	var scale_y = available_space.y / target_size.y
-	var scale = min(scale_x, scale_y, scale_to)
+	#var max_fraction_of_screen = 0.5
+	var view_size = Vector2(get_viewport().size)
+	var target_size = view_size
+	var scale = view_size / $UpgradeModal.size * scale_to
+	#var max_scale = Vector2(DisplayServer.screen_get_size())/$UpgradeModal.size
+	#scale = min(scale.x, scale.y, min(max_scale.x, max_scale.y) * max_fraction_of_screen)
+	scale = min(scale.x, scale.y)
 	$UpgradeModal.scale = Vector2(scale, scale)
 	$UpgradeModal.position = view_size / 2.0 - ($UpgradeModal.size * $UpgradeModal.scale) / 2.0
 
@@ -69,18 +69,27 @@ func release_modal(node):
 	shuffle_upgrades() # belongs before showing upgrade modal, not here
 
 func upgrade_sword():
-	Hero.speed += int(Hero.speed < 24)
-	Hero.animation_player.speed_scale = Hero.speed / 10
+	# we can implement a schedule here
+	Hero.Sword.base_damage += 1
 	release_modal($UpgradeModal)
 
 func upgrade_emp():
-	Hero.pushing_strength += int(Hero.pushing_strength < 20)
+	# we can implement a schedule here
+	Hero.Emp.base_damage += 1
 	release_modal($UpgradeModal)
 	
 func upgrade_hp():
 	Hero.max_HP += 50
 	Hero.HP = min(Hero.HP + 50, Hero.max_HP)
 	Hero.HeroHealth.value = Hero.HP
+	release_modal($UpgradeModal)
+
+func upgrade_speed():
+	Hero.speed += 1
+	release_modal($UpgradeModal)
+
+func upgrade_pushing_strength():
+	Hero.pushing_strength += 1
 	release_modal($UpgradeModal)
 
 func _on_restartbutton_pressed():
