@@ -10,10 +10,11 @@ var health_regen = 0.1
 var luck = 1
 
 #movement
-var angle = 0.0
-var target_angle = 0.0
+var angle = PI/2
+var target_angle = PI/2
 var throttle = 0.0
 var dampening = 0.8
+var woke = false
 
 #local nodes
 @onready var HeroHealth       = $HealthNode/HeroHealth
@@ -32,16 +33,27 @@ var dampening = 0.8
 @onready var focusbutton = get_node("/root/Main/UICanvas/MarginContainer/VBoxContainer/Button1")
 @onready var music = get_node("/root/Main/Music")
 
-var Sword: CharacterBody3D  
 #var Emp: 
+var Sword: CharacterBody3D  
+var sword_scene = preload("res://scenes/weapons/Sword.tscn")
 
 func _ready():
 	animation_tree.active = true
+	animation_tree.set("parameters/Tree/WalkSpeed/scale", 8.0 / 12.0)
+	animation_tree.set("parameters/Tree/BlendMove/blend_amount", 1)	
 	var robot_collider = robot.get_node("Collider")
 	$Collider.set_shape(robot_collider.shape)
 	$Collider.position = robot_collider.position
 	$Collider.rotation = robot_collider.rotation
-	Sword = robot.get_node("%Sword")
+	global_position.z -= 2.5
+	
+func awaken():
+	Sword = sword_scene.instantiate()
+	WeaponManager.weapons.append(Sword)
+	var SwordHolder = robot.get_node("%SwordHolder")
+	SwordHolder.add_child(Sword)
+	robot.get_node("%ThirdEye").set_visible(true)
+	woke = true	
 	#print_tree_properties(animation_tree, "")
 
 func print_tree_properties(object, path):
@@ -58,6 +70,7 @@ func _physics_process(delta):
 	handleMovementAndCollisions(delta)
 	update_animation_parameters()
 	position_healthbar()
+	if !woke: global_position += Vector3(0, 0, delta*8.0)
 
 func updateMomentum():
 	throttle *= .1
@@ -81,7 +94,7 @@ func getUserInteraction():
 	var slash = Input.is_action_just_pressed("attack")
 	
 	#InputEventScreenTouch.
-	if slash: Sword.slash()
+	if slash and woke: Sword.slash()
 	
 	var x = right - left
 	var y = down - up
@@ -98,6 +111,8 @@ func getUserInteraction():
 		target_angle = atan2(y, x)
 		angle -= bias
 		throttle = 1.0
+
+	if (slash or x or y) and !woke: awaken()
 
 func handleMovementAndCollisions(delta):
 	# First, try to move normally.
@@ -142,6 +157,7 @@ func get_slash_curve(x):
 	return y
 	
 func update_animation_parameters():
+	if !woke: return
 	var speed_percent = velocity.length() * 2 / speed
 	var slash_speed = 1
 	var slash_progress = minf(Sword.slash_progress*slash_speed, 1)
