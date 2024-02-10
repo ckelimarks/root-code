@@ -1,6 +1,7 @@
 extends CharacterBody3D
 
 # ATTRIBUTES
+# local
 var speed = 10.0  # Adjust as needed
 var pushing_strength = 5.0
 var HP = 10 # hit points
@@ -12,14 +13,17 @@ var momentum = Vector3.ZERO
 var behaviour = "attack" # assist, march ... etc
 var platoon_grid_position: Vector2
 #var distance_to_hero = -1
+# external
+@onready var weapons         = WeaponManager.weapons
 
 # NODES AND SCENES
-@onready var Robot:            CharacterBody3D
-@onready var RobotAnimation:   AnimationPlayer
+# local
 @onready var KillSound       = $AudioStreamPlayer2D #move to sound manager
 @onready var Explosion       = $ExplosionSprite
+# external
+@onready var Robot:            CharacterBody3D
+@onready var RobotAnimation:   AnimationPlayer
 @onready var BlueOrbEmitter  = WeaponManager.BlueOrbEmitter
-@onready var weapons         = WeaponManager.weapons
 var ExpGemScene              = preload("res://scenes/items/ExpGem.tscn")
 
 func _ready():

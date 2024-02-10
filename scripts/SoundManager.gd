@@ -1,11 +1,12 @@
 extends Node3D
 
-@onready var SwordSlash     = $SFX/SwordSlash
-@onready var EmpSound       = $SFX/EmpSound
-@onready var EnemyStrike    = $SFX/MetalStrike
-@onready var MarchSound     = $SFX/Marching
-@onready var GameOverSound  = $SFX/GameOver
-@onready var AtmosphereMusic  = $Music/AtmosphereMusic
+# NODES AND SCENES
+@onready var SwordSlash      = $SFX/SwordSlash
+@onready var EmpSound        = $SFX/EmpSound
+@onready var EnemyStrike     = $SFX/MetalStrike
+@onready var MarchSound      = $SFX/Marching
+@onready var GameOverSound   = $SFX/GameOver
+@onready var AtmosphereMusic = $Music/AtmosphereMusic
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

@@ -1,9 +1,11 @@
 extends Area3D
 
+# ATTRIBUTES
+# local
 var speed = 200
 var dir = Vector3()
 var power = 3
-
+# external
 @onready var weapons = WeaponManager.weapons
 
 # Called when the node enters the scene tree for the first time.

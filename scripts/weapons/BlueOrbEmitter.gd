@@ -1,9 +1,13 @@
 extends Node
 
+# ATTRIBUTES
+# local
 var cooldown = 3
 var heat = 0
-
+# external
 @onready var weapons = WeaponManager.weapons
+
+# NODES AND SCENES
 var blue_orb_scene = preload("res://scenes/weapons/BlueOrb.tscn")
 
 func _ready():

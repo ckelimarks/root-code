@@ -1,7 +1,6 @@
 extends Camera3D
 
 # ATTRIBUTES
-var ground_material  # RefCounted to the ground material
 var position_smoothing_speed = 5.0
 var initial_offset: Vector3
 var debug_cam = !true

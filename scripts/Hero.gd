@@ -9,7 +9,6 @@ var defense = 0
 var pushing_strength = 10.0
 var health_regen = 0.1
 var luck = 1
-
 #movement
 var angle = PI/2
 var target_angle = PI/2
@@ -18,7 +17,7 @@ var dampening = 0.8
 var woke = false
 
 # NODES AND SCENES
-#local nodes
+#local
 @onready var HeroHealth       = $HealthNode/HeroHealth
 @onready var Emp              = $Emp
 @onready var OrbOrigin        = $OrbOrigin
@@ -26,8 +25,8 @@ var woke = false
 @onready var AnimPlayer       = $Stan/AnimationPlayer
 @onready var AnimTree         = $Stan/AnimationTree
 @onready var SwordCollision   = $Stan/RobotArmature/Skeleton3D/BoneAttachment3D/Sword/CollisionShape3D
-
 # autoload these?, and put these vars in their top-level scopes
+# external
 @onready var MainNode = get_node("/root/Main")
 @onready var XpBar = get_node("/root/Main/UICanvas/xpBar")
 @onready var YouDied = get_node("/root/Main/UICanvas/youdied")

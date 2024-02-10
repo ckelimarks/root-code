@@ -1,7 +1,9 @@
 extends Node
 
+# ATTRIBUTES
 var weapons = []
-#var blue_orb_weapon = [Hero.BlueOrb]
+
+# NODES AND SCENES
 @onready var BlueOrbEmitter = $BlueOrbEmitter
 
 func _ready():
