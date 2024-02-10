@@ -1,5 +1,6 @@
 extends CharacterBody3D
 
+# ATTRIBUTES
 var speed = 10.0  # Adjust as needed
 var pushing_strength = 5.0
 var HP = 10 # hit points
@@ -12,27 +13,23 @@ var behaviour = "attack" # assist, march ... etc
 var platoon_grid_position: Vector2
 #var distance_to_hero = -1
 
-@onready var robot: CharacterBody3D
-@onready var robot_animation: AnimationPlayer
-@onready var killsound       = $AudioStreamPlayer2D
-@onready var explosion       = $ExplosionSprite
-@onready var blue_orb        = WeaponManager.BlueOrbEmitter
+# NODES AND SCENES
+@onready var Robot:            CharacterBody3D
+@onready var RobotAnimation:   AnimationPlayer
+@onready var KillSound       = $AudioStreamPlayer2D #move to sound manager
+@onready var Explosion       = $ExplosionSprite
+@onready var BlueOrbEmitter  = WeaponManager.BlueOrbEmitter
 @onready var weapons         = WeaponManager.weapons
-
-var exp_gem_scene = preload("res://scenes/items/ExpGem.tscn")
+var ExpGemScene              = preload("res://scenes/items/ExpGem.tscn")
 
 func _ready():
-	add_child(robot)
-	var robot_collider = robot.get_node("Collider")
-	$Collider.set_shape(robot_collider.shape)
-	$Collider.position = robot_collider.position
-	$Collider.rotation = robot_collider.rotation
+	add_child(Robot)
+	var RobotCollider = Robot.get_node("Collider")
+	$Collider.set_shape(RobotCollider.shape)
+	$Collider.position = RobotCollider.position
+	$Collider.rotation = RobotCollider.rotation
 	SoundManager.MarchSound.pitch_scale = .7
 	SoundManager.MarchSound.play()
-	#robot_animation.play("Take 001")
-	#modulate = enemy_color
-	#$CollisionShape3D.radius = stan.collisionshape.radius
-	#etc
 
 func _physics_process(delta):
 	if is_dead:
@@ -79,19 +76,7 @@ func _physics_process(delta):
 			HP -= collider.damage
 			momentum += (global_position - Hero.global_position).normalized() * sqrt(collider.knock_back / 2)
 			glow()
-			if HP <= 0:
-				is_dead = true
-				speed = 0
-				killsound.play()
-				
-				#enemy_node.play("dead")
-				# remove from collision layers
-				set_collision_layer_value(0, false)
-				set_collision_mask_value(0, false)
-				set_collision_layer_value(1, false)
-				set_collision_mask_value(1, false)
-				EnemyManager.enemies.erase(self)
-				dead()
+			if HP <= 0: dead()
 			
 		# Attempt to push the collider by manually adjusting the enemy's global_position
 		push_vector = collision.get_remainder().normalized() * pushing_strength * delta
@@ -107,19 +92,28 @@ func glow():
 	#glow_sprite.visible = false
 	
 func dead():
-	#if sprite_node.get_animation() == "dead":
-	var gem_instance = exp_gem_scene.instantiate()
-	gem_instance.global_position = global_position
-	EnemyManager.add_child(gem_instance)
-	EnemyManager.enemies.erase(self)
-	explosion.visible = true
-	robot.visible = false
-	$Collider.disabled = true
-	explosion.rotation = Vector3(-35,0,0) - global_rotation
-	explosion.play("explosion")
-	await get_tree().create_timer(2).timeout	
-	self.queue_free()
+	var gem_instance = ExpGemScene.instantiate()
 	
-func _on_collision(body):
-	print("Collision with:", body.name)
-	print("Collider type:", body.get_type())
+	$Collider.disabled = true
+	is_dead = true
+	speed = 0
+	KillSound.play()
+	#enemy_node.play("dead")
+	
+	# remove from collision layers
+	set_collision_layer_value(0, false)
+	set_collision_mask_value(0, false)
+	set_collision_layer_value(1, false)
+	set_collision_mask_value(1, false)
+	EnemyManager.enemies.erase(self)
+	EnemyManager.enemies.erase(self)
+	EnemyManager.add_child(gem_instance)
+	gem_instance.global_position = global_position
+
+	Robot.visible = false
+	Explosion.rotation = Vector3(-35,0,0) - global_rotation
+	Explosion.visible = true
+	Explosion.play("explosion")
+	
+	await get_tree().create_timer(2).timeout
+	self.queue_free()

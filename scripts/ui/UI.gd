@@ -1,5 +1,6 @@
 extends CanvasLayer
 
+# ATTRIBUTES
 var upgrades = [
 	{
 		"image": preload("res://images/uigraphics/upgradePanel/sword.jpg"),
@@ -21,10 +22,11 @@ var upgrades = [
 	},
 ]
 
+# NODES AND SCENES
 #onready var healthbar_node = Hero.HeroHealth
-@onready var main_node = get_node("/root/Main")
-@onready var music_node = get_node("/root/Main/Music")
-@onready var upgrade_buttons = [
+@onready var MainNode = get_node("/root/Main")
+@onready var MusicNode = get_node("/root/Main/Music")
+@onready var UpgradeButtons = [
 	$UpgradeModal/ButtonsMargin/VBoxContainer/Button1,
 	$UpgradeModal/ButtonsMargin/VBoxContainer/Button2,
 	$UpgradeModal/ButtonsMargin/VBoxContainer/Button3,
@@ -42,8 +44,8 @@ func shuffle_upgrades():
 	var selected_upgrades = upgrades.duplicate()
 	randomize()
 	selected_upgrades.shuffle()
-	for i in len(upgrade_buttons):
-		var button = upgrade_buttons[i]
+	for i in len(UpgradeButtons):
+		var button = UpgradeButtons[i]
 		var upgrade = selected_upgrades[i]
 		button.get_node("%Image").texture    = upgrade.image
 		button.get_node("%Name").text        = upgrade.name 
@@ -94,5 +96,5 @@ func upgrade_pushing_strength():
 
 func _on_restartbutton_pressed():
 	release_modal($youdied)
-	main_node.reset()
-	music_node.play()
+	MainNode.reset()
+	MusicNode.play()

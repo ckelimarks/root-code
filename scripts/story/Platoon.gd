@@ -1,5 +1,6 @@
 extends Node3D
 
+# ATTRIBUTES
 var platoon_exists = false
 var platoon_holes = {}
 var platoon_occupied = {}
@@ -73,7 +74,7 @@ func platoon_spawn(new_enemy, grid_position):
 	new_enemy.behaviour = "march"
 	new_enemy.speed = 8.0
 	new_enemy.platoon_grid_position = grid_position
-	var animation_tree = new_enemy.robot.get_node("AnimationTree")
+	var animation_tree = new_enemy.Robot.get_node("AnimationTree")
 	animation_tree.active = true
 	animation_tree.set("parameters/Tree/BlendMove/blend_amount", 1.0)
 	animation_tree.set("parameters/Tree/WalkSpeed/scale", 8.0 / 12.0)
