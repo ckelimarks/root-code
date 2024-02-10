@@ -3,9 +3,9 @@
 [ext_resource type="Script" path="res://scripts/Hero.gd" id="1"]
 [ext_resource type="PackedScene" uid="uid://c1eksyt1bexd4" path="res://scenes/robots/Stan.tscn" id="2"]
 [ext_resource type="PackedScene" uid="uid://7mo00dv2g31f" path="res://scenes/weapons/Emp.tscn" id="3"]
-[ext_resource type="FontFile" uid="uid://dc8dkaxhhekhr" path="res://images/UIgraphics/DIN Condensed Bold.ttf" id="4_8kjeu"]
-[ext_resource type="AudioStream" uid="uid://bxicy412bk758" path="res://sounds/hpDownSound.mp3" id="211"]
-[ext_resource type="AudioStream" uid="uid://cwicowrxy2s7o" path="res://sounds/steps.mp3" id="212"]
+[ext_resource type="FontFile" uid="uid://db2tn7fvsyr5" path="res://images/UIgraphics/DIN Condensed Bold.ttf" id="4_8kjeu"]
+[ext_resource type="AudioStream" uid="uid://d1omjjp8x0l4v" path="res://sounds/hpDownSound.mp3" id="211"]
+[ext_resource type="AudioStream" uid="uid://b0hl7gw61lm3x" path="res://sounds/steps.mp3" id="212"]
 
 [node name="HeroBody" type="CharacterBody3D"]
 motion_mode = 1
