@@ -1,14 +1,13 @@
 extends CharacterBody3D
 
-var base_damage = 10
-var base_knock_back = 1
-
-var power = 0
-var damage = 0
-var knock_back = 10
-
+# ATTRIBUTES
 var slash_progress = 100
 var slash_duration = .75 # 0.75 seconds long animation
+var base_knock_back = 1
+var base_damage = 1
+var knock_back = 0
+var damage = 0
+var power = 0
 
 func _ready():
 	SoundManager.SwordSlash.pitch_scale = .6

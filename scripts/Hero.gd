@@ -1,14 +1,14 @@
 extends CharacterBody3D
 
+# ATTRIBUTES
 #stats
 var HP = 100.0
 var max_HP = 100.0
-var speed = 24.0
+var speed = 26.0
 var defense = 0
 var pushing_strength = 10.0
 var health_regen = 0.1
 var luck = 1
-
 #movement
 var angle = PI/2
 var target_angle = PI/2
@@ -16,45 +16,48 @@ var throttle = 0.0
 var dampening = 0.8
 var woke = false
 
-#local nodes
+# NODES AND SCENES
+#local
 @onready var HeroHealth       = $HealthNode/HeroHealth
 @onready var Emp              = $Emp
 @onready var OrbOrigin        = $OrbOrigin
-@onready var robot            = $Stan
-@onready var animation_player = $Stan/AnimationPlayer
-@onready var animation_tree   = $Stan/AnimationTree
-@onready var sword_collision  = $Stan/RobotArmature/Skeleton3D/BoneAttachment3D/Sword/CollisionShape3D
-
-# autoload these, and put these vars in their top-level scopes
-@onready var main_node = get_node("/root/Main")
-@onready var xp_bar = get_node("/root/Main/UICanvas/xpBar")
-@onready var you_died = get_node("/root/Main/UICanvas/youdied")
+@onready var Robot            = $Stan
+@onready var AnimPlayer       = $Stan/AnimationPlayer
+@onready var AnimTree         = $Stan/AnimationTree
+@onready var SwordCollision   = $Stan/RobotArmature/Skeleton3D/BoneAttachment3D/Sword/CollisionShape3D
+# autoload these?, and put these vars in their top-level scopes
+# external
+@onready var MainNode = get_node("/root/Main")
+@onready var XpBar = get_node("/root/Main/UICanvas/xpBar")
+@onready var YouDied = get_node("/root/Main/UICanvas/youdied")
 #@onready var game_over = get_node("/root/Main/GameOverSound")
-@onready var focusbutton = get_node("/root/Main/UICanvas/MarginContainer/VBoxContainer/Button1")
-@onready var music = get_node("/root/Main/Music")
+@onready var FocusButton = get_node("/root/Main/UICanvas/MarginContainer/VBoxContainer/Button1")
+@onready var Music = get_node("/root/Main/Music")
 
 #var Emp: 
 var Sword: CharacterBody3D  
-var sword_scene = preload("res://scenes/weapons/Sword.tscn")
+var SwordScene = preload("res://scenes/weapons/Sword.tscn")
 
 func _ready():
-	animation_tree.active = true
-	animation_tree.set("parameters/Tree/WalkSpeed/scale", 8.0 / 12.0)
-	animation_tree.set("parameters/Tree/BlendMove/blend_amount", 1)	
-	var robot_collider = robot.get_node("Collider")
-	$Collider.set_shape(robot_collider.shape)
-	$Collider.position = robot_collider.position
-	$Collider.rotation = robot_collider.rotation
-	global_position.z -= 2.5
+	AnimTree.active = true
+	AnimTree.set("parameters/Tree/WalkSpeed/scale", 8.0 / 12.0)
+	AnimTree.set("parameters/Tree/BlendMove/blend_amount", 1)	
+	var RobotCollider = Robot.get_node("Collider")
+	$Collider.set_shape(RobotCollider.shape)
+	$Collider.position = RobotCollider.position
+	$Collider.rotation = RobotCollider.rotation
+	global_position.y = 1
+	global_position.z = -1
 	
 func awaken():
-	Sword = sword_scene.instantiate()
+	Sword = SwordScene.instantiate()
 	WeaponManager.weapons.append(Sword)
-	var SwordHolder = robot.get_node("%SwordHolder")
+	var SwordHolder = Robot.get_node("%SwordHolder")
 	SwordHolder.add_child(Sword)
-	robot.get_node("%ThirdEye").set_visible(true)
-	woke = true	
-	#print_tree_properties(animation_tree, "")
+	HeroHealth.set_visible(true)
+	Robot.get_node("%ThirdEye").set_visible(true)
+	woke = true
+	#print_tree_properties(AnimTree, "")
 
 func print_tree_properties(object, path):
 	for property in object.get_property_list():
@@ -81,7 +84,7 @@ func updateMomentum():
 	angle = fposmod(angle + PI, 2*PI) - PI
 	target_angle = angle + fposmod(target_angle - angle + PI, 2*PI) - PI
 	angle = move_toward(angle, target_angle, PI/24)
-	robot.rotation.y = -angle + PI/2
+	Robot.rotation.y = -angle + PI/2
 
 var previous_horizontal_direction = 0
 var previous_vertical_direction = 0
@@ -137,17 +140,18 @@ func handleMovementAndCollisions(delta):
 		push_vector = collision.get_remainder().normalized() * pushing_strength * delta
 	
 	global_position += push_vector
+	global_position.y = 1
 
 func die():
-	music.stop()
+	Music.stop()
 	SoundManager.GameOverSound.play()
-	you_died.show()
+	YouDied.show()
 	#AudioServer.set_bus_effect_enabled(0, 0, true)
 	get_tree().paused = true
 	
 	#focusbutton.grab_focus()
 	#main_node.reset()
-	xp_bar.value = 0
+	XpBar.value = 0
 	
 func get_slash_curve(x):
 	# https://www.desmos.com/calculator/zh8hnxofkx -- cosine based
@@ -163,16 +167,17 @@ func update_animation_parameters():
 	var slash_progress = minf(Sword.slash_progress*slash_speed, 1)
 	var slash_duration = Sword.slash_duration
 	var slash_blend = get_slash_curve(slash_progress)
-	animation_tree.set("parameters/Tree/BlendMove/blend_amount", speed_percent)
-	animation_tree.set("parameters/Tree/BlendSlash/blend_amount", slash_blend)
-	animation_tree.set("parameters/Tree/BlendWalkSlash/blend_amount", slash_blend * speed_percent)
-	#animation_tree.set("parameters/Tree/Idle/time", x)
-	animation_tree.set("parameters/Tree/Slash/time", slash_progress * slash_duration)
-	#animation_tree.set("parameters/Tree/WalkHold/time", x)
-	animation_tree.set("parameters/Tree/WalkSlash/time", slash_progress * slash_duration)
-	animation_tree.set("parameters/Tree/WalkSpeed/scale", velocity.length() / 12)
+	AnimTree.set("parameters/Tree/BlendMove/blend_amount", speed_percent)
+	AnimTree.set("parameters/Tree/BlendSlash/blend_amount", slash_blend)
+	AnimTree.set("parameters/Tree/BlendWalkSlash/blend_amount", slash_blend * speed_percent)
+	#AnimTree.set("parameters/Tree/Idle/time", x)
+	AnimTree.set("parameters/Tree/Slash/time", slash_progress * slash_duration)
+	#AnimTree.set("parameters/Tree/WalkHold/time", x)
+	AnimTree.set("parameters/Tree/WalkSlash/time", slash_progress * slash_duration)
+	AnimTree.set("parameters/Tree/WalkSpeed/scale", velocity.length() / 12)
 	
 func position_healthbar():
+	return
 	# healthbar should be a ring on the floor or slightly off the floor like KLee said
 	HeroHealth.position = Cam.unproject_position(global_position)
 	HeroHealth.position.x -= HeroHealth.size.x / 2
