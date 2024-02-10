@@ -29,7 +29,7 @@ var woke = false
 @onready var main_node = get_node("/root/Main")
 @onready var xp_bar = get_node("/root/Main/UICanvas/xpBar")
 @onready var you_died = get_node("/root/Main/UICanvas/youdied")
-@onready var game_over = get_node("/root/Main/GameOverSound")
+#@onready var game_over = get_node("/root/Main/GameOverSound")
 @onready var focusbutton = get_node("/root/Main/UICanvas/MarginContainer/VBoxContainer/Button1")
 @onready var music = get_node("/root/Main/Music")
 
@@ -141,9 +141,9 @@ func handleMovementAndCollisions(delta):
 
 func die():
 	music.stop()
-	game_over.play()
+	SoundManager.GameOverSound.play()
 	you_died.show()
-	AudioServer.set_bus_effect_enabled(0, 0, true)
+	#AudioServer.set_bus_effect_enabled(0, 0, true)
 	get_tree().paused = true
 	
 	#focusbutton.grab_focus()

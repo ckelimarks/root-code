@@ -11,7 +11,7 @@ var slash_progress = 100
 var slash_duration = .75 # 0.75 seconds long animation
 
 func _ready():
-	$SwordSound.pitch_scale = .6
+	SoundManager.SwordSlash.pitch_scale = .6
 
 func slash():
 	$SwordSound.pitch_scale = randf_range(.6, 1.0)
@@ -21,7 +21,7 @@ func slash():
 	slash_progress = 0
 	var slash_sound_delay = 0.15
 	await get_tree().create_timer(slash_sound_delay).timeout
-	$SwordSound.play()
+	SoundManager.SwordSlash.play()
 
 func _process(delta):
 	# redo this, delta should not have a multiplier

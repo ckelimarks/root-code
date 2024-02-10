@@ -1,8 +1,8 @@
 [gd_scene load_steps=43 format=3 uid="uid://7mo00dv2g31f"]
 
 [ext_resource type="Script" path="res://scripts/weapons/Emp.gd" id="1_8yinj"]
-[ext_resource type="Texture2D" uid="uid://m6wdr1abieab" path="res://images/weapons/orb/electricorb.png" id="14_j3jmb"]
-[ext_resource type="AudioStream" uid="uid://bgqmjgpy1oerl" path="res://sounds/orbSound.mp3" id="15_56j0s"]
+[ext_resource type="AudioStream" uid="uid://bh3veopqfhldl" path="res://sounds/sfx/emp.mp3" id="3_8clak"]
+[ext_resource type="Texture2D" uid="uid://txqduaw0wvok" path="res://images/weapons/orb/electricorb.png" id="14_j3jmb"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_qumsj"]
 radius = 7.32062
@@ -287,5 +287,5 @@ sprite_frames = SubResource("48")
 animation = &"new_animation"
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer3D" parent="."]
-stream = ExtResource("15_56j0s")
+stream = ExtResource("3_8clak")
 volume_db = 19.242
