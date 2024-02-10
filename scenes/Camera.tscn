@@ -1,11 +1,50 @@
 [gd_scene load_steps=5 format=3 uid="uid://d0gl7cj4kkna2"]
 
-[ext_resource type="Material" path="res://shaders/Ground.tres" id="1"]
-[ext_resource type="Script" path="res://scripts/Ground.gd" id="2"]
+[ext_resource type="Material" path="res://shaders/unused/Ground.tres" id="1"]
 [ext_resource type="Script" path="res://scripts/Camera.gd" id="3"]
 
 [sub_resource type="QuadMesh" id="1"]
 size = Vector2(1024, 600)
+
+[sub_resource type="GDScript" id="GDScript_ea7ta"]
+script/source = "extends MeshInstance2D
+#
+#var ground_texture_size = Vector2() # Replace with your ground texture's actual size in pixels
+#
+#func _ready():
+#	update_mesh_size()
+#	var ground_texture = preload(\"res://images/ground/ground.jpg\")
+#	ground_texture_size = ground_texture.get_size() * Vector2(.75,.75)
+#	update_shader_params()
+#
+#func _process(_delta):
+#	update_mesh_size()
+#	update_shader_params()
+#
+#
+#func update_mesh_size():
+#	var screen_size = get_viewport_rect().size
+#	if mesh:
+#		mesh.size = screen_size*1.5
+#
+#func update_shader_params():
+#	var camera_pos = Cam.get_camera_screen_center()
+#
+#	# Adjust the position if the camera has smoothing or drag margins
+#	var drag_margin_h = Cam.get_drag_margin(MARGIN_LEFT) + Cam.get_drag_margin(MARGIN_RIGHT)
+#	var drag_margin_v = Cam.get_drag_margin(MARGIN_TOP) + Cam.get_drag_margin(MARGIN_BOTTOM)
+#	camera_pos += Cam.get_offset() * Vector2(drag_margin_h, drag_margin_v)
+#
+#	# Update shader parameters
+#	material.set_shader_param(\"camera_pos\", camera_pos)
+#	material.set_shader_param(\"texture_size\", ground_texture_size)
+#	material.set_shader_param(\"window_size\", get_viewport_rect().size)
+#
+#	#var hero = get_node_or_null(\"/root/Main/Hero\") # Adjust path
+#	#if hero:
+#	#	var character_pos = hero.global_position
+#	#	material.set_shader_param(\"hero_pos\", hero_pos)
+"
 
 [node name="Camera3D" type="Camera3D"]
 transform = Transform3D(1, 0, 0, 0, 0.819152, 0.573577, 0, -0.573577, 0.819152, 2.08165e-12, 70, 100)
@@ -22,4 +61,4 @@ z_index = -4096
 z_as_relative = false
 material = ExtResource("1")
 mesh = SubResource("1")
-script = ExtResource("2")
+script = SubResource("GDScript_ea7ta")

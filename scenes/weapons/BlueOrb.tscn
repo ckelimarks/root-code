@@ -1,8 +1,8 @@
-[gd_scene load_steps=31 format=2]
+[gd_scene load_steps=31 format=3]
 
-[ext_resource path="res://scripts/BlueOrb.gd" type="Script" id=1]
-[ext_resource path="res://images/weapons/orb/electricorb.png" type="Texture2D" id=2]
-[ext_resource path="res://sounds/orbSound.mp3" type="AudioStream" id=3]
+[ext_resource type="Script" path="res://scripts/weapons/BlueOrb.gd" id="1"]
+[ext_resource type="Texture2D" uid="uid://m6wdr1abieab" path="res://images/weapons/orb/electricorb.png" id="2"]
+[ext_resource type="AudioStream" uid="uid://bgqmjgpy1oerl" path="res://sounds/orbSound.mp3" id="3"]
 
 [sub_resource type="AtlasTexture" id=49]
 flags = 4

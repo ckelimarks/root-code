@@ -18,9 +18,9 @@ config/icon="res://icon.png"
 [autoload]
 
 Hero="*res://scenes/Hero.tscn"
-EnemyManager="*res://scripts/EnemyManager.gd"
-WeaponManager="*res://scenes/WeaponManager.tscn"
-EcologyManager="*res://scenes/EcologyManager.tscn"
+EnemyManager="*res://scripts/managers/EnemyManager.gd"
+WeaponManager="*res://scenes/managers/WeaponManager.tscn"
+EcologyManager="*res://scenes/managers/EcologyManager.tscn"
 Cam="*res://scenes/Camera.tscn"
 Mainframe="*res://scripts/Mainframe.gd"
 

@@ -1,7 +1,9 @@
 extends Node3D
 
-var enemy_scene = preload("res://scenes/Enemy.tscn")
-var robot_types = {
+var EnemyScene = preload("res://scenes/Enemy.tscn")
+var Platoon    = preload("res://scenes/story/Platoon.tscn").instantiate()
+
+var RobotTypes = {
 	"DuneDrone": preload("res://scenes/robots/DuneDrone.tscn"),
 	"YellowBot": preload("res://scenes/robots/YellowBot.tscn"),
 	"Stan":      preload("res://scenes/robots/Stan.tscn"),
@@ -11,37 +13,32 @@ var enemy_spawn_cooldown = 1
 var enemy_spawn_heat = 0
 var enemies = []
 var rogue_alert_on = false
-var platoon_exists = false
 
+func get_spawn_rect():
+	var view_size = Vector2(get_viewport().size)
+	var aspect_ratio = view_size.x / view_size.y
+	var x = Cam.size/2 * aspect_ratio
+	var z = Cam.size/2 / -Cam.rotation.x
+	var cam_center = Cam.global_position - Cam.initial_offset
+	return Rect2(Vector2(cam_center.x-x, cam_center.z-z), Vector2(x*2, z*2))
+
+func unspawn_enemy(enemy):
+	if (!EnemyManager.enemies.has(enemy)): return
+	EnemyManager.enemies.erase(enemy)
+	enemy.queue_free()
+	
 func spawn_enemy(enemy_type):
 	# Set the enemy's position and add it to the scene
-	var enemy_instance = enemy_scene.instantiate()
-	enemy_instance.robot = robot_types[enemy_type].instantiate()
+	var enemy_instance = EnemyScene.instantiate()
+	enemy_instance.robot = RobotTypes[enemy_type].instantiate()
 	enemy_instance.add_to_group("enemies")
 	add_child(enemy_instance)
 	enemies.append(enemy_instance)
 	return enemy_instance
 	
 func _process(delta):
-	platoon(delta)
+	Platoon.update_platoon(delta)
 	if rogue_alert_on: rogue_alert(delta)
-	
-func platoon(delta):
-	#this should spawn / unspawn as they go on off screen
-	if !platoon_exists:
-		for x in range(-10, 10):
-			for z in range(-10, 10):
-				if x == 0 && z == 0: continue
-				var new_enemy = spawn_enemy("Stan")
-				new_enemy.global_position = Vector3(x, 0, z) * 10
-				new_enemy.behaviour = "march"
-				new_enemy.speed = 8.0
-				var animation_tree = new_enemy.robot.get_node("AnimationTree")
-				animation_tree.active = true
-				animation_tree.set("parameters/Tree/BlendMove/blend_amount", 1.0)
-				animation_tree.set("parameters/Tree/WalkSpeed/scale", 8.0 / 12.0)
-				
-		platoon_exists = true
 
 func rogue_alert(delta):
 	enemy_spawn_heat -= delta

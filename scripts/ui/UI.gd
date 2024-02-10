@@ -2,19 +2,19 @@ extends CanvasLayer
 
 var upgrades = [
 	{
-		"image": preload("res://images/UIgraphics/upgradePanel/sword.jpg"),
+		"image": preload("res://images/uigraphics/upgradePanel/sword.jpg"),
 		"name": "ELECTRIC SWORD",
 		"description": "Increases sword damage",
 		"callback": upgrade_sword
 	},
 	{
-		"image": preload("res://images/UIgraphics/upgradePanel/health.jpg"),
+		"image": preload("res://images/uigraphics/upgradePanel/health.jpg"),
 		"name": "MAX HP",
 		"description": "Increase your max health by 5%",
 		"callback": upgrade_hp
 	},
 	{
-		"image": preload("res://images/UIgraphics/upgradePanel/emp.jpg"),
+		"image": preload("res://images/uigraphics/upgradePanel/emp.jpg"),
 		"name": "EMP",
 		"description": "Increase your EMP pulse‘s radius by 2%",
 		"callback": upgrade_emp

@@ -3,7 +3,7 @@ extends CharacterBody3D
 #stats
 var HP = 100.0
 var max_HP = 100.0
-var speed = 24.0
+var speed = 26.0
 var defense = 0
 var pushing_strength = 10.0
 var health_regen = 0.1
@@ -45,15 +45,16 @@ func _ready():
 	$Collider.set_shape(robot_collider.shape)
 	$Collider.position = robot_collider.position
 	$Collider.rotation = robot_collider.rotation
-	global_position.z -= 2.5
+	global_position.z -= 1
 	
 func awaken():
 	Sword = sword_scene.instantiate()
 	WeaponManager.weapons.append(Sword)
 	var SwordHolder = robot.get_node("%SwordHolder")
 	SwordHolder.add_child(Sword)
+	HeroHealth.set_visible(true)
 	robot.get_node("%ThirdEye").set_visible(true)
-	woke = true	
+	woke = true
 	#print_tree_properties(animation_tree, "")
 
 func print_tree_properties(object, path):
@@ -173,6 +174,7 @@ func update_animation_parameters():
 	animation_tree.set("parameters/Tree/WalkSpeed/scale", velocity.length() / 12)
 	
 func position_healthbar():
+	return
 	# healthbar should be a ring on the floor or slightly off the floor like KLee said
 	HeroHealth.position = Cam.unproject_position(global_position)
 	HeroHealth.position.x -= HeroHealth.size.x / 2
