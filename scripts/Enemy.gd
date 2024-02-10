@@ -28,7 +28,8 @@ func _ready():
 	$Collider.set_shape(robot_collider.shape)
 	$Collider.position = robot_collider.position
 	$Collider.rotation = robot_collider.rotation
-
+	SoundManager.MarchSound.pitch_scale = .7
+	SoundManager.MarchSound.play()
 	#robot_animation.play("Take 001")
 	#modulate = enemy_color
 	#$CollisionShape3D.radius = stan.collisionshape.radius
@@ -45,6 +46,7 @@ func _physics_process(delta):
 	var direction: Vector3
 	if behaviour == "attack":
 		direction = (gap_vector).normalized()
+		SoundManager.MarchSound.stop()
 	elif behaviour == "march":
 		direction = Vector3(0, 0, 1)
 		
@@ -53,6 +55,7 @@ func _physics_process(delta):
 	var start_position = global_position
 	
 	if HP > 0:
+		
 		var real_gap_vector = gap_vector #* unISO #de-isometricify before using the angle
 		var angle = atan2(real_gap_vector.y, real_gap_vector.x)
 		var angle_dir = int(angle / (PI / 4)) % 8
