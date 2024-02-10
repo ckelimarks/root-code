@@ -1,6 +1,7 @@
 extends Node3D
 
 func _ready():
+	SoundManager.AtmosphereMusic.play()
 	pass
 
 func reset():
