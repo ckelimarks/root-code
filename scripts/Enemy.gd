@@ -73,8 +73,8 @@ func _physics_process(delta):
 		
 		if weapons.has(collider):
 			behaviour = "attack"
-			$MetalStrike.play()
-			$MetalStrike.volume_db = -40 + collider.power * 3
+			SoundManager.EnemyStrike.play()
+			SoundManager.EnemyStrike.volume_db = -40 + collider.power * 3
 			HP -= collider.damage
 			momentum += (global_position - Hero.global_position).normalized() * sqrt(collider.knock_back / 2)
 			glow()
