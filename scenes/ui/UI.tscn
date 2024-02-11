@@ -13,7 +13,7 @@ spacing_glyph = 5
 process_mode = 3
 script = ExtResource("2")
 
-[node name="xpBar" type="ProgressBar" parent="."]
+[node name="XpBar" type="ProgressBar" parent="."]
 modulate = Color(1, 1, 1, 0.666667)
 anchors_preset = 5
 anchor_left = 0.5
@@ -74,7 +74,7 @@ layout_mode = 2
 [node name="Button3" parent="UpgradeModal/ButtonsMargin/VBoxContainer" instance=ExtResource("4_qfrau")]
 layout_mode = 2
 
-[node name="youdied" type="MarginContainer" parent="."]
+[node name="YouDied" type="MarginContainer" parent="."]
 visible = false
 anchors_preset = 8
 anchor_left = 0.5
@@ -86,15 +86,15 @@ offset_top = -180.0
 offset_right = 512.0
 offset_bottom = 180.0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="youdied"]
+[node name="VBoxContainer" type="VBoxContainer" parent="YouDied"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="youdied/VBoxContainer"]
+[node name="Label" type="Label" parent="YouDied/VBoxContainer"]
 layout_mode = 2
 text = "YOU DIED"
 
-[node name="restartbutton" type="Button" parent="youdied/VBoxContainer"]
+[node name="RestartButton" type="Button" parent="YouDied/VBoxContainer"]
 layout_mode = 2
 text = "RESTART?"
 
-[connection signal="pressed" from="youdied/VBoxContainer/restartbutton" to="." method="_on_restartbutton_pressed"]
+[connection signal="pressed" from="YouDied/VBoxContainer/RestartButton" to="." method="_on_restartbutton_pressed"]

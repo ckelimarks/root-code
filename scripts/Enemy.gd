@@ -39,7 +39,7 @@ func _physics_process(delta):
 	if is_dead:
 		return
 		
-	global_position.y = 1
+	global_position.y = 0
 	
 	#distance_to_hero = global_position.distance_to(Hero.global_position)
 	var gap_vector = Hero.global_position - global_position

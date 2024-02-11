@@ -36,7 +36,6 @@ func _on_body_entered(body):
 		XpBar.value = XpBar.value + 1
 		
 	if XpBar.value == 10:
-		
 		get_tree().paused = true
 		LevelUp.show()
 		#FocusButton.grab_focus()

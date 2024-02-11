@@ -1,38 +1,13 @@
 extends Node
-#
-## Preload the ruin scenes for later instantiation
-#var ruin_scenes = [
-#	preload("res://scenes/ruins/ruins005.tscn"),
-#	preload("res://scenes/ruins/ruins006.tscn"),
-#	preload("res://scenes/ruins/ruins007.tscn"),
-#	preload("res://scenes/ruins/ruins008.tscn"),
-#	preload("res://scenes/ruins/ruins009.tscn"),
-#	preload("res://scenes/ruins/ruins010.tscn"),
-#	#preload("res://scenes/ruins/ruins011.tscn"),
-#	preload("res://scenes/ruins/ruins012.tscn"),
-#	#preload("res://scenes/ruins/ruins013.tscn"),
-#	preload("res://scenes/ruins/ruins014.tscn"),
-#	#preload("res://scenes/ruins/ruins015.tscn"),
-#	preload("res://scenes/ruins/ruins016.tscn"),
-#	preload("res://scenes/ruins/ruins017.tscn"),
-#	#preload("res://scenes/ruins/ruins018.tscn")
-#]
-#
-## Array to store ruin objects
-#var ruins = []
-#
-#func _ready():
-#	# Create 1000 ruin objects with random positions and types
-#	for r in range(0):
-#		var ruin_object = {
-#			"position": Vector3(rand_range(-10000, 10000), 0, rand_range(-10000, 10000)),
-#			"type": randi() % ruin_scenes.size(),
-#			"active": false,
-#			"rect": Rect2()
-#		}
-#		# Define the bounding rect for each ruin based on its position
-#		ruin_object.rect = Rect2(ruin_object.position, Vector2(200, 200))
-#		ruins.append(ruin_object)
+
+# NODES AND SCENES
+var Column = preload("res://scenes/ecology/Column.tscn")
+
+func _ready():
+	for c in range(10):
+		var new_column = Column.instantiate()
+		new_column.global_position = Vector3(-30-50*c, 50, 100*c)
+		add_child(new_column)
 #
 #func _process(delta):
 ##	# Define the maximum view rectangle considering the camera's position

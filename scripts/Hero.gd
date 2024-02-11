@@ -28,8 +28,8 @@ var woke = false
 # autoload these?, and put these vars in their top-level scopes
 # external
 @onready var MainNode = get_node("/root/Main")
-@onready var XpBar = get_node("/root/Main/UICanvas/xpBar")
-@onready var YouDied = get_node("/root/Main/UICanvas/youdied")
+@onready var XpBar = get_node("/root/Main/UICanvas/XpBar")
+@onready var YouDied = get_node("/root/Main/UICanvas/YouDied")
 #@onready var game_over = get_node("/root/Main/GameOverSound")
 @onready var FocusButton = get_node("/root/Main/UICanvas/MarginContainer/VBoxContainer/Button1")
 @onready var Music = get_node("/root/Main/Music")
@@ -46,7 +46,6 @@ func _ready():
 	$Collider.set_shape(RobotCollider.shape)
 	$Collider.position = RobotCollider.position
 	$Collider.rotation = RobotCollider.rotation
-	global_position.y = 1
 	global_position.z = -1
 	
 func awaken():
@@ -74,6 +73,7 @@ func _physics_process(delta):
 	update_animation_parameters()
 	position_healthbar()
 	if !woke: global_position += Vector3(0, 0, delta*8.0)
+	global_position.y = 0
 
 func updateMomentum():
 	throttle *= .1

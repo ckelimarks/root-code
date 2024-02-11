@@ -4,7 +4,7 @@ extends Node
 var base_knock_back = 1
 var base_damage = 1 # damage dealt at the peak of the power curve
 var knock_back = 0
-var cooldown = 1 # how long it takes to cool off
+var cooldown = 5 # how long it takes to cool off
 var damage = 0
 var power = 0
 var heat = 0

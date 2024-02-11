@@ -4,7 +4,7 @@ extends CharacterBody3D
 var slash_progress = 100
 var slash_duration = .75 # 0.75 seconds long animation
 var base_knock_back = 1
-var base_damage = 1
+var base_damage = 10
 var knock_back = 0
 var damage = 0
 var power = 0

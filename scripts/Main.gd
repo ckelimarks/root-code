@@ -2,6 +2,7 @@ extends Node3D
 
 func _ready():
 	SoundManager.AtmosphereMusic.play()
+	$Ground.global_position.y = -$Ground.mesh.size.y/2
 	pass
 
 func reset():

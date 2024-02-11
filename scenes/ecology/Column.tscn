@@ -1,0 +1,37 @@
+[gd_scene load_steps=5 format=3 uid="uid://bstbiux4uhr63"]
+
+[ext_resource type="Texture2D" uid="uid://35r6hmtlpir8" path="res://images/textures/New_Concrete/New_Concrete_DIFF.jpg" id="1_e7l1i"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_2fqcc"]
+height = 100.0
+radius = 12.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ht58w"]
+albedo_texture = ExtResource("1_e7l1i")
+uv1_scale = Vector3(0.01, 0.01, 0.01)
+uv1_triplanar = true
+uv1_world_triplanar = true
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_4hink"]
+material = SubResource("StandardMaterial3D_ht58w")
+top_radius = 10.0
+bottom_radius = 10.0
+height = 100.0
+
+[node name="Column" type="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23.259, 50, 16.975)
+collision_layer = 7
+collision_mask = 7
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CylinderShape3D_2fqcc")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("CylinderMesh_4hink")
+skeleton = NodePath("../..")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.1057, -29.7364, -0.000499725)
+light_energy = 10.0
+shadow_enabled = true
+omni_range = 65.9424
