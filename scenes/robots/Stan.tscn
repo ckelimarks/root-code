@@ -5492,7 +5492,7 @@ mesh = SubResource("ArrayMesh_fjlww")
 skin = SubResource("Skin_6inia")
 
 [node name="BoneAttachment3D" type="BoneAttachment3D" parent="RobotArmature/Skeleton3D"]
-transform = Transform3D(-0.513998, -0.410387, -0.753252, -0.818151, -0.0293156, 0.574256, -0.257749, 0.91144, -0.320691, -2.28311, 3.58735, -0.0162425)
+transform = Transform3D(-0.513998, -0.410388, -0.753252, -0.818151, -0.0293158, 0.574256, -0.25775, 0.91144, -0.320691, -2.28311, 3.58735, -0.0162421)
 bone_name = "PalmI.R"
 bone_idx = 29
 
@@ -5501,7 +5501,7 @@ unique_name_in_owner = true
 transform = Transform3D(0.0707107, -3.72529e-09, 0.0707108, 0.0707107, -3.72529e-09, -0.0707108, 3.72529e-09, 0.1, 1.86265e-09, 0, 0, 0)
 
 [node name="BoneAttachment3D2" type="BoneAttachment3D" parent="RobotArmature/Skeleton3D"]
-transform = Transform3D(0.999532, 0.014619, -0.0268854, -0.0132718, 0.99868, 0.0496197, 0.0275753, -0.0492396, 0.998406, 0.0600864, 5.4728, -0.261662)
+transform = Transform3D(0.999532, 0.0146189, -0.0268853, -0.0132718, 0.99868, 0.0496193, 0.0275752, -0.0492392, 0.998406, 0.0600864, 5.4728, -0.261661)
 bone_name = "Head"
 bone_idx = 4
 

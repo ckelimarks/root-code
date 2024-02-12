@@ -1,10 +1,10 @@
 extends Node
 
 # ATTRIBUTES
-var base_knock_back = 1
+var base_knock_back = 2
 var base_damage = 1 # damage dealt at the peak of the power curve
 var knock_back = 0
-var cooldown = 10 # how long it takes to cool off
+var cooldown = 1 # how long it takes to cool off
 var damage = 0
 var power = 0
 var heat = 0
@@ -14,8 +14,8 @@ var heat = 0
 func _ready():
 	connect("body_entered", _on_body_entered)
 	$Collider.disabled = true
-	$GroundSprite.modulate = Color(1,.5,.3,.5)
-	$AirSprite.modulate    = Color(1,.5,.3,.1)
+	$GroundSprite.modulate = Color(1,.5,.3,.8)
+	$AirSprite.modulate    = Color(1,.5,.3,.4)
 
 var delay = 0
 func _physics_process(delta):
@@ -39,8 +39,11 @@ func _physics_process(delta):
 func _on_body_entered(target):
 	if target.is_in_group("enemies"):  # Assuming enemies are in a specific group
 		# Apply the EMP effect to the enemy
-		target.momentum += (target.global_position - Hero.global_position).normalized() * (knock_back / 5)
-		target.HP -= damage  # Assuming the EMP node has a damage property
+		var gap = target.global_position - Hero.global_position
+		var power_falloff = Hero.Emp.scale.x / gap.length()
+		#print([gap.length(), power_falloff, Hero.Emp.scale.x])
+		target.momentum += (gap).normalized() * (knock_back * power_falloff)
+		target.HP -= damage * power_falloff
 		if target.HP <= 0:
 			target.dead()
 

@@ -474,17 +474,17 @@ modulate = Color(1, 1, 1, 0.627451)
 sprite_frames = SubResource("48")
 animation = &"new_animation"
 
+[node name="AirSprite" type="AnimatedSprite3D" parent="."]
+transform = Transform3D(8, 0, 0, 0, 6.55322, 4.58861, 0, -4.58861, 6.55322, 0, 5.60867, 5.59583)
+modulate = Color(1, 1, 1, 0.627451)
+sprite_frames = SubResource("SpriteFrames_mfnmt")
+
 [node name="AirSprite__" type="AnimatedSprite3D" parent="."]
 transform = Transform3D(8, 0, 0, 0, 6.55322, 4.58861, 0, -4.58861, 6.55322, 0, 7.53235, 5.59583)
 visible = false
 modulate = Color(1, 1, 1, 0.627451)
 sprite_frames = SubResource("48")
 animation = &"new_animation"
-
-[node name="AirSprite" type="AnimatedSprite3D" parent="."]
-transform = Transform3D(8, 0, 0, 0, 6.55322, 4.58861, 0, -4.58861, 6.55322, 0, 5.60867, 5.59583)
-modulate = Color(1, 1, 1, 0.627451)
-sprite_frames = SubResource("SpriteFrames_mfnmt")
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource("3_8clak")

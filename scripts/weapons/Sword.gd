@@ -15,7 +15,8 @@ func _ready():
 func slash():
 	$SwordSound.pitch_scale = randf_range(.6, 1.0)
 	
-	if power > .05: return # don't allow a new slash in the middle of a swing
+	# don't allow a new slash in the middle of a swing
+	if slash_progress < slash_duration: return
 	
 	slash_progress = 0
 	var slash_sound_delay = 0.15
