@@ -7,7 +7,7 @@ var max_HP = 100.0
 var speed = 26.0
 var defense = 0
 var pushing_strength = 10.0
-var health_regen = 0.1
+var health_regen = 1
 var luck = 1
 #movement
 var angle = PI/2
@@ -72,6 +72,8 @@ func _physics_process(delta):
 	handleMovementAndCollisions(delta)
 	update_animation_parameters()
 	position_healthbar()
+	HP = max(max_HP, HP + health_regen * delta)
+	HeroHealth.value = HP / max_HP * 100	
 	if !woke: global_position += Vector3(0, 0, delta*8.0)
 	global_position.y = 0
 
@@ -131,7 +133,6 @@ func handleMovementAndCollisions(delta):
 			$ImpactSound.play()
 			HP -= collider.damage
 			#sprite_node.modulate = Color(1, 0, 0, 1)
-			HeroHealth.value = HP / max_HP * 100
 			if HP <= 0:
 				die()
 				return

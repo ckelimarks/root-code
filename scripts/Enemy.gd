@@ -34,6 +34,9 @@ func _ready():
 	$Collider.rotation = RobotCollider.rotation
 	SoundManager.MarchSound.pitch_scale = .7
 	SoundManager.MarchSound.play()
+	#for weapon in weapons:
+		#if weapon is Area2D:  # Or 'Area' for 3D games
+			#weapon.connect("effect", self, "_on_weapon_effect")
 
 func _physics_process(delta):
 	if is_dead:
@@ -54,7 +57,6 @@ func _physics_process(delta):
 	var start_position = global_position
 	
 	if HP > 0:
-		
 		var real_gap_vector = gap_vector #* unISO #de-isometricify before using the angle
 		var angle = atan2(real_gap_vector.y, real_gap_vector.x)
 		var angle_dir = int(angle / (PI / 4)) % 8
@@ -74,7 +76,7 @@ func _physics_process(delta):
 			EnemyManager.rogue_alert_on = true
 		
 		if weapons.has(collider):
-			behaviour = "attack"
+			#collider.do_your_thing(self)			
 			SoundManager.EnemyStrike.play()
 			SoundManager.EnemyStrike.volume_db = -12 + collider.power * 3
 			HP -= collider.damage
@@ -86,6 +88,14 @@ func _physics_process(delta):
 		push_vector = collision.get_remainder().normalized() * pushing_strength * delta
 	
 	global_position += push_vector + momentum
+
+
+#func _on_weapon_effect(weapon):
+	## Handle the effect here, e.g., apply damage or a debuff
+	## This is a generic handler; you can customize it based on the weapon's properties
+	#if weapon.has_method("apply_effect"):
+		#print(0)
+		#weapon.apply_effect(self)
 
 func glow():
 	pass

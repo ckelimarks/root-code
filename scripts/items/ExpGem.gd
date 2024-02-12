@@ -3,6 +3,7 @@ extends Area3D
 # ATTRIBUTES
 var recoil = Vector3.ZERO
 var touched = false
+var upgrade_threshold = 1
 
 # NODES AND SCENES
 @onready var GemSprite = $GemSprite
@@ -35,7 +36,7 @@ func _on_body_entered(body):
 		$AudioStreamPlayer.connect("finished", Callable(self, "_on_audio_finished"))
 		XpBar.value = XpBar.value + 1
 		
-	if XpBar.value == 10:
+	if XpBar.value == upgrade_threshold:
 		get_tree().paused = true
 		LevelUp.show()
 		#FocusButton.grab_focus()
