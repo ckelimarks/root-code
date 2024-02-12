@@ -61,6 +61,8 @@ func check_and_spawn_unspawn(position: Vector2, is_spawn: bool):
 	else:
 		# Check if outside spawn area and currently spawned
 		if platoon_occupied.has(grid_position):
+			if !platoon_occupied[grid_position]: return
+			if platoon_occupied[grid_position].behaviour != "march": return
 			unspawn_enemy(platoon_occupied[grid_position])
 			platoon_occupied.erase(grid_position)
 

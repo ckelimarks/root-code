@@ -72,6 +72,8 @@ func _physics_process(delta):
 	handleMovementAndCollisions(delta)
 	update_animation_parameters()
 	position_healthbar()
+	HP = min(max_HP, HP + health_regen * delta)
+	HeroHealth.value = HP / max_HP * 100	
 	if !woke: global_position += Vector3(0, 0, delta*8.0)
 	global_position.y = 0
 
@@ -130,8 +132,8 @@ func handleMovementAndCollisions(delta):
 		if collider.is_in_group("enemies"):
 			$ImpactSound.play()
 			HP -= collider.damage
+			print(HP)
 			#sprite_node.modulate = Color(1, 0, 0, 1)
-			HeroHealth.value = HP / max_HP * 100
 			if HP <= 0:
 				die()
 				return

@@ -1,10 +1,11 @@
-[gd_scene load_steps=10 format=3 uid="uid://bnnbjmrqxwrhl"]
+[gd_scene load_steps=12 format=3 uid="uid://bnnbjmrqxwrhl"]
 
 [ext_resource type="Script" path="res://scripts/weapons/Sword.gd" id="1_wmrv1"]
 [ext_resource type="Texture2D" uid="uid://cj62khqgcqors" path="res://models/jade_sword/textures/MAT_Lowpoly_baseColor.png" id="2_yiuox"]
 [ext_resource type="Texture2D" uid="uid://cghclpi6buo46" path="res://models/jade_sword/textures/MAT_Lowpoly_metallicRoughness.png" id="3_i4p1k"]
 [ext_resource type="Texture2D" uid="uid://4pdvg47uta24" path="res://models/jade_sword/textures/MAT_Lowpoly_normal.png" id="4_dg1kg"]
 [ext_resource type="AudioStream" uid="uid://cotulhxlwiqpn" path="res://sounds/sfx/sword_slash.mp3" id="5_uk3jy"]
+[ext_resource type="Shader" uid="uid://dh28ksjs573mc" path="res://shaders/sword.tres" id="6_b01ja"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_mkxix"]
 radius = 4.0
@@ -21,11 +22,12 @@ roughness_texture = ExtResource("3_i4p1k")
 roughness_texture_channel = 1
 emission_enabled = true
 emission = Color(0, 0.968627, 0.682353, 1)
-emission_energy_multiplier = 5.14
+emission_energy_multiplier = 5.0
 normal_enabled = true
 normal_texture = ExtResource("4_dg1kg")
 ao_enabled = true
 ao_texture = ExtResource("3_i4p1k")
+grow_amount = 10.0
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_1n80s"]
 _surfaces = [{
@@ -61,6 +63,11 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_1n80s")
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_atu75"]
+render_priority = 0
+shader = ExtResource("6_b01ja")
+shader_parameter/alpha = null
+
 [node name="Sword" type="CharacterBody3D"]
 collision_layer = 2
 collision_mask = 2
@@ -80,3 +87,12 @@ skeleton = NodePath("")
 [node name="SwordSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("5_uk3jy")
 volume_db = -26.458
+
+[node name="CSGTorus3D" type="CSGTorus3D" parent="."]
+transform = Transform3D(0.0871558, 0, 0.996195, 0, 0.1, 0, -0.996195, 0, 0.0871558, 0, -4, 0)
+transparency = 0.5
+inner_radius = 27.8738
+outer_radius = 48.6075
+sides = 36
+ring_sides = 12
+material = SubResource("ShaderMaterial_atu75")
