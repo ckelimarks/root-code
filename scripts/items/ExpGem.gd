@@ -3,7 +3,7 @@ extends Area3D
 # ATTRIBUTES
 var recoil = Vector3.ZERO
 var touched = false
-var upgrade_threshold = 1
+var upgrade_threshold = 10
 
 # NODES AND SCENES
 @onready var GemSprite = $GemSprite

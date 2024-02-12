@@ -31,12 +31,12 @@ func _process(delta):
 	damage = power * base_damage
 	knock_back = power * base_knock_back
 	$Collider.shape.radius = power * 21.0 + 4.0
-	if slash_progress > slash_duration/2:
-		$CSGTorus3D.material.set_shader_parameter("alpha", 1-power)
+	#if slash_progress > slash_duration/2:
+	$CSGTorus3D.material.set_shader_parameter("alpha", 1-power)
 	
 func get_power_curve(x):
-	# https://www.desmos.com/calculator/dsgzltgkhc -- cosine based
-	var y = (1 - cos(2*PI*x)) / 2
-	if x < 0 or x > 1: y = 0
+	# https://www.desmos.com/calculator/bbsgyy968m -- cosine based
+	var y = (1 - cos(4*PI*x)) / 2
+	if x < 0.5 or x > 1: y = 0
 	return y
 
