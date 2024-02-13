@@ -5,6 +5,7 @@ var base_knock_back = 1
 var base_damage = 1 # damage dealt at the peak of the power curve
 var knock_back = 0
 var cooldown = 10 # how long it takes to cool off
+var enabled = false
 var damage = 0
 var power = 0
 var heat = 0
@@ -15,14 +16,14 @@ var heat = 0
 func _ready():
 	connect("body_entered", _on_body_entered)
 	$Collider.disabled = true
-	$GroundSprite.modulate = Color(1,.5,.3,.8)
-	$AirSprite.modulate    = Color(1,.5,.3,.4)
+	$GroundSprite.modulate = Color(1, 1, 1, 1.0)
+	$AirSprite.modulate    = Color(1, 1, 1, 0.2)
 
 var delay = 0
 func _physics_process(delta):
+	if !enabled: return
 	delay += delta
 	if delay < 2: return
-	#return # use return here to disable for testing
 	heat -= delta
 	power = heat/cooldown
 	damage = base_damage * power

@@ -34,7 +34,6 @@ var woke = false
 @onready var FocusButton = get_node("/root/Main/UICanvas/MarginContainer/VBoxContainer/Button1")
 @onready var Music = get_node("/root/Main/Music")
 
-#var Emp: 
 var Sword: CharacterBody3D  
 var SwordScene = preload("res://scenes/weapons/Sword.tscn")
 
@@ -46,15 +45,16 @@ func _ready():
 	$Collider.set_shape(RobotCollider.shape)
 	$Collider.position = RobotCollider.position
 	$Collider.rotation = RobotCollider.rotation
-	global_position.z = -1
 	
 func awaken():
 	Sword = SwordScene.instantiate()
 	WeaponManager.weapons.append(Sword)
 	var SwordHolder = Robot.get_node("%SwordHolder")
 	SwordHolder.add_child(Sword)
-	HealthBar.set_visible(true)
+	$HealthRing.visible = true
+	#HealthBar.set_visible(true)
 	Robot.get_node("%ThirdEye").set_visible(true)
+	Emp.enabled = true
 	woke = true
 	#print_tree_properties(AnimTree, "")
 
@@ -74,8 +74,7 @@ func _physics_process(delta):
 	HP = min(max_HP, HP + health_regen * delta)
 	if !woke: global_position += Vector3(0, 0, delta*8.0)
 	global_position.y = 0
-	$HealthRing.material.set_shader_parameter("health", HP/max_HP)
-	#print($HealthRing.material)
+	$HealthRing/Red.material.set_shader_parameter("health", HP/max_HP)
 
 func updateMomentum():
 	throttle *= .1

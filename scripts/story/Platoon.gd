@@ -32,7 +32,7 @@ func update_platoon(delta):
 func process_area(rect: Rect2):
 	for y in range(rect.position.y, rect.position.y + rect.size.y, platoon_spacing.y):
 		for x in range(rect.position.x, rect.position.x + rect.size.x, platoon_spacing.x):
-			if Vector2(x, y).snapped(platoon_spacing) == Vector2(0, 0): 
+			if Vector2(x, y).snapped(platoon_spacing) == Vector2(0, 0):
 				platoon_occupied[Vector2(x, y)] = Hero
 				platoon_holes[Vector2(x, y)] = true
 			else:

@@ -39,7 +39,6 @@ scale = Vector2(0.5, 0.5)
 script = ExtResource("4_wq24w")
 
 [node name="Black" type="ColorRect" parent="HealthBar"]
-visible = false
 layout_mode = 0
 offset_left = -50.0
 offset_top = 30.0
@@ -48,7 +47,6 @@ offset_bottom = 40.0
 color = Color(0, 0, 0, 1)
 
 [node name="Red" type="ColorRect" parent="HealthBar"]
-visible = false
 layout_mode = 0
 offset_left = -50.0
 offset_top = 30.0
@@ -56,14 +54,10 @@ offset_right = 50.0
 offset_bottom = 40.0
 color = Color(1, 0, 0, 1)
 
-[node name="WalkingSound" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("212")
-volume_db = -6.667
+[node name="HealthRing" type="Node3D" parent="."]
+visible = false
 
-[node name="ImpactSound" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("211")
-
-[node name="HealthRingBlack" type="CSGTorus3D" parent="."]
+[node name="Black" type="CSGTorus3D" parent="HealthRing"]
 transform = Transform3D(1, 0, 0, 0, 0.01, 0, 0, 0, 1, 0, 0.199, 0)
 layers = 2
 inner_radius = 2.0
@@ -72,7 +66,7 @@ sides = 36
 ring_sides = 12
 material = SubResource("ShaderMaterial_ombq4")
 
-[node name="HealthRing" type="CSGTorus3D" parent="."]
+[node name="Red" type="CSGTorus3D" parent="HealthRing"]
 transform = Transform3D(1, 0, 0, 0, 0.1, 0, 0, 0, 1, 0, 0.2, 0)
 layers = 2
 inner_radius = 2.0
@@ -80,3 +74,10 @@ outer_radius = 2.2
 sides = 36
 ring_sides = 12
 material = SubResource("ShaderMaterial_cpgow")
+
+[node name="WalkingSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("212")
+volume_db = -6.667
+
+[node name="ImpactSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("211")
