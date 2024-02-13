@@ -19,7 +19,6 @@ func reset():
 	# reset/respawn Hero
 	Hero.max_HP = Mainframe.saved_attributes.Hero.max_HP
 	Hero.HP = Hero.max_HP
-	Hero.HeroHealth.value = Hero.HP
 	Hero.speed = Mainframe.saved_attributes.Hero.speed
 	Hero.defense = Mainframe.saved_attributes.Hero.defense
 	Hero.luck = Mainframe.saved_attributes.Hero.luck

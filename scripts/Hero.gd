@@ -18,7 +18,7 @@ var woke = false
 
 # NODES AND SCENES
 #local
-@onready var HeroHealth       = $HealthNode/HeroHealth
+@onready var HealthBar        = $HealthBar
 @onready var Emp              = $Emp
 @onready var OrbOrigin        = $OrbOrigin
 @onready var Robot            = $Stan
@@ -53,7 +53,7 @@ func awaken():
 	WeaponManager.weapons.append(Sword)
 	var SwordHolder = Robot.get_node("%SwordHolder")
 	SwordHolder.add_child(Sword)
-	HeroHealth.set_visible(true)
+	HealthBar.set_visible(true)
 	Robot.get_node("%ThirdEye").set_visible(true)
 	woke = true
 	#print_tree_properties(AnimTree, "")
@@ -71,11 +71,11 @@ func _physics_process(delta):
 	getUserInteraction()
 	handleMovementAndCollisions(delta)
 	update_animation_parameters()
-	position_healthbar()
 	HP = min(max_HP, HP + health_regen * delta)
-	HeroHealth.value = HP / max_HP * 100	
 	if !woke: global_position += Vector3(0, 0, delta*8.0)
 	global_position.y = 0
+	$HealthRing.material.set_shader_parameter("health", HP/max_HP)
+	#print($HealthRing.material)
 
 func updateMomentum():
 	throttle *= .1
@@ -132,7 +132,6 @@ func handleMovementAndCollisions(delta):
 		if collider.is_in_group("enemies"):
 			$ImpactSound.play()
 			HP -= collider.damage
-			print(HP)
 			#sprite_node.modulate = Color(1, 0, 0, 1)
 			if HP <= 0:
 				die()
@@ -177,12 +176,4 @@ func update_animation_parameters():
 	#AnimTree.set("parameters/Tree/WalkHold/time", x)
 	AnimTree.set("parameters/Tree/WalkSlash/time", slash_progress * slash_duration)
 	AnimTree.set("parameters/Tree/WalkSpeed/scale", velocity.length() / 12)
-	
-func position_healthbar():
-	return
-	# healthbar should be a ring on the floor or slightly off the floor like KLee said
-	HeroHealth.position = Cam.unproject_position(global_position)
-	HeroHealth.position.x -= HeroHealth.size.x / 2
-	HeroHealth.position.y += HeroHealth.size.y
-	
 	

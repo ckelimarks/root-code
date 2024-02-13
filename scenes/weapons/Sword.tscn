@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://cghclpi6buo46" path="res://models/jade_sword/textures/MAT_Lowpoly_metallicRoughness.png" id="3_i4p1k"]
 [ext_resource type="Texture2D" uid="uid://4pdvg47uta24" path="res://models/jade_sword/textures/MAT_Lowpoly_normal.png" id="4_dg1kg"]
 [ext_resource type="AudioStream" uid="uid://cotulhxlwiqpn" path="res://sounds/sfx/sword_slash.mp3" id="5_uk3jy"]
-[ext_resource type="Shader" uid="uid://dh28ksjs573mc" path="res://shaders/sword.tres" id="6_b01ja"]
+[ext_resource type="Shader" uid="uid://r2q54uueil87" path="res://shaders/sword.tres" id="6_f0dtk"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_mkxix"]
 radius = 4.0
@@ -65,7 +65,7 @@ shadow_mesh = SubResource("ArrayMesh_1n80s")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_atu75"]
 render_priority = 0
-shader = ExtResource("6_b01ja")
+shader = ExtResource("6_f0dtk")
 shader_parameter/alpha = null
 
 [node name="Sword" type="CharacterBody3D"]
