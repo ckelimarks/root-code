@@ -116,7 +116,6 @@ func upgrade_emp(upgrade):
 func upgrade_hp(hp_level):
 	Hero.max_HP += 50
 	Hero.HP = min(Hero.HP + 50, Hero.max_HP)
-	Hero.HeroHealth.value = Hero.HP
 	release_modal($UpgradeModal)
 
 func upgrade_speed(speed_level):

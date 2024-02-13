@@ -1,0 +1,84 @@
+[gd_resource type="VisualShader" load_steps=6 format=3 uid="uid://dh28ksjs573mc"]
+
+[sub_resource type="VisualShaderNodeIf" id="VisualShaderNodeIf_50egb"]
+output_port_for_preview = 0
+
+[sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_dbkjp"]
+output_port_for_preview = 0
+input_name = "uv"
+
+[sub_resource type="VisualShaderNodeColorConstant" id="VisualShaderNodeColorConstant_584en"]
+constant = Color(1, 0, 0, 0.501961)
+
+[sub_resource type="VisualShaderNodeFloatParameter" id="VisualShaderNodeFloatParameter_gxka3"]
+parameter_name = "health"
+default_value_enabled = true
+default_value = 0.5
+
+[sub_resource type="VisualShaderNodeColorConstant" id="VisualShaderNodeColorConstant_xw806"]
+constant = Color(0, 0, 0, 1)
+
+[resource]
+code = "shader_type spatial;
+render_mode blend_add, depth_draw_opaque, cull_back, diffuse_lambert, specular_schlick_ggx, shadows_disabled;
+
+uniform float health = 0.5;
+
+
+
+void fragment() {
+// Input:14
+	vec2 n_out14p0 = UV;
+
+
+// FloatParameter:8
+	float n_out8p0 = health;
+
+
+// ColorConstant:9
+	vec4 n_out9p0 = vec4(0.000000, 0.000000, 0.000000, 1.000000);
+
+
+// ColorConstant:7
+	vec4 n_out7p0 = vec4(1.000000, 0.000000, 0.000000, 0.501961);
+
+
+	vec3 n_out13p0;
+// If:13
+	float n_in13p2 = 0.00001;
+	vec3 n_in13p3 = vec3(0.00000, 0.00000, 0.00000);
+	if(abs(n_out14p0.x - n_out8p0) < n_in13p2)
+	{
+		n_out13p0 = n_in13p3;
+	}
+	else if(n_out14p0.x < n_out8p0)
+	{
+		n_out13p0 = vec3(n_out7p0.xyz);
+	}
+	else
+	{
+		n_out13p0 = vec3(n_out9p0.xyz);
+	}
+
+
+// Output:0
+	ALBEDO = n_out13p0;
+	EMISSION = n_out13p0;
+
+
+}
+"
+modes/blend = 1
+flags/shadows_disabled = true
+nodes/fragment/0/position = Vector2(540, -40)
+nodes/fragment/7/node = SubResource("VisualShaderNodeColorConstant_584en")
+nodes/fragment/7/position = Vector2(-120, 500)
+nodes/fragment/8/node = SubResource("VisualShaderNodeFloatParameter_gxka3")
+nodes/fragment/8/position = Vector2(-160, 200)
+nodes/fragment/9/node = SubResource("VisualShaderNodeColorConstant_xw806")
+nodes/fragment/9/position = Vector2(-120, 420)
+nodes/fragment/13/node = SubResource("VisualShaderNodeIf_50egb")
+nodes/fragment/13/position = Vector2(280, 200)
+nodes/fragment/14/node = SubResource("VisualShaderNodeInput_dbkjp")
+nodes/fragment/14/position = Vector2(-200, -80)
+nodes/fragment/connections = PackedInt32Array(8, 0, 13, 1, 9, 0, 13, 4, 7, 0, 13, 5, 14, 0, 13, 0, 13, 0, 0, 0, 13, 0, 0, 5)
