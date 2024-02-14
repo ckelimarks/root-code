@@ -5,7 +5,6 @@ extends CanvasLayer
 # NODES AND SCENES
 @onready var MainNode  = get_node("/root/Main")
 @onready var MusicNode = get_node("/root/Main/Music")
-var level = 0
 
 func _ready():
 	pass
