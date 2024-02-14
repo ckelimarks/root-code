@@ -117,7 +117,7 @@ func getUserInteraction():
 	
 	var x = right - left
 	var y = down - up
-	var bias_amount = PI/1024
+	var bias_amount = 0#PI/1024
 	if x or y:
 		var bias = 0
 		if x:
