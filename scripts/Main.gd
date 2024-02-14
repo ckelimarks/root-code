@@ -6,6 +6,7 @@ func _ready():
 	pass
 
 func reset():
+	print(0)
 	# unspawn enemies
 	for enemy in EnemyManager.enemies:
 		enemy.queue_free()

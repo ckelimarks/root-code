@@ -39,7 +39,7 @@ var dampening = 0.8
 @onready var MainNode = get_node("/root/Main")
 @onready var XpBar        = UI.XpBar
 @onready var YouDiedModal = UI.YouDiedModal
-@onready var UpgradeModal  = UI.UpgradeModal
+@onready var UpgradeModal = UI.UpgradeModal
 #@onready var game_over = get_node("/root/Main/GameOverSound")
 @onready var Music = get_node("/root/Main/Music")
 
@@ -162,12 +162,12 @@ func handleMovementAndCollisions(delta):
 func die():
 	Music.stop()
 	SoundManager.GameOverSound.play()
-	YouDiedModal.show()
+	UI.YouDiedModal.show()
 	AudioServer.set_bus_effect_enabled(1, 0, true)
 	get_tree().paused = true
 	
 	#main_node.reset()
-	XpBar.value = 0
+	UI.XpBar.value = 0
 	
 func get_slash_curve(x):
 	# https://www.desmos.com/calculator/zh8hnxofkx -- cosine based
