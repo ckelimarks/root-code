@@ -17,6 +17,7 @@ var defense = min_stats.defense
 var health_regen = min_stats.health_regen
 var pushing_strength = min_stats.pushing_strength
 var HP = max_HP
+var current_level = 0
 #movement
 var woke = false
 var target_angle = PI/2
@@ -162,7 +163,7 @@ func die():
 	Music.stop()
 	SoundManager.GameOverSound.play()
 	YouDied.show()
-	#AudioServer.set_bus_effect_enabled(0, 0, true)
+	AudioServer.set_bus_effect_enabled(1, 0, true)
 	get_tree().paused = true
 	
 	#focusbutton.grab_focus()

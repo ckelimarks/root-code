@@ -9,6 +9,7 @@ var upgrade_threshold = 10
 @onready var GemSprite = $GemSprite
 @onready var FocusButton = get_node("/root/Main/UICanvas/MarginContainer/VBoxContainer/Button1")
 @onready var XpBar = get_node("/root/Main/UICanvas/XpBar")
+@onready var LevelText = get_node("/root/Main/UICanvas/Level")
 @onready var LevelUp = get_node("/root/Main/UICanvas/UpgradeModal")
 var AudioSamples := [
 	preload("res://sounds/gemsounds/v2/gemsound1.mp3"),
@@ -36,10 +37,13 @@ func _on_body_entered(body):
 		$AudioStreamPlayer.connect("finished", Callable(self, "_on_audio_finished"))
 		XpBar.value = XpBar.value + 1
 		
+
 	if XpBar.value == upgrade_threshold:
 		get_tree().paused = true
 		LevelUp.show()
-		#FocusButton.grab_focus()
+		Hero.current_level += 1
+		LevelText.text = str(Hero.current_level)
+		print("Current level:", Hero.current_level)
 		
 		#AudioServer.add_bus_effect(1, AudioEffectLowPassFilter.new(), 0)
 		#AudioServer.cutoff_hz = 400.0
