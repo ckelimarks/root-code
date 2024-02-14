@@ -37,10 +37,10 @@ var dampening = 0.8
 # autoload these?, and put these vars in their top-level scopes
 # external
 @onready var MainNode = get_node("/root/Main")
-@onready var XpBar = get_node("/root/Main/UICanvas/XpBar")
-@onready var YouDied = get_node("/root/Main/UICanvas/YouDied")
+@onready var XpBar        = UI.XpBar
+@onready var YouDiedModal = UI.YouDiedModal
+@onready var UpgradeModal  = UI.UpgradeModal
 #@onready var game_over = get_node("/root/Main/GameOverSound")
-@onready var FocusButton = get_node("/root/Main/UICanvas/MarginContainer/VBoxContainer/Button1")
 @onready var Music = get_node("/root/Main/Music")
 
 var Sword: CharacterBody3D  
@@ -70,7 +70,7 @@ func awaken():
 	Sword = SwordScene.instantiate()
 	WeaponManager.weapons.append(Sword)
 	SwordHolder.add_child(Sword)
-	#HealthBar.set_visible(true)
+	#HealthBar.set_vis6ible(true)
 	woke = true
 	#print_tree_properties(AnimTree, "")
 
@@ -118,7 +118,7 @@ func getUserInteraction():
 	
 	var x = right - left
 	var y = down - up
-	var bias_amount = PI/256
+	var bias_amount = PI/1024
 	if x or y:
 		var bias = 0
 		if x:
@@ -162,11 +162,10 @@ func handleMovementAndCollisions(delta):
 func die():
 	Music.stop()
 	SoundManager.GameOverSound.play()
-	YouDied.show()
+	YouDiedModal.show()
 	AudioServer.set_bus_effect_enabled(1, 0, true)
 	get_tree().paused = true
 	
-	#focusbutton.grab_focus()
 	#main_node.reset()
 	XpBar.value = 0
 	

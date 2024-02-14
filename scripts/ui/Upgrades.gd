@@ -40,13 +40,13 @@ var upgrades = [
 ]
 
 # NODES AND SCENES
-@onready var MainNode  = get_node("/root/Main")
-@onready var MusicNode = get_node("/root/Main/Music")
+# local
 @onready var UpgradeButtons = [
 	$ButtonsMargin/VBoxContainer/Button1,
 	$ButtonsMargin/VBoxContainer/Button2,
 	$ButtonsMargin/VBoxContainer/Button3,
 ]
+# remote
 
 func _ready():
 	get_viewport().connect("size_changed", resize_upgrade_modal)

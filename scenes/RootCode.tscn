@@ -1,7 +1,6 @@
-[gd_scene load_steps=9 format=3 uid="uid://3rgmo8vegmv"]
+[gd_scene load_steps=8 format=3 uid="uid://3rgmo8vegmv"]
 
 [ext_resource type="Script" path="res://scripts/Main.gd" id="2"]
-[ext_resource type="PackedScene" uid="uid://b5hidq7fuopte" path="res://scenes/ui/UI.tscn" id="3"]
 [ext_resource type="Shader" uid="uid://bcpe4wiysxuft" path="res://shaders/repitiontexture.tres" id="4_5ucip"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_n8d8q"]
@@ -49,8 +48,6 @@ volume_db = -10.0
 
 [node name="GameOverSound" type="AudioStreamPlayer2D" parent="."]
 process_mode = 3
-
-[node name="UICanvas" parent="." instance=ExtResource("3")]
 
 [node name="DebugCam" type="Camera3D" parent="."]
 transform = Transform3D(0.464842, 0.502765, -0.7288, 0, 0.823136, 0.567844, 0.885394, -0.263958, 0.382628, -58.1638, 40.8484, 58.5521)

@@ -9,8 +9,6 @@ var upgrade_threshold = 10
 @onready var GemSprite = $GemSprite
 @onready var FocusButton = get_node("/root/Main/UICanvas/MarginContainer/VBoxContainer/Button1")
 @onready var XpBar = get_node("/root/Main/UICanvas/XpBar")
-@onready var LevelText = get_node("/root/Main/UICanvas/Level")
-@onready var LevelUp = get_node("/root/Main/UICanvas/UpgradeModal")
 var AudioSamples := [
 	preload("res://sounds/gemsounds/v2/gemsound1.mp3"),
 	preload("res://sounds/gemsounds/v2/gemsound2.mp3"),
@@ -35,21 +33,20 @@ func _on_body_entered(body):
 		$AudioStreamPlayer.set_stream(AudioSamples[random_note_index])
 		$AudioStreamPlayer.play()
 		$AudioStreamPlayer.connect("finished", Callable(self, "_on_audio_finished"))
-		XpBar.value = XpBar.value + 1
+		UI.XpBar.value = UI.XpBar.value + 1
 		
-
-	if XpBar.value == upgrade_threshold:
+	if UI.XpBar.value == upgrade_threshold:
 		get_tree().paused = true
-		LevelUp.show()
+		UI.UpgradeModal.show()
 		Hero.current_level += 1
-		LevelText.text = str(Hero.current_level)
+		UI.Level.text = str(Hero.current_level)
 		print("Current level:", Hero.current_level)
 		
 		#AudioServer.add_bus_effect(1, AudioEffectLowPassFilter.new(), 0)
 		#AudioServer.cutoff_hz = 400.0
 		#AudioServer.set_bus_effect_enabled(1, 1, enable)
 		AudioServer.set_bus_effect_enabled(0, 0, true)
-		XpBar.value = 0
+		UI.XpBar.value = 0
 #		Hero.HP = 100
 #		Hero.healthbar_node.value = HP / max_HP * 100
 		
