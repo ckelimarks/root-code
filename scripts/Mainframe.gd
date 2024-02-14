@@ -3,11 +3,12 @@ extends Node
 # initial attributes
 var saved_attributes = {
 	"Hero": {
+		"luck": 0,
 		"speed": 0, 
-		"defense": 0,
 		"max_HP": 0,
+		"defense": 0,
 		"health_regen": 0,
-		"luck": 0
+		"pushing_strength": 0,
 	}
 }
 
@@ -29,4 +30,8 @@ func load_game():
 	var json = JSON.new()
 	var parse_result = json.parse(json_string)
 	if not parse_result == OK: print("JSON Parse Error: ", json.get_error_message())
-	else: saved_attributes = json.get_data()
+	else: 
+		var data = json.get_data()
+		if "Hero" in data:
+			for key in data["Hero"].keys():
+				saved_attributes["Hero"][key] = data["Hero"][key]
