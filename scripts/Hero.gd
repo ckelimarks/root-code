@@ -9,6 +9,7 @@ var defense = 0
 var pushing_strength = 10.0
 var health_regen = 0.1
 var luck = 1
+var current_level = 0
 #movement
 var angle = PI/2
 var target_angle = PI/2

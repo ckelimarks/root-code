@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" path="res://scripts/ui/UI.gd" id="2"]
 [ext_resource type="Script" path="res://scripts/ui/Upgrades.gd" id="2_hbawy"]
-[ext_resource type="Texture2D" uid="uid://bhx5r06yphvv8" path="res://images/uigraphics/upgradePanel/panelBG.png" id="2_uey1n"]
-[ext_resource type="FontFile" uid="uid://db2tn7fvsyr5" path="res://images/uigraphics/DIN Condensed Bold.ttf" id="3_oc6jy"]
+[ext_resource type="Texture2D" uid="uid://bhx5r06yphvv8" path="res://images/UIgraphics/upgradePanel/panelBG.png" id="2_uey1n"]
+[ext_resource type="FontFile" uid="uid://db2tn7fvsyr5" path="res://images/UIgraphics/DIN Condensed Bold.ttf" id="3_oc6jy"]
 [ext_resource type="PackedScene" uid="uid://dkbmvhbvo33hn" path="res://scenes/ui/button.tscn" id="4_qfrau"]
 
 [sub_resource type="FontVariation" id="FontVariation_x3ktr"]

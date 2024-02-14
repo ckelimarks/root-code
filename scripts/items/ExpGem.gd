@@ -4,7 +4,6 @@ extends Area3D
 var recoil = Vector3.ZERO
 var touched = false
 var upgrade_threshold = 10
-var current_level = 0
 
 # NODES AND SCENES
 @onready var GemSprite = $GemSprite
@@ -22,10 +21,6 @@ var AudioSamples := [
 
 func _ready():
 	connect("body_entered", Callable(self, "_on_body_entered"))
-	if upgrade_threshold == 10:
-		current_level += 1
-		LevelText.text = str(current_level)
-		print("Current level:", current_level)
 
 func _on_body_entered(body):
 	if body == Hero:
@@ -46,7 +41,9 @@ func _on_body_entered(body):
 	if XpBar.value == upgrade_threshold:
 		get_tree().paused = true
 		LevelUp.show()
-		
+		Hero.current_level += 1
+		LevelText.text = str(Hero.current_level)
+		print("Current level:", Hero.current_level)
 		
 		#AudioServer.add_bus_effect(1, AudioEffectLowPassFilter.new(), 0)
 		#AudioServer.cutoff_hz = 400.0
