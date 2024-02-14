@@ -2,20 +2,28 @@ extends CharacterBody3D
 
 # ATTRIBUTES
 #stats
-var HP = 100.0
-var max_HP = 100.0
-var speed = 26.0
-var defense = 0
-var pushing_strength = 10.0
-var health_regen = 0.1
-var luck = 1
+var min_stats = {
+	"luck": 1.0,
+	"speed": 26.0,
+	"max_HP": 100.0,
+	"defense": 0,
+	"health_regen": 0.1,
+	"pushing_strength": 10.0,
+}
+var luck = min_stats.luck
+var speed = min_stats.speed
+var max_HP = min_stats.max_HP
+var defense = min_stats.defense
+var health_regen = min_stats.health_regen
+var pushing_strength = min_stats.pushing_strength
+var HP = max_HP
 var current_level = 0
 #movement
-var angle = PI/2
+var woke = false
 var target_angle = PI/2
+var angle = target_angle
 var throttle = 0.0
 var dampening = 0.8
-var woke = false
 
 # NODES AND SCENES
 #local
@@ -39,23 +47,30 @@ var Sword: CharacterBody3D
 var SwordScene = preload("res://scenes/weapons/Sword.tscn")
 
 func _ready():
-	AnimTree.active = true
-	AnimTree.set("parameters/Tree/WalkSpeed/scale", 8.0 / 12.0)
-	AnimTree.set("parameters/Tree/BlendMove/blend_amount", 1)	
 	var RobotCollider = Robot.get_node("Collider")
+	AnimTree.set_active(true)
 	$Collider.set_shape(RobotCollider.shape)
 	$Collider.position = RobotCollider.position
 	$Collider.rotation = RobotCollider.rotation
+	sleepen()
+	
+func sleepen():
+	if Sword: Sword.queue_free()
+	$HealthRing.set_visible(false)
+	#HealthBar.set_visible(false)
+	Robot.get_node("%ThirdEye").set_visible(false)
+	AnimTree.set("parameters/Tree/WalkSpeed/scale", 8.0 / 12.0)
+	AnimTree.set("parameters/Tree/BlendMove/blend_amount", 1)
 	
 func awaken():
-	Sword = SwordScene.instantiate()
-	WeaponManager.weapons.append(Sword)
-	var SwordHolder = Robot.get_node("%SwordHolder")
-	SwordHolder.add_child(Sword)
 	$HealthRing.visible = true
-	#HealthBar.set_visible(true)
 	Robot.get_node("%ThirdEye").set_visible(true)
 	Emp.enabled = true
+	var SwordHolder = Robot.get_node("%SwordHolder")
+	Sword = SwordScene.instantiate()
+	WeaponManager.weapons.append(Sword)
+	SwordHolder.add_child(Sword)
+	#HealthBar.set_visible(true)
 	woke = true
 	#print_tree_properties(AnimTree, "")
 
@@ -103,14 +118,15 @@ func getUserInteraction():
 	
 	var x = right - left
 	var y = down - up
+	var bias_amount = PI/256
 	if x or y:
 		var bias = 0
 		if x:
-			bias = PI/36 * previous_vertical_direction * sign(x)
+			bias = bias_amount * previous_vertical_direction * sign(x)
 			previous_horizontal_direction = x
 
 		if y:
-			bias = PI/36 * previous_horizontal_direction * sign(-y)
+			bias = bias_amount * previous_horizontal_direction * sign(-y)
 			previous_vertical_direction = y
 
 		target_angle = atan2(y, x)
