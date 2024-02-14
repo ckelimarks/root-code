@@ -1,8 +1,7 @@
-[gd_scene load_steps=12 format=3 uid="uid://dkbmvhbvo33hn"]
+[gd_scene load_steps=10 format=3 uid="uid://dkbmvhbvo33hn"]
 
 [ext_resource type="Texture2D" uid="uid://dtqnl5xk8r0mq" path="res://images/uigraphics/upgradePanel/emp.jpg" id="1_f0ct7"]
 [ext_resource type="Script" path="res://scripts/ui/Button.gd" id="1_odpwp"]
-[ext_resource type="Texture2D" uid="uid://bab3rrrhapcnn" path="res://images/gem/XpGem.png" id="2_dio6y"]
 [ext_resource type="FontFile" uid="uid://dc8dkaxhhekhr" path="res://images/uigraphics/DIN Condensed Bold.ttf" id="2_y8i6h"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8loe7"]
@@ -17,9 +16,6 @@ gradient = SubResource("Gradient_se7e8")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_koxb4"]
 texture = SubResource("GradientTexture1D_52mid")
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_w0tv3"]
-size = Vector2(100, 100)
 
 [sub_resource type="FontVariation" id="FontVariation_leyv5"]
 base_font = ExtResource("2_y8i6h")
@@ -38,15 +34,8 @@ offset_bottom = 158.0
 theme_override_styles/normal = SubResource("StyleBoxFlat_8loe7")
 theme_override_styles/hover = SubResource("StyleBoxTexture_koxb4")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_koxb4")
-disabled = true
 expand_icon = true
 script = ExtResource("1_odpwp")
-
-[node name="TouchScreenButton" type="TouchScreenButton" parent="."]
-position = Vector2(-60, 1.99999)
-scale = Vector2(1.4, 1.59701)
-texture_normal = ExtResource("2_dio6y")
-shape = SubResource("RectangleShape2D_w0tv3")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1

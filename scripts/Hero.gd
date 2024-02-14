@@ -69,7 +69,7 @@ func awaken():
 	Sword = SwordScene.instantiate()
 	WeaponManager.weapons.append(Sword)
 	SwordHolder.add_child(Sword)
-	#HealthBar.set_visible(true)
+	#HealthBar.set_vis6ible(true)
 	woke = true
 	#print_tree_properties(AnimTree, "")
 
