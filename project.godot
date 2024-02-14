@@ -17,7 +17,7 @@ config/icon="res://icon.png"
 
 [autoload]
 
-SoundManager="*res://scenes/SoundManager.tscn"
+SoundManager="*res://scenes/managers/SoundManager.tscn"
 Hero="*res://scenes/Hero.tscn"
 EnemyManager="*res://scripts/managers/EnemyManager.gd"
 WeaponManager="*res://scenes/managers/WeaponManager.tscn"
