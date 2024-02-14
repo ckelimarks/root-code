@@ -1,6 +1,6 @@
 [gd_scene load_steps=40 format=3 uid="uid://c1eksyt1bexd4"]
 
-[ext_resource type="Texture2D" uid="uid://dokwt3mhjyoim" path="res://models/Stan_Stan_Texture.png" id="1_biqsn"]
+[ext_resource type="Texture2D" uid="uid://cdr0etm77exju" path="res://models/Stan_Stan_Texture.png" id="1_biqsn"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_rrqng"]
 size = Vector3(2.11621, 6.05179, 0.864746)
@@ -5492,7 +5492,7 @@ mesh = SubResource("ArrayMesh_fjlww")
 skin = SubResource("Skin_6inia")
 
 [node name="BoneAttachment3D" type="BoneAttachment3D" parent="RobotArmature/Skeleton3D"]
-transform = Transform3D(-0.518052, -0.404876, -0.753458, -0.821941, -0.00814205, 0.569514, -0.236717, 0.914336, -0.328566, -2.28712, 3.57435, 0.014332)
+transform = Transform3D(-0.518052, -0.404876, -0.753457, -0.821941, -0.008142, 0.569514, -0.236717, 0.914336, -0.328566, -2.28712, 3.57435, 0.014332)
 bone_name = "PalmI.R"
 bone_idx = 29
 
@@ -5501,7 +5501,7 @@ unique_name_in_owner = true
 transform = Transform3D(0.0707107, -3.72529e-09, 0.0707108, 0.0707107, -3.72529e-09, -0.0707108, 3.72529e-09, 0.1, 1.86265e-09, 0, 0, 0)
 
 [node name="BoneAttachment3D2" type="BoneAttachment3D" parent="RobotArmature/Skeleton3D"]
-transform = Transform3D(0.99963, 0.0132349, -0.0237787, -0.0118313, 0.998233, 0.0582255, 0.0245073, -0.0579226, 0.99802, 0.0535816, 5.45095, -0.263097)
+transform = Transform3D(0.99963, 0.0132349, -0.0237787, -0.0118313, 0.998233, 0.0582255, 0.0245073, -0.0579225, 0.99802, 0.0535816, 5.45095, -0.263097)
 bone_name = "Head"
 bone_idx = 4
 

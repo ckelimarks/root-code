@@ -4,11 +4,13 @@ extends Area3D
 var recoil = Vector3.ZERO
 var touched = false
 var upgrade_threshold = 10
+var current_level = 0
 
 # NODES AND SCENES
 @onready var GemSprite = $GemSprite
 @onready var FocusButton = get_node("/root/Main/UICanvas/MarginContainer/VBoxContainer/Button1")
 @onready var XpBar = get_node("/root/Main/UICanvas/XpBar")
+@onready var LevelText = get_node("/root/Main/UICanvas/Level")
 @onready var LevelUp = get_node("/root/Main/UICanvas/UpgradeModal")
 var AudioSamples := [
 	preload("res://sounds/gemsounds/v2/gemsound1.mp3"),
@@ -20,6 +22,10 @@ var AudioSamples := [
 
 func _ready():
 	connect("body_entered", Callable(self, "_on_body_entered"))
+	if upgrade_threshold == 10:
+		current_level += 1
+		LevelText.text = str(current_level)
+		print("Current level:", current_level)
 
 func _on_body_entered(body):
 	if body == Hero:
@@ -36,10 +42,11 @@ func _on_body_entered(body):
 		$AudioStreamPlayer.connect("finished", Callable(self, "_on_audio_finished"))
 		XpBar.value = XpBar.value + 1
 		
+
 	if XpBar.value == upgrade_threshold:
 		get_tree().paused = true
 		LevelUp.show()
-		#FocusButton.grab_focus()
+		
 		
 		#AudioServer.add_bus_effect(1, AudioEffectLowPassFilter.new(), 0)
 		#AudioServer.cutoff_hz = 400.0

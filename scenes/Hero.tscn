@@ -6,8 +6,8 @@
 [ext_resource type="Script" path="res://scripts/ui/HealthBar.gd" id="4_wq24w"]
 [ext_resource type="Shader" uid="uid://ujnurwhppspc" path="res://shaders/health2.tres" id="7_cssg3"]
 [ext_resource type="Shader" uid="uid://dh28ksjs573mc" path="res://shaders/health.tres" id="7_xgc8g"]
-[ext_resource type="AudioStream" uid="uid://bxicy412bk758" path="res://sounds/hpDownSound.mp3" id="211"]
-[ext_resource type="AudioStream" uid="uid://cwicowrxy2s7o" path="res://sounds/steps.mp3" id="212"]
+[ext_resource type="AudioStream" uid="uid://d1omjjp8x0l4v" path="res://sounds/hpDownSound.mp3" id="211"]
+[ext_resource type="AudioStream" uid="uid://b0hl7gw61lm3x" path="res://sounds/steps.mp3" id="212"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ombq4"]
 render_priority = 0

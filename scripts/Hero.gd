@@ -146,7 +146,7 @@ func die():
 	Music.stop()
 	SoundManager.GameOverSound.play()
 	YouDied.show()
-	#AudioServer.set_bus_effect_enabled(0, 0, true)
+	AudioServer.set_bus_effect_enabled(1, 0, true)
 	get_tree().paused = true
 	
 	#focusbutton.grab_focus()
