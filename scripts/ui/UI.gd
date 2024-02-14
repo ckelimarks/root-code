@@ -3,6 +3,11 @@ extends CanvasLayer
 # ATTRIBUTES
 
 # NODES AND SCENES
+# local
+@onready var XpBar        = $XpBar
+@onready var UpgradeModal = $UpgradeModal
+@onready var YouDiedModal = $YouDiedModal
+# remote
 @onready var MainNode  = get_node("/root/Main")
 @onready var MusicNode = get_node("/root/Main/Music")
 

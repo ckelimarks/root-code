@@ -24,6 +24,7 @@ WeaponManager="*res://scenes/managers/WeaponManager.tscn"
 EcologyManager="*res://scenes/managers/EcologyManager.tscn"
 Cam="*res://scenes/Camera.tscn"
 Mainframe="*res://scripts/Mainframe.gd"
+UI="*res://scenes/ui/UI.tscn"
 
 [gui]
 
