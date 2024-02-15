@@ -21,17 +21,17 @@ var upgrades = [
 		"name": "EMP",
 		"description": [
 			"Increase your EMP radius from 70% to 120%",
-			"Increase your EMP cool-down from 10 to 6",
+			"Increase your EMP cool-down from 5 to 3",
 			"Increase your EMP damage from 1 to 5",
 			"Increase your EMP knock-back from 1 to 3",
 			"Increase your EMP damage from 5 to 10",
 			"Increase your EMP radius from 120% to 200%",
-			"Increase your EMP cool-down from 6 to 3",
+			"Increase your EMP cool-down from 3 to 2",
 			"Increase your EMP damage from 10 to 15",
 			"Increase your EMP knock-back from 3 to 5",
 			"Increase your EMP damage from 15 to 20",
 			"Increase your EMP radius from 200% to 300%",
-			"Increase your EMP cool-down from 3 to 1",
+			"Increase your EMP cool-down from 2 to 1",
 			"MAX"
 		],
 		"callback": upgrade_emp,
@@ -96,17 +96,17 @@ func upgrade_sword(upgrade):
 
 func upgrade_emp(upgrade):
 	upgrade.level += 1
-	if upgrade.level == 1: Hero.Emp.scale = Vector3(1.2, 1.2, 1.2)
+	if upgrade.level == 1: Hero.Emp.rad = 1.2
 	if upgrade.level == 2: Hero.Emp.cooldown = 6
 	if upgrade.level == 3: Hero.Emp.base_damage = 5
 	if upgrade.level == 4: Hero.Emp.base_knock_back = 3
 	if upgrade.level == 5: Hero.Emp.base_damage = 10
-	if upgrade.level == 6: Hero.Emp.scale = Vector3(2.0, 2.0, 2.0)
+	if upgrade.level == 6: Hero.Emp.rad = 2.0
 	if upgrade.level == 7: Hero.Emp.cooldown = 3
 	if upgrade.level == 8: Hero.Emp.base_damage = 15
 	if upgrade.level == 9: Hero.Emp.base_knock_back = 5
 	if upgrade.level == 10: Hero.Emp.base_damage = 20
-	if upgrade.level == 11: Hero.Emp.scale = Vector3(3.0, 3.0, 3.0)	
+	if upgrade.level == 11: Hero.Emp.rad = 3.0
 	if upgrade.level == 12: Hero.Emp.cooldown = 1
 	Hero.Emp.heat = 0
 	release_modal()

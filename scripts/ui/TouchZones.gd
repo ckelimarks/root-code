@@ -1,6 +1,6 @@
 extends Node2D
 
-var anchor = Vector2(0.5, 0.75)
+var anchor = Vector2(0.75, 0.75)
 
 func _input(event):
 	if event is InputEventScreenTouch:
@@ -24,10 +24,9 @@ func send(position):
 	var angle = direction.angle() + PI/2
 	if angle < 0: angle += 2*PI
 	var octant = round(angle / (2*PI) * 8)
-	print(octant)
 	
-	Hero.touch.right  = (octant > 0) and (octant < 4)
-	Hero.touch.down   = (octant > 2) and (octant < 6)
-	Hero.touch.left   = (octant > 4) and (octant < 8)
-	Hero.touch.up     = (octant > 6) or  (octant < 2)
+	Hero.touch.right  = (octant > 0.5) and (octant < 3.5)
+	Hero.touch.down   = (octant > 2.5) and (octant < 5.5)
+	Hero.touch.left   = (octant > 4.5) and (octant < 7.5)
+	Hero.touch.up     = (octant > 6.5) or  (octant < 1.5)
 	Hero.touch.attack = true

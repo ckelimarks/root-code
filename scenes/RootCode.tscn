@@ -17,7 +17,7 @@ sky_material = SubResource("ProceduralSkyMaterial_4qono")
 
 [sub_resource type="Environment" id="4"]
 background_mode = 2
-background_energy_multiplier = 0.5
+background_energy_multiplier = 0.0
 sky = SubResource("3")
 sdfgi_enabled = true
 volumetric_fog_emission_energy = 10.0
@@ -31,15 +31,14 @@ mesh = SubResource("BoxMesh_n8d8q")
 skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_5pp3x")
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+[node name="Sun" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.779808, -0.602604, 0.169611, 0, 0.270936, 0.962597, -0.626019, -0.750641, 0.211278, 0, 6.38892, 0)
-visible = false
-light_energy = 0.5
+light_energy = 0.1
 shadow_enabled = true
 shadow_opacity = 0.5
 shadow_blur = 5.0
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+[node name="Sky" type="WorldEnvironment" parent="."]
 environment = SubResource("4")
 
 [node name="Music" type="AudioStreamPlayer" parent="."]

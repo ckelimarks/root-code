@@ -3,6 +3,7 @@ extends CharacterBody3D
 # ATTRIBUTES
 # local
 var speed = 10.0  # Adjust as needed
+var mass = 1
 var pushing_strength = 5.0
 var HP = 10 # hit points
 var damage = 1
@@ -80,7 +81,7 @@ func _physics_process(delta):
 			SoundManager.EnemyStrike.play()
 			SoundManager.EnemyStrike.volume_db = -12 + collider.power * 3
 			HP -= collider.damage
-			momentum += (global_position - Hero.global_position).normalized() * sqrt(collider.knock_back / 2)
+			momentum += (global_position - Hero.global_position).normalized() * sqrt(collider.knock_back / 2) / mass
 			glow()
 			if HP <= 0: dead()
 			

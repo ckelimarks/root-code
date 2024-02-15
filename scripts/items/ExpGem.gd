@@ -22,11 +22,14 @@ func _ready():
 
 func _on_body_entered(body):
 	if body == Hero:
-		if touched:
+		# recoil is positive to fly away, negative to come back 
+		# so don't capture the gem until it has a chance to go away and come back
+		
+		if touched and recoil < 0: 
 			gem_captured()
 			return
 			
-		recoil = 128
+		recoil = 80
 		touched = true
 
 		var random_note_index = randi() % AudioSamples.size()
@@ -68,5 +71,5 @@ func _process(delta):
 		global_position = new_position
 		global_position.y = 2
 		GemSprite.position = smoothed_position - new_position
-		recoil -= 10
+		recoil -= 256 * delta
 		
