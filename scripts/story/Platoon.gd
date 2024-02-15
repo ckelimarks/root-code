@@ -73,6 +73,7 @@ func unspawn_enemy(enemy):
 	
 func platoon_spawn(new_enemy, grid_position):
 	new_enemy.global_position = Vector3(grid_position.x + platoon_rect.position.x, 0, grid_position.y + platoon_rect.position.y)
+	new_enemy.mass = 10
 	new_enemy.behaviour = "march"
 	new_enemy.speed = 8.0
 	new_enemy.platoon_grid_position = grid_position

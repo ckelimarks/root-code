@@ -19,6 +19,13 @@ var pushing_strength = min_stats.pushing_strength
 var HP = max_HP
 var current_level = 0
 #movement
+var touch = {
+	"left":   false,
+	"right":  false,
+	"up":     false,
+	"down":   false,
+	"attack": false
+}
 var woke = false
 var target_angle = PI/2
 var angle = target_angle
@@ -38,7 +45,7 @@ var dampening = 0.8
 # external
 @onready var MainNode = get_node("/root/Main")
 @onready var XpBar        = UI.XpBar
-@onready var YouDiedModal = UI.YouDiedModal
+@onready var RestartModal = UI.RestartModal
 @onready var UpgradeModal = UI.UpgradeModal
 #@onready var game_over = get_node("/root/Main/GameOverSound")
 @onready var Music = get_node("/root/Main/Music")
@@ -107,11 +114,11 @@ var previous_horizontal_direction = 0
 var previous_vertical_direction = 0
 func getUserInteraction():
 	# int(bool) turns true into 1 and false into 0
-	var right = int(Input.is_action_pressed('ui_right'))
-	var left = int(Input.is_action_pressed('ui_left'))
-	var up = int(Input.is_action_pressed('ui_up'))
-	var down = int(Input.is_action_pressed('ui_down'))
-	var slash = Input.is_action_just_pressed("attack")
+	var right = int(Input.is_action_pressed('ui_right') || touch.right)
+	var left  = int(Input.is_action_pressed('ui_left')  || touch.left)
+	var up    = int(Input.is_action_pressed('ui_up')    || touch.up)
+	var down  = int(Input.is_action_pressed('ui_down')  || touch.down)
+	var slash = Input.is_action_just_pressed("attack")  || touch.attack
 	
 	#InputEventScreenTouch.
 	if slash and woke: Sword.slash()
@@ -162,7 +169,7 @@ func handleMovementAndCollisions(delta):
 func die():
 	Music.stop()
 	SoundManager.GameOverSound.play()
-	UI.YouDiedModal.show()
+	UI.RestartModal.show()
 	AudioServer.set_bus_effect_enabled(1, 0, true)
 	get_tree().paused = true
 	
