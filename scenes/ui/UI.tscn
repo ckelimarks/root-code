@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://b5hidq7fuopte"]
+[gd_scene load_steps=8 format=3 uid="uid://b5hidq7fuopte"]
 
 [ext_resource type="Script" path="res://scripts/ui/UI.gd" id="2"]
 [ext_resource type="Script" path="res://scripts/ui/Upgrades.gd" id="2_hbawy"]
 [ext_resource type="Texture2D" uid="uid://7gmoiykqs4aa" path="res://images/UIgraphics/upgradePanel/panelBG.png" id="2_uey1n"]
 [ext_resource type="FontFile" uid="uid://bhsvn2jyukb8u" path="res://images/UIgraphics/DIN Condensed Bold.ttf" id="3_oc6jy"]
 [ext_resource type="PackedScene" uid="uid://dkbmvhbvo33hn" path="res://scenes/ui/button.tscn" id="4_qfrau"]
+[ext_resource type="Script" path="res://scripts/ui/TouchZones.gd" id="6_xswsx"]
 
 [sub_resource type="FontVariation" id="FontVariation_x3ktr"]
 base_font = ExtResource("3_oc6jy")
@@ -76,7 +77,7 @@ layout_mode = 2
 [node name="Button3" parent="UpgradeModal/ButtonsMargin/VBoxContainer" instance=ExtResource("4_qfrau")]
 layout_mode = 2
 
-[node name="YouDiedModal" type="MarginContainer" parent="."]
+[node name="RestartModal" type="MarginContainer" parent="."]
 visible = false
 anchors_preset = 8
 anchor_left = 0.5
@@ -88,14 +89,14 @@ offset_top = -180.0
 offset_right = 512.0
 offset_bottom = 180.0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="YouDiedModal"]
+[node name="VBoxContainer" type="VBoxContainer" parent="RestartModal"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="YouDiedModal/VBoxContainer"]
+[node name="Label" type="Label" parent="RestartModal/VBoxContainer"]
 layout_mode = 2
 text = "YOU DIED"
 
-[node name="RestartButton" type="Button" parent="YouDiedModal/VBoxContainer"]
+[node name="RestartButton" type="Button" parent="RestartModal/VBoxContainer"]
 layout_mode = 2
 text = "RESTART?"
 
@@ -104,3 +105,6 @@ offset_left = 64.0
 offset_top = 32.0
 offset_right = 104.0
 offset_bottom = 55.0
+
+[node name="TouchZones" type="Node2D" parent="."]
+script = ExtResource("6_xswsx")

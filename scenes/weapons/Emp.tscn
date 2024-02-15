@@ -466,7 +466,6 @@ script = ExtResource("1_8yinj")
 [node name="Collider" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
 shape = SubResource("SphereShape3D_qumsj")
-disabled = true
 
 [node name="GroundSprite" type="AnimatedSprite3D" parent="."]
 transform = Transform3D(-7, -6.11959e-07, 2.67496e-14, 0, -3.0598e-07, -7, 6.11959e-07, -7, 3.0598e-07, 0, 0, 0)
