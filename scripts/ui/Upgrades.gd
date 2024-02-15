@@ -97,12 +97,12 @@ func upgrade_sword(upgrade):
 func upgrade_emp(upgrade):
 	upgrade.level += 1
 	if upgrade.level == 1: Hero.Emp.rad = 1.2
-	if upgrade.level == 2: Hero.Emp.cooldown = 6
+	if upgrade.level == 2: Hero.Emp.cooldown = 3
 	if upgrade.level == 3: Hero.Emp.base_damage = 5
 	if upgrade.level == 4: Hero.Emp.base_knock_back = 3
 	if upgrade.level == 5: Hero.Emp.base_damage = 10
 	if upgrade.level == 6: Hero.Emp.rad = 2.0
-	if upgrade.level == 7: Hero.Emp.cooldown = 3
+	if upgrade.level == 7: Hero.Emp.cooldown = 2
 	if upgrade.level == 8: Hero.Emp.base_damage = 15
 	if upgrade.level == 9: Hero.Emp.base_knock_back = 5
 	if upgrade.level == 10: Hero.Emp.base_damage = 20
