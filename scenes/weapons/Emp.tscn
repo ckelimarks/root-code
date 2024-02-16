@@ -469,6 +469,7 @@ shape = SubResource("SphereShape3D_qumsj")
 
 [node name="GroundSprite" type="AnimatedSprite3D" parent="."]
 transform = Transform3D(-7, -6.11959e-07, 2.67496e-14, 0, -3.0598e-07, -7, 6.11959e-07, -7, 3.0598e-07, 0, 0, 0)
+sorting_offset = -100.0
 modulate = Color(1, 1, 1, 0.627451)
 sprite_frames = SubResource("48")
 animation = &"new_animation"
