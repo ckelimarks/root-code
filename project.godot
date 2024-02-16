@@ -26,6 +26,11 @@ Cam="*res://scenes/Camera.tscn"
 Mainframe="*res://scripts/Mainframe.gd"
 UI="*res://scenes/ui/UI.tscn"
 
+[editor]
+
+version_control/plugin_name="GitPlugin"
+version_control/autoload_on_startup=true
+
 [gui]
 
 common/drop_mouse_on_gui_input_disabled=true
