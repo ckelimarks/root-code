@@ -1,7 +1,7 @@
 extends Node
 
 # ATTRIBUTES
-var base_knock_back = 5
+var base_knock_back = 1
 var base_damage = 1 # damage dealt at the peak of the power curve
 var knock_back = 0
 var cooldown = 5 # how long it takes to cool off
