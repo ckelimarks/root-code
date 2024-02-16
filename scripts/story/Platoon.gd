@@ -16,6 +16,7 @@ func _process(delta):
 	pass
 
 func update_platoon(delta):
+	#return
 	platoon_rect.position.y += delta * 8
 	var view_bounds = EnemyManager.get_spawn_rect()
 	var spawn_buffer = view_bounds.grow(20)

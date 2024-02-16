@@ -130,8 +130,8 @@ animations = [{
 
 [node name="EnemyBody" type="CharacterBody3D" groups=["enemies"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.37177, 0)
-collision_layer = 3
-collision_mask = 3
+collision_layer = 7
+collision_mask = 7
 motion_mode = 1
 script = ExtResource("1")
 

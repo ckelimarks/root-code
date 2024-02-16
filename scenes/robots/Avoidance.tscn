@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://bn0rijtdm57t2"]
+
+[ext_resource type="Script" path="res://scripts/Avoidance.gd" id="1_3tftm"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_wkxl3"]
+radius = 5.0
+
+[node name="Avoidance" type="Area3D"]
+collision_layer = 4
+collision_mask = 4
+script = ExtResource("1_3tftm")
+
+[node name="AvoidanceShape" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.34607, -0.888079)
+shape = SubResource("SphereShape3D_wkxl3")
