@@ -1,11 +1,14 @@
 extends Node3D
 
+var disabled = false
+
 # ATTRIBUTES
-var platoon_exists = false
-var platoon_holes = {}
+var platoon_exists   = false
+var platoon_holes    = {}
 var platoon_occupied = {}
-var platoon_rect = Rect2(Vector2(-100, -100), Vector2(200, 200))
-var platoon_spacing = Vector2(10, 20)
+var platoon_spacing  = Vector2(10, 20)
+var platoon_size     = Vector2(10, 20)
+var platoon_rect     = Rect2(-platoon_size/2 * platoon_spacing, platoon_size * platoon_spacing)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -16,7 +19,7 @@ func _process(delta):
 	pass
 
 func update_platoon(delta):
-	#return
+	if disabled: return
 	platoon_rect.position.y += delta * 8
 	var view_bounds = EnemyManager.get_spawn_rect()
 	var spawn_buffer = view_bounds.grow(20)
@@ -53,6 +56,7 @@ func process_perimeter(rect: Rect2, is_spawn: bool):
 func check_and_spawn_unspawn(position: Vector2, is_spawn: bool):
 	# Adjust position to grid alignment if necessary
 	var grid_position = (position - platoon_rect.position).snapped(platoon_spacing)
+	#if !platoon_rect.has_point(grid_position): return
 
 	# Depending on whether we are spawning or unspawning
 	if is_spawn:
@@ -74,7 +78,7 @@ func unspawn_enemy(enemy):
 	
 func platoon_spawn(new_enemy, grid_position):
 	new_enemy.global_position = Vector3(grid_position.x + platoon_rect.position.x, 0, grid_position.y + platoon_rect.position.y)
-	new_enemy.mass = 10
+	new_enemy.mass = 10.0
 	new_enemy.behaviour = "march"
 	new_enemy.speed = 8.0
 	new_enemy.platoon_grid_position = grid_position

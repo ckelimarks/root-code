@@ -4,16 +4,16 @@ extends CharacterBody3D
 var slash_progress = 100
 var slash_duration = .75 # 0.75 seconds long animation
 var base_knock_back = 1
-var base_damage = 300
+var base_damage = 1
 var knock_back = 0
 var damage = 0
 var power = 0
 
 func _ready():
-	SoundManager.SwordSlash.pitch_scale = .6
-
+	pass
+	
 func slash():
-	$SwordSound.pitch_scale = randf_range(.6, 1.0)
+	SoundManager.SlashSound.pitch_scale = randf_range(.6, 1.0)
 	
 	# don't allow a new slash in the middle of a swing
 	if slash_progress < slash_duration: return
@@ -21,7 +21,7 @@ func slash():
 	slash_progress = 0
 	var slash_sound_delay = 0.15
 	await get_tree().create_timer(slash_sound_delay).timeout
-	SoundManager.SwordSlash.play()
+	SoundManager.SlashSound.play()
 
 func _process(delta):
 	# redo this, delta should not have a multiplier
@@ -32,8 +32,7 @@ func _process(delta):
 	damage = power * base_damage
 	knock_back = power * base_knock_back
 	$Collider.shape.radius = power * 21.0 + 4.0
-	#if slash_progress > slash_duration/2:
-	$CSGTorus3D.material.set_shader_parameter("alpha", 1-power)
+	$SlashEffect.material.set_shader_parameter("alpha", 1-power)
 	
 func get_power_curve(x):
 	# https://www.desmos.com/calculator/bbsgyy968m -- cosine based
