@@ -12,7 +12,7 @@ var min_stats = {
 }
 var luck             = min_stats.luck
 var speed            = min_stats.speed
-var max_HP           = min_stats.max_HP+999999
+var max_HP           = min_stats.max_HP#+999999
 var defense          = min_stats.defense
 var health_regen     = min_stats.health_regen
 var pushing_strength = min_stats.pushing_strength
@@ -112,6 +112,7 @@ func _physics_process(delta):
 	if !woke: global_position += Vector3(0, 0, delta*8.0)
 	global_position.y = 0
 	$HealthRing/Red.material.set_shader_parameter("health", HP/max_HP)
+	if HP <= 0: die()
 
 func updateMomentum():
 	# Adjust target_angle for the shortest rotation path and update angle
@@ -175,17 +176,20 @@ func handleMovementAndCollisions(delta):
 		
 		if collider.is_in_group("enemies"):
 			$ImpactSound.play()
-			HP -= collider.damage
+			sparks()
+			HP -= collider.damage/2
 			#sprite_node.modulate = Color(1, 0, 0, 1)
-			if HP <= 0:
-				die()
-				return
 
 		# Attempt to push the collider by manually adjusting the hero's global_position
 		push_vector = collision.get_remainder().normalized() * pushing_strength * delta
 	
 	global_position += push_vector + momentum
 	global_position.y = 1
+
+func sparks():
+	if is_instance_valid($Stan/%Sparks):
+		var Sparks = $Stan/%Sparks
+		Sparks.emitting = true
 
 func die():
 	Music.stop()
