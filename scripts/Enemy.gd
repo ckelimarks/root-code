@@ -39,6 +39,7 @@ func _ready():
 	SoundManager.MarchSound.pitch_scale = .7
 	SoundManager.MarchSound.play()
 
+var punching = 0.0
 func _physics_process(delta):
 	if is_dead:
 		return
@@ -55,12 +56,12 @@ func _physics_process(delta):
 		if is_instance_valid($Stan/AnimationTree):
 			var AnimTree = $Stan/AnimationTree
 			AnimTree.active = true
+			AnimTree.set("parameters/Tree/BlendMove/blend_amount", 1-punching)
+			AnimTree.set("parameters/Tree/BlendPunch/blend_amount", punching)
 			if gap_vector.length() < 5:
-				AnimTree.set("parameters/Tree/BlendSlash/blend_amount", 1.0)
-				AnimTree.set("parameters/Tree/BlendMove/blend_amount", 0.0)
+				punching  = min(1, punching + delta * 3)
 			else:
-				AnimTree.set("parameters/Tree/BlendSlash/blend_amount", 0.0)
-				AnimTree.set("parameters/Tree/BlendMove/blend_amount", 1.0)
+				punching = max(0, punching - delta * 3)
 
 		# KELI -- this shouldn't go here:
 		#SoundManager.MarchSound.stop() 
@@ -96,9 +97,16 @@ func _physics_process(delta):
 		if weapons.has(collider):
 			SoundManager.StrikeSound.play()
 			SoundManager.StrikeSound.volume_db = -12 + collider.power * 3
+			#if is_instance_valid($Stan/AnimationTree):
+				#var AnimTree = $Stan/AnimationTree
+				#AnimTree.set("parameters/Tree/Hit/time", 0.0)
+				#AnimTree.set("parameters/Tree/BlendHit/blend_amount", 1.0)
+				#await get_tree().create_timer(0.5).timeout
+				#AnimTree.set("parameters/Tree/BlendHit/blend_amount", 0.0)
+				
 			HP -= collider.damage
 			momentum += (global_position - Hero.global_position).normalized() * sqrt(collider.knock_back / 2) / mass
-			glow()
+			sparks()
 			if HP <= 0: dead()
 			
 		# Attempt to push the collider by manually adjusting the enemy's global_position
@@ -106,7 +114,7 @@ func _physics_process(delta):
 	
 	global_position += push_vector + momentum
 
-func glow():
+func sparks():
 	pass
 	#glow_sprite.visible = true
 	#modulate = Color(1, 0, 0, 1)
