@@ -64,7 +64,7 @@ func _physics_process(delta):
 				punching = max(0, punching - delta * 3)
 
 		# KELI -- this shouldn't go here:
-		#SoundManager.MarchSound.stop() 
+		SoundManager.MarchSound.stop() 
 		# it will trigger this every frame
 		# for every enemy in this attack mode
 	elif behaviour == "swarm":
