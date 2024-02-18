@@ -26,7 +26,6 @@ func release_modal(node):
 	get_tree().paused = false
 
 func _on_restartbutton_pressed():
-	print(-1)
 	MainNode.reset()
 	MusicNode.play()
 	release_modal($RestartModal)

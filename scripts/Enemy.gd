@@ -94,6 +94,10 @@ func _physics_process(delta):
 			EnemyManager.Platoon.platoon_holes[platoon_grid_position] = true
 			EnemyManager.rogue_alert_on = true
 		
+		if collider == Hero:
+			Hero.HP -= damage/2
+			Hero.sparks()
+			
 		if weapons.has(collider):
 			SoundManager.StrikeSound.play()
 			SoundManager.StrikeSound.volume_db = -12 + collider.power * 3
@@ -115,13 +119,10 @@ func _physics_process(delta):
 	global_position += push_vector + momentum
 
 func sparks():
-	pass
-	#glow_sprite.visible = true
-	#modulate = Color(1, 0, 0, 1)
-	#await get_tree().create_timer(0.2).timeout
-	#modulate = enemy_color
-	#glow_sprite.visible = false
-	
+	if is_instance_valid($Stan/%Sparks):
+		var Sparks = $Stan/%Sparks
+		Sparks.emitting = true
+
 func dead():
 	var gem_instance       = ExpGemScene.instantiate()
 	var explosion_instance = ExplosionScene.instantiate()

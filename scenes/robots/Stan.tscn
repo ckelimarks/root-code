@@ -1,4 +1,4 @@
-[gd_scene load_steps=47 format=3 uid="uid://c1eksyt1bexd4"]
+[gd_scene load_steps=54 format=3 uid="uid://c1eksyt1bexd4"]
 
 [ext_resource type="Texture2D" uid="uid://dokwt3mhjyoim" path="res://models/Stan_Stan_Texture.png" id="1_biqsn"]
 [ext_resource type="Script" path="res://scripts/weapons/Fist.gd" id="2_jo37q"]
@@ -168,6 +168,60 @@ bind/42/pose = Transform3D(-1, 0, 0, 0, 0, 1, 0, 1, 0, -1.0175, 0.393624, -0.095
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_x7c34"]
 radius = 1.0
+
+[sub_resource type="Curve" id="Curve_6vee2"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.830011, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_pccpi"]
+curve = SubResource("Curve_6vee2")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_aoe64"]
+particle_flag_damping_as_friction = true
+emission_shape_scale = Vector3(1, 0.1, 1)
+emission_shape = 6
+emission_ring_axis = Vector3(0, 1, 0)
+emission_ring_height = 1.0
+emission_ring_radius = 1.0
+emission_ring_inner_radius = 0.0
+direction = Vector3(0, 0.5, -1)
+spread = 30.0
+initial_velocity_min = 5.0
+initial_velocity_max = 20.0
+damping_min = 5.0
+damping_max = 10.0
+scale_min = 0.2
+scale_max = 0.5
+emission_curve = SubResource("CurveTexture_pccpi")
+hue_variation_min = 1.0
+hue_variation_max = 1.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_b0ek7"]
+albedo_color = Color(1, 1, 0, 1)
+emission_enabled = true
+emission = Color(1, 0, 0, 1)
+emission_energy_multiplier = 1000.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_hdk2u"]
+material = SubResource("StandardMaterial3D_b0ek7")
+radius = 0.1
+height = 0.4
+radial_segments = 6
+rings = 3
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tg0n5"]
+albedo_color = Color(1, 0, 0, 1)
+metallic_specular = 1.0
+emission_enabled = true
+emission = Color(1, 0.470588, 0, 1)
+emission_energy_multiplier = 0.5
+
+[sub_resource type="SphereMesh" id="SphereMesh_14uqp"]
+material = SubResource("StandardMaterial3D_tg0n5")
+radius = 0.2
+height = 0.1
+radial_segments = 6
+rings = 3
 
 [sub_resource type="SphereMesh" id="SphereMesh_lq8hg"]
 radius = 0.1
@@ -5212,8 +5266,8 @@ bones/0/name = "Body"
 bones/0/parent = -1
 bones/0/rest = Transform3D(0.998828, 0.0348096, -0.0336373, -0.0207177, 0.935448, 0.352856, 0.0437487, -0.351745, 0.935073, -0.0171268, 2.6939, 0.906637)
 bones/0/enabled = true
-bones/0/position = Vector3(0, 2.71561, 0.917377)
-bones/0/rotation = Quaternion(-0.162183, -0.0338179, -0.00556164, 0.986165)
+bones/0/position = Vector3(-0.0171268, 2.6939, 0.906637)
+bones/0/rotation = Quaternion(-0.179099, -0.0196704, -0.0141142, 0.983533)
 bones/0/scale = Vector3(1, 1, 1)
 bones/1/name = "Torso"
 bones/1/parent = 0
@@ -5227,14 +5281,14 @@ bones/2/parent = 1
 bones/2/rest = Transform3D(1, 1.59404e-09, 2.36839e-07, 3.50179e-08, 0.987992, -0.154505, -2.34241e-07, 0.154505, 0.987992, 7.45058e-09, 1.33245, 1.03476e-07)
 bones/2/enabled = true
 bones/2/position = Vector3(7.45058e-09, 1.33245, 1.03476e-07)
-bones/2/rotation = Quaternion(0.0688684, 0.0349887, 7.06858e-09, 0.997012)
+bones/2/rotation = Quaternion(0.0774855, 1.18063e-07, 8.24167e-09, 0.996993)
 bones/2/scale = Vector3(1, 1, 1)
 bones/3/name = "Neck"
 bones/3/parent = 2
 bones/3/rest = Transform3D(1, 7.83859e-09, -4.76563e-07, 7.79849e-09, 0.999462, 0.0328033, 4.76564e-07, -0.0328033, 0.999462, -7.45058e-09, 0.71696, 4.54442e-08)
 bones/3/enabled = true
 bones/3/position = Vector3(-7.45058e-09, 0.71696, 4.54442e-08)
-bones/3/rotation = Quaternion(-0.0163965, -0.0284785, 0.00981542, 0.999412)
+bones/3/rotation = Quaternion(-0.0164039, -2.38314e-07, -1.19504e-12, 0.999866)
 bones/3/scale = Vector3(1, 1, 1)
 bones/4/name = "Head"
 bones/4/parent = 3
@@ -5255,14 +5309,14 @@ bones/6/parent = 5
 bones/6/rest = Transform3D(0.11394, 0.974565, 0.192976, -0.916325, 0.178144, -0.358627, -0.383883, -0.135966, 0.913316, 1.09559e-07, 0.828895, -8.93693e-08)
 bones/6/enabled = true
 bones/6/position = Vector3(1.09559e-07, 0.828895, -8.93693e-08)
-bones/6/rotation = Quaternion(0.31263, -0.0112716, -0.664258, 0.678895)
+bones/6/rotation = Quaternion(0.074967, 0.194221, -0.636638, 0.74253)
 bones/6/scale = Vector3(1, 1, 1)
 bones/7/name = "LowerArm.L"
 bones/7/parent = 6
 bones/7/rest = Transform3D(-0.357311, -0.253612, -0.898894, -0.513301, 0.857373, -0.0378598, 0.780289, 0.447875, -0.436528, 3.88223e-08, 1.12152, 1.12427e-07)
 bones/7/enabled = true
 bones/7/position = Vector3(3.88223e-08, 1.12152, 1.12427e-07)
-bones/7/rotation = Quaternion(0.621897, -0.535276, -0.525098, 0.225824)
+bones/7/rotation = Quaternion(0.235501, -0.814127, -0.125906, 0.515639)
 bones/7/scale = Vector3(1, 1, 1)
 bones/8/name = "PalmP.L"
 bones/8/parent = 7
@@ -5360,14 +5414,14 @@ bones/21/parent = 20
 bones/21/rest = Transform3D(0.11394, -0.974565, -0.192976, 0.916325, 0.178144, -0.358627, 0.383883, -0.135966, 0.913316, 4.15118e-07, 0.828895, 3.27406e-07)
 bones/21/enabled = true
 bones/21/position = Vector3(4.15118e-07, 0.828895, 3.27406e-07)
-bones/21/rotation = Quaternion(0.246245, -0.0588218, 0.610609, 0.750374)
+bones/21/rotation = Quaternion(0.074967, -0.194221, 0.636638, 0.74253)
 bones/21/scale = Vector3(1, 1, 1)
 bones/22/name = "LowerArm.R"
 bones/22/parent = 21
 bones/22/rest = Transform3D(-0.35731, 0.253612, 0.898894, 0.513301, 0.857373, -0.0378605, -0.780289, 0.447875, -0.436528, 6.19718e-07, 1.12152, -8.99972e-08)
 bones/22/enabled = true
 bones/22/position = Vector3(6.19718e-07, 1.12152, -8.99972e-08)
-bones/22/rotation = Quaternion(0.621897, 0.535276, 0.525098, 0.225824)
+bones/22/rotation = Quaternion(0.235502, 0.814127, 0.125906, 0.515639)
 bones/22/scale = Vector3(1, 1, 1)
 bones/23/name = "PalmP.R"
 bones/23/parent = 22
@@ -5458,28 +5512,28 @@ bones/35/parent = 0
 bones/35/rest = Transform3D(0.99999, 0.00410039, 0.00142987, 0.00382108, -0.987287, 0.158904, 0.00206327, -0.158897, -0.987289, 1.0175, 0.773773, -0.952508)
 bones/35/enabled = true
 bones/35/position = Vector3(1.0175, 0.773773, -0.952508)
-bones/35/rotation = Quaternion(0.991607, -0.0144485, -0.00529324, -0.12837)
+bones/35/rotation = Quaternion(0.996816, 0.00198669, 0.000876076, -0.0797042)
 bones/35/scale = Vector3(1, 1, 0.999996)
 bones/36/name = "LowerLeg.L"
 bones/36/parent = 35
 bones/36/rest = Transform3D(-1, -5.52869e-07, 1.4207e-06, 3.09401e-07, 0.838924, 0.544249, -1.49276e-06, 0.544249, -0.838923, -3.09549e-08, 1.68482, 4.88276e-08)
 bones/36/enabled = true
 bones/36/position = Vector3(-3.09549e-08, 1.68482, 4.88276e-08)
-bones/36/rotation = Quaternion(-3.46449e-08, 0.987862, 0.155335, 7.76788e-07)
+bones/36/rotation = Quaternion(-6.30259e-08, 0.958886, 0.283792, 7.59202e-07)
 bones/36/scale = Vector3(1, 1, 0.999999)
 bones/37/name = "UpperLeg.R"
 bones/37/parent = 0
 bones/37/rest = Transform3D(0.999987, 0.0048324, 0.00161723, 0.00448389, -0.985205, 0.171323, 0.00242122, -0.171315, -0.985209, -1.0175, 0.773773, -0.952508)
 bones/37/enabled = true
 bones/37/position = Vector3(-1.0175, 0.773773, -0.952508)
-bones/37/rotation = Quaternion(0.994965, -0.0164776, 0.00838894, -0.098503)
+bones/37/rotation = Quaternion(0.996294, 0.00233774, 0.00101337, -0.0859783)
 bones/37/scale = Vector3(1, 1, 0.999995)
 bones/38/name = "LowerLeg.R"
 bones/38/parent = 37
 bones/38/rest = Transform3D(-1, 4.68568e-07, -1.46508e-06, -2.61808e-07, 0.886727, 0.462295, 1.51574e-06, 0.462295, -0.886726, 1.50164e-07, 1.68482, 1.37366e-08)
 bones/38/enabled = true
 bones/38/position = Vector3(1.50164e-07, 1.68482, 1.37366e-08)
-bones/38/rotation = Quaternion(3.75455e-08, 0.985364, 0.170463, -7.76092e-07)
+bones/38/rotation = Quaternion(5.40341e-08, 0.971269, 0.237985, -7.67849e-07)
 bones/38/scale = Vector3(1, 1, 1)
 bones/39/name = "PoleTarget.L"
 bones/39/parent = 0
@@ -5492,7 +5546,7 @@ bones/40/name = "PoleTarget.R"
 bones/40/parent = 0
 bones/40/rest = Transform3D(1, 7.06363e-10, 4.58017e-10, -5.22478e-10, 0.947331, -0.320255, -6.6011e-10, 0.320255, 0.947331, -1.0175, -2.17647, 4.51097)
 bones/40/enabled = true
-bones/40/position = Vector3(-1.1902, -2.1265, 4.46943)
+bones/40/position = Vector3(-1.0175, -2.17647, 4.51097)
 bones/40/rotation = Quaternion(0.162279, 2.83287e-10, -3.11337e-10, 0.986745)
 bones/40/scale = Vector3(1, 1, 1)
 bones/41/name = "Foot.L"
@@ -5516,7 +5570,7 @@ mesh = SubResource("ArrayMesh_fjlww")
 skin = SubResource("Skin_6inia")
 
 [node name="BoneAttachment3D" type="BoneAttachment3D" parent="RobotArmature/Skeleton3D"]
-transform = Transform3D(-0.426939, 0.422294, -0.79962, 0.112628, 0.902207, 0.416337, 0.897239, 0.0876908, -0.43275, -1.66803, 5.15622, 0.491019)
+transform = Transform3D(-0.490032, -0.438722, -0.753255, -0.791605, -0.137863, 0.595277, -0.365007, 0.887985, -0.279737, -2.25876, 3.66092, -0.17968)
 bone_name = "PalmI.R"
 bone_idx = 29
 
@@ -5535,9 +5589,27 @@ unique_name_in_owner = true
 transform = Transform3D(0.0707107, -3.72529e-09, 0.0707108, 0.0707107, -3.72529e-09, -0.0707108, 3.72529e-09, 0.1, 1.86265e-09, 0, 0, 0)
 
 [node name="BoneAttachment3D2" type="BoneAttachment3D" parent="RobotArmature/Skeleton3D"]
-transform = Transform3D(0.998336, -0.0164748, -0.0552565, 0.0158225, 0.9998, -0.0122208, 0.0554468, 0.0113261, 0.998398, 0.0696732, 5.64683, -0.165295)
+transform = Transform3D(0.998828, 0.0209496, -0.0436385, -0.0207177, 0.999769, 0.00576104, 0.0437491, -0.00485015, 0.999031, 0.0937308, 5.58584, -0.254848)
 bone_name = "Head"
 bone_idx = 4
+
+[node name="Sparks" type="GPUParticles3D" parent="RobotArmature/Skeleton3D/BoneAttachment3D2"]
+unique_name_in_owner = true
+transform = Transform3D(1.5, 1.00699e-08, -2.23517e-08, 1.36206e-08, 1.5, 7.91624e-09, -1.49012e-08, 1.86265e-09, 1.5, -0.0288341, 0.266216, -0.642224)
+cast_shadow = 0
+emitting = false
+amount = 300
+amount_ratio = 0.75
+interp_to_end = 0.1
+one_shot = true
+explosiveness = 0.5
+randomness = 0.5
+trail_enabled = true
+trail_lifetime = 0.5
+process_material = SubResource("ParticleProcessMaterial_aoe64")
+draw_passes = 2
+draw_pass_1 = SubResource("SphereMesh_hdk2u")
+draw_pass_2 = SubResource("SphereMesh_14uqp")
 
 [node name="LeftEye" type="MeshInstance3D" parent="RobotArmature/Skeleton3D/BoneAttachment3D2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.27, 0.48, 0.23)
@@ -5566,6 +5638,7 @@ spot_range = 135.798
 spot_angle = 26.2184
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+active = false
 libraries = {
 "": SubResource("AnimationLibrary_7ges3")
 }

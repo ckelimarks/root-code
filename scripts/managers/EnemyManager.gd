@@ -1,7 +1,7 @@
 extends Node3D
 
 # ATTRIBUTES
-var swarm_spawn_cooldown = 10.0
+var swarm_spawn_cooldown = 30.0
 var rogue_spawn_cooldown =  5.0
 var swarm_spawn_heat     = swarm_spawn_cooldown
 var rogue_spawn_heat     = rogue_spawn_cooldown
@@ -22,7 +22,7 @@ func _process(delta):
 	Platoon.update_platoon(delta)
 	# these updaters should get moved to story/<BEHAVIOUR_TYPE>.gd scripts
 	if rogue_alert_on: 
-		rogue_alert(delta)
+		rogue(delta)
 		swarm(delta)
 
 func get_spawn_rect():
@@ -72,7 +72,7 @@ func swarm(delta):
 			animation_player.active = true
 			animation_player.play("drone_Armature|drone_fly")
 			
-func rogue_alert(delta):
+func rogue(delta):
 	rogue_spawn_cooldown = 5.0 / (1.0+Hero.current_level)
 	rogue_spawn_heat -= delta
 	if enemies.size() < max_enemies && rogue_spawn_heat <= 0:

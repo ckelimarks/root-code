@@ -15,3 +15,4 @@ func _on_body_entered(target):
 		var power_falloff = 1 # / gap.length()
 		target.momentum += gap.normalized() * (knock_back * power_falloff) / target.mass
 		target.HP -= damage * power_falloff
+		target.sparks()
