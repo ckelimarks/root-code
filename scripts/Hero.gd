@@ -177,6 +177,7 @@ func handleMovementAndCollisions(delta):
 		if collider.is_in_group("enemies"):
 			$ImpactSound.play()
 			sparks()
+			SoundManager.ImpactSound.play()
 			HP -= collider.damage/2
 			#sprite_node.modulate = Color(1, 0, 0, 1)
 

@@ -6,6 +6,7 @@ extends Node3D
 @onready var SlashSound      = $SFX/Slash
 @onready var MarchSound      = $SFX/Marching
 @onready var StrikeSound     = $SFX/MetalStrike
+@onready var ImpactSound     = $SFX/ImpactSound
 @onready var GameOverSound   = $SFX/GameOver
 
 # MUSIC

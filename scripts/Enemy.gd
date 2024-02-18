@@ -96,6 +96,7 @@ func _physics_process(delta):
 		
 		if collider == Hero:
 			Hero.HP -= damage/2
+			SoundManager.ImpactSound.play()
 			Hero.sparks()
 			
 		if weapons.has(collider):
