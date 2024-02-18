@@ -5,7 +5,7 @@ extends CharacterBody3D
 var min_stats = {
 	"luck":               1.0,
 	"speed":             26.0,
-	"max_HP":           100.0,
+	"max_HP":           200.0,
 	"defense":            0.0,
 	"health_regen":       0.1,
 	"pushing_strength":  0.0,
@@ -111,7 +111,18 @@ func _physics_process(delta):
 	HP = min(max_HP, HP + health_regen * delta)
 	if !woke: global_position += Vector3(0, 0, delta*8.0)
 	global_position.y = 0
-	$HealthRing/Red.material.set_shader_parameter("health", HP/max_HP)
+	if HP <= 100:
+		$HealthRing/H2.visible = false
+		$HealthRing/H1/Red.visible = true
+		$HealthRing/H1/RedFull.visible = false
+		$HealthRing/H1/Red.material.set_shader_parameter("health", HP/100)
+	else:
+		$HealthRing/H2.visible = true
+		$HealthRing/H1/Red.visible = false
+		$HealthRing/H1/RedFull.visible = true
+		$HealthRing/H2/Red.material.set_shader_parameter("health", HP/100-1)
+		
+		
 	if HP <= 0: die()
 
 func updateMomentum():
