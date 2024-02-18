@@ -1,4 +1,4 @@
-[gd_resource type="VisualShader" format=3 uid="uid://ujnurwhppspc"]
+[gd_resource type="VisualShader" format=3 uid="uid://1ox0w37488so"]
 
 [resource]
 code = "shader_type spatial;
@@ -7,6 +7,5 @@ render_mode blend_sub, depth_draw_opaque, cull_back, diffuse_lambert, specular_s
 
 
 "
-graph_offset = Vector2(-136.413, -48.4215)
 modes/blend = 2
 flags/shadows_disabled = true

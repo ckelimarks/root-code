@@ -29,11 +29,14 @@ func reset():
 	Hero.defense = Hero.min_stats.defense + Mainframe.saved_attributes.Hero.defense
 	Hero.health_regen = Hero.min_stats.health_regen + Mainframe.saved_attributes.Hero.health_regen
 	Hero.pushing_strength = Hero.min_stats.pushing_strength + Mainframe.saved_attributes.Hero.pushing_strength
+	Hero.current_level = 0
 	Hero.HP = Hero.max_HP
 
-	Hero.woke = false
-	Hero.target_angle = PI/2
-	Hero.angle = Hero.target_angle
-	Hero.global_position = Vector3.ZERO
+	Hero.woke             = false
+	Hero.target_angle     = PI/2
+	Hero.angle            = Hero.target_angle
+	Hero.Robot.rotation.y = 0
+	Hero.momentum         = Vector3.ZERO
+	Hero.global_position  = Vector3.ZERO
 	Hero.sleepen()
 
