@@ -23,13 +23,9 @@ func _physics_process(delta):
 
 func spawn_orb():
 	var blue_orb_projectile = blue_orb_scene.instantiate()
-	#blue_orb_projectile.z_index = 4096
 	blue_orb_projectile.global_position = Hero.OrbOrigin.global_position 
 	add_child(blue_orb_projectile)
 	weapons.append(blue_orb_projectile)
 
 	var orb_audio = blue_orb_projectile.get_node("BlueOrbAudio")
-	if orb_audio:
-		orb_audio.play()
-	else:
-		print("BlueOrbAudio node not found.")
+	orb_audio.play()

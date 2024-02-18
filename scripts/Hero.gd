@@ -158,7 +158,6 @@ func getUserInteraction():
 	if (slash or x or y):
 		wakefullness += 1
 		if !woke:
-			print(wakefullness)
 			if randf() > 1-wakefullness: awaken()
 		else:
 			if randf() > wakefullness: sleepen()

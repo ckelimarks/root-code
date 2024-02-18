@@ -42,7 +42,6 @@ func _on_body_entered(target):
 		# Apply the EMP effect to the enemy
 		var gap = target.global_position - Hero.global_position
 		var power_falloff = Hero.Emp.scale.x / gap.length()
-		#print([gap.length(), power_falloff, Hero.Emp.scale.x])
 		target.momentum += (gap).normalized() * (knock_back * power_falloff) / target.mass
 		target.HP -= damage * power_falloff
 		if target.HP <= 0:
