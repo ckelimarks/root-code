@@ -19,6 +19,8 @@ shader = ExtResource("7_xgc8g")
 shader_parameter/health = 0.5
 
 [node name="HeroBody" type="CharacterBody3D"]
+collision_layer = 257
+collision_mask = 257
 motion_mode = 1
 script = ExtResource("1")
 

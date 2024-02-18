@@ -1,11 +1,13 @@
 extends Node3D
 
 # ATTRIBUTES
-var enemy_spawn_cooldown = 1
-var enemy_spawn_heat = 0
-var rogue_alert_on = false
-var max_enemies = 500 # 20x20 stans, 100 dunes
-var enemies = []
+var swarm_spawn_cooldown = 10.0
+var rogue_spawn_cooldown =  5.0
+var swarm_spawn_heat     = swarm_spawn_cooldown
+var rogue_spawn_heat     = rogue_spawn_cooldown
+var rogue_alert_on       = false
+var max_enemies          = 300 # 10x20 stans + 100 dunes
+var enemies              = []
 
 # NODES AND SCENES
 var Platoon    = preload("res://scenes/story/Platoon.tscn").instantiate()
@@ -18,7 +20,10 @@ var RobotTypes = {
 
 func _process(delta):
 	Platoon.update_platoon(delta)
-	if rogue_alert_on: rogue_alert(delta)
+	# these updaters should get moved to story/<BEHAVIOUR_TYPE>.gd scripts
+	if rogue_alert_on: 
+		rogue_alert(delta)
+		swarm(delta)
 
 func get_spawn_rect():
 	var view_size = Vector2(get_viewport().size)
@@ -42,18 +47,45 @@ func unspawn_enemy(enemy):
 	EnemyManager.enemies.erase(enemy)
 	enemy.queue_free()
 
-func rogue_alert(delta):
-	enemy_spawn_heat -= delta
-	if enemies.size() < max_enemies && enemy_spawn_heat <= 0:
-		enemy_spawn_heat = enemy_spawn_cooldown
-		var distance = 50 # hypot(spawn_rect)
+func swarm(delta):
+	swarm_spawn_heat -= delta
+	if enemies.size() < max_enemies && swarm_spawn_heat <= 0:
+		swarm_spawn_heat = swarm_spawn_cooldown
+		var distance = get_spawn_rect().size.length()/2
 		var angle = randf_range(0, 2*PI)
+		var swarm_count = randi_range(5, Hero.current_level+5)
+		var swarm_id = randf()
 		
-		var new_enemy = spawn_enemy("DuneDrone")
-		new_enemy.global_position = Hero.global_position + Vector3(cos(angle), 0, sin(angle)) * distance
-		new_enemy.behaviour = "attack"
+		for i in swarm_count:
+			var new_drone = spawn_enemy("DuneDrone")
+			var swarm_angle = 2*PI/swarm_count*i
+			var swarm_radius = 2+i
+			new_drone.swarm_id = swarm_id
+			new_drone.global_position = Hero.global_position
+			new_drone.global_position += Vector3(cos(angle), 0, sin(angle)) * distance
+			new_drone.global_position += Vector3(cos(swarm_angle), 0, sin(swarm_angle)) * swarm_radius
+			new_drone.behaviour = "swarm"
+			new_drone.speed = min(Hero.speed * 1.2, 18.0)
+			new_drone.HP = 1
 		
-		var animation_player = new_enemy.Robot.get_node("AnimationPlayer")
+			var animation_player = new_drone.Robot.get_node("AnimationPlayer")
+			animation_player.active = true
+			animation_player.play("drone_Armature|drone_fly")
+			
+func rogue_alert(delta):
+	rogue_spawn_cooldown = 5.0 / (1.0+Hero.current_level)
+	rogue_spawn_heat -= delta
+	if enemies.size() < max_enemies && rogue_spawn_heat <= 0:
+		rogue_spawn_heat = rogue_spawn_cooldown
+		var distance = get_spawn_rect().size.length()/2
+		var angle = randf_range(0, 2*PI)
+		var new_drone = spawn_enemy("DuneDrone")
+		new_drone.global_position = Hero.global_position
+		new_drone.global_position += Vector3(cos(angle), 0, sin(angle)) * distance
+		new_drone.behaviour = "attack"
+		new_drone.HP = 1
+	
+		var animation_player = new_drone.Robot.get_node("AnimationPlayer")
 		animation_player.active = true
 		animation_player.play("drone_Armature|drone_fly")
 

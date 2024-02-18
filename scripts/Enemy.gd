@@ -1,70 +1,88 @@
 extends CharacterBody3D
 
 # ATTRIBUTES
-# local
-var speed = 10.0  # Adjust as needed
-var mass = 1
-var pushing_strength = 5.0
-var HP = 10 # hit points
-var damage = 1
-var knock_back = 1
-var enemy_color = Color(.9, .8, 1, 1)
-var is_dead = false
-var momentum = Vector3.ZERO
-var behaviour = "attack" # assist, march ... etc
-var platoon_grid_position: Vector2
-#var distance_to_hero = -1
-# external
+#	local
+var HP                       = 10 # hit points
+var mass                     = 1.0
+var speed                    = 10.0  # Adjust as needed
+var damage                   = 1.0
+var is_dead                  = false
+var swarm_id                 = randf()
+var momentum                 = Vector3.ZERO
+var behaviour                = "attack" # assist, march, swarm ... etc
+var knock_back               = 1.0
+var enemy_color              = Color(.9, .8, 1, 1)
+var pushing_strength         = 0.0
+var platoon_grid_position:     Vector2
+#	external
 @onready var weapons         = WeaponManager.weapons
 
-# NODES AND SCENES
-# local
-@onready var KillSound       = $AudioStreamPlayer2D #move to sound manager
-@onready var Explosion       = $ExplosionSprite
-# external
+# NODES
+#	local
+@onready var Explosion       = $Explosion
+#	external
 @onready var Robot:            CharacterBody3D
-@onready var RobotAnimation:   AnimationPlayer
+@onready var KillSound       = SoundManager.KillSound
 @onready var BlueOrbEmitter  = WeaponManager.BlueOrbEmitter
+@onready var RobotAnimation:   AnimationPlayer
+
+# SCENES
 var ExpGemScene              = preload("res://scenes/items/ExpGem.tscn")
+var ExplosionScene           = preload("res://scenes/weapons/Explosion.tscn")
 
 func _ready():
-	add_child(Robot)
 	var RobotCollider = Robot.get_node("Collider")
+	add_child(Robot)
 	$Collider.set_shape(RobotCollider.shape)
 	$Collider.position = RobotCollider.position
 	$Collider.rotation = RobotCollider.rotation
 	SoundManager.MarchSound.pitch_scale = .7
 	SoundManager.MarchSound.play()
-	#for weapon in weapons:
-		#if weapon is Area2D:  # Or 'Area' for 3D games
-			#weapon.connect("effect", self, "_on_weapon_effect")
 
+var punching = 0.0
 func _physics_process(delta):
 	if is_dead:
 		return
 		
-	global_position.y = 0
-	
-	#distance_to_hero = global_position.distance_to(Hero.global_position)
+	var start_position = global_position
 	var gap_vector = Hero.global_position - global_position
 	var direction: Vector3
+
+	# these behaviours should get outsourced to story/<BEHAVIOUR_TYPE>.gd scripts
+	# including speed adjustments, and animation modes (stan stops and melees for example)
 	if behaviour == "attack":
 		direction = (gap_vector).normalized()
-		SoundManager.MarchSound.stop()
+		
+		if is_instance_valid($Stan/AnimationTree):
+			var AnimTree = $Stan/AnimationTree
+			AnimTree.active = true
+			AnimTree.set("parameters/Tree/BlendMove/blend_amount", 1-punching)
+			AnimTree.set("parameters/Tree/BlendPunch/blend_amount", punching)
+			if gap_vector.length() < 5:
+				punching  = min(1, punching + delta * 3)
+			else:
+				punching = max(0, punching - delta * 3)
+
+		# KELI -- this shouldn't go here:
+		#SoundManager.MarchSound.stop() 
+		# it will trigger this every frame
+		# for every enemy in this attack mode
+	elif behaviour == "swarm":
+		direction = (gap_vector).normalized()
+		if gap_vector.length() < 10: behaviour = "swarm_away"
+	elif behaviour == "swarm_away":
+		direction.x = cos(global_rotation.y - PI/2)
+		direction.z = -sin(global_rotation.y - PI/2)
 	elif behaviour == "march":
 		direction = Vector3(0, 0, 1)
-		
+
+	global_position.y = 0
 	global_rotation.y = atan2(-direction.z, direction.x) + PI / 2
-	var start_position = global_position
-	
-	if HP > 0:
-		var real_gap_vector = gap_vector #* unISO #de-isometricify before using the angle
-		var angle = atan2(real_gap_vector.y, real_gap_vector.x)
-		var angle_dir = int(angle / (PI / 4)) % 8
-	
-	# First, try to move normally.	
+
+	# First, try to move normally.
 	var push_vector = Vector3.ZERO
 	var collision = move_and_collide(direction * speed * delta)
+
 	momentum *= Vector3(.95, .95, .95)
 
 	if collision:
@@ -77,12 +95,18 @@ func _physics_process(delta):
 			EnemyManager.rogue_alert_on = true
 		
 		if weapons.has(collider):
-			#collider.do_your_thing(self)			
-			SoundManager.EnemyStrike.play()
-			SoundManager.EnemyStrike.volume_db = -12 + collider.power * 3
+			SoundManager.StrikeSound.play()
+			SoundManager.StrikeSound.volume_db = -12 + collider.power * 3
+			#if is_instance_valid($Stan/AnimationTree):
+				#var AnimTree = $Stan/AnimationTree
+				#AnimTree.set("parameters/Tree/Hit/time", 0.0)
+				#AnimTree.set("parameters/Tree/BlendHit/blend_amount", 1.0)
+				#await get_tree().create_timer(0.5).timeout
+				#AnimTree.set("parameters/Tree/BlendHit/blend_amount", 0.0)
+				
 			HP -= collider.damage
 			momentum += (global_position - Hero.global_position).normalized() * sqrt(collider.knock_back / 2) / mass
-			glow()
+			sparks()
 			if HP <= 0: dead()
 			
 		# Attempt to push the collider by manually adjusting the enemy's global_position
@@ -90,15 +114,7 @@ func _physics_process(delta):
 	
 	global_position += push_vector + momentum
 
-
-#func _on_weapon_effect(weapon):
-	## Handle the effect here, e.g., apply damage or a debuff
-	## This is a generic handler; you can customize it based on the weapon's properties
-	#if weapon.has_method("apply_effect"):
-		#print(0)
-		#weapon.apply_effect(self)
-
-func glow():
+func sparks():
 	pass
 	#glow_sprite.visible = true
 	#modulate = Color(1, 0, 0, 1)
@@ -107,11 +123,12 @@ func glow():
 	#glow_sprite.visible = false
 	
 func dead():
-	var gem_instance = ExpGemScene.instantiate()
+	var gem_instance       = ExpGemScene.instantiate()
+	var explosion_instance = ExplosionScene.instantiate()
 	
 	$Collider.disabled = true
-	is_dead = true
-	speed = 0
+	is_dead            = true
+	speed              = 0
 	KillSound.play()
 	#enemy_node.play("dead")
 	
@@ -120,15 +137,12 @@ func dead():
 	set_collision_mask_value(0, false)
 	set_collision_layer_value(1, false)
 	set_collision_mask_value(1, false)
-	EnemyManager.enemies.erase(self)
+	
 	EnemyManager.enemies.erase(self)
 	EnemyManager.add_child(gem_instance)
-	gem_instance.global_position = global_position
+	EnemyManager.add_child(explosion_instance)
 
-	Robot.visible = false
-	Explosion.rotation = Vector3(-35,0,0) - global_rotation
-	Explosion.visible = true
-	Explosion.play("explosion")
-	
-	await get_tree().create_timer(2).timeout
+	gem_instance.global_position       = global_position
+	explosion_instance.global_position = global_position
+
 	self.queue_free()

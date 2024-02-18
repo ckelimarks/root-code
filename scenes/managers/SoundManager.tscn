@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://ckl4yx1m2io4v"]
+[gd_scene load_steps=9 format=3 uid="uid://ckl4yx1m2io4v"]
 
 [ext_resource type="AudioStream" uid="uid://cwycn706i2uho" path="res://sounds/sfx/Marching.mp3" id="1_tm7ql"]
 [ext_resource type="Script" path="res://scripts/managers/SoundManager.gd" id="1_uyqwa"]
 [ext_resource type="AudioStream" uid="uid://cotulhxlwiqpn" path="res://sounds/sfx/sword_slash.mp3" id="2_2xnia"]
 [ext_resource type="AudioStream" uid="uid://bgwec1wesfsmu" path="res://sounds/Atmosphere.mp3" id="2_s5ku7"]
+[ext_resource type="AudioStream" uid="uid://dirwxw7f73mdj" path="res://sounds/killsound2.mp3" id="3_bqobu"]
 [ext_resource type="AudioStream" uid="uid://casc2sginvnwg" path="res://sounds/sfx/empv2.mp3" id="4_pl06t"]
 [ext_resource type="AudioStream" uid="uid://qk1veqc5of07" path="res://sounds/sfx/metal_strike.mp3" id="5_m152d"]
 [ext_resource type="AudioStream" uid="uid://0y8kwywbgqoi" path="res://sounds/gameover.mp3" id="6_rqlui"]
@@ -14,15 +15,19 @@ script = ExtResource("1_uyqwa")
 
 [node name="SFX" type="Node" parent="."]
 
+[node name="Emp" type="AudioStreamPlayer" parent="SFX"]
+stream = ExtResource("4_pl06t")
+
+[node name="Kill" type="AudioStreamPlayer" parent="SFX"]
+stream = ExtResource("3_bqobu")
+volume_db = -80.0
+
+[node name="Slash" type="AudioStreamPlayer" parent="SFX"]
+stream = ExtResource("2_2xnia")
+
 [node name="Marching" type="AudioStreamPlayer" parent="SFX"]
 stream = ExtResource("1_tm7ql")
 bus = &"SFX"
-
-[node name="SwordSlash" type="AudioStreamPlayer" parent="SFX"]
-stream = ExtResource("2_2xnia")
-
-[node name="EmpSound" type="AudioStreamPlayer" parent="SFX"]
-stream = ExtResource("4_pl06t")
 
 [node name="MetalStrike" type="AudioStreamPlayer" parent="SFX"]
 stream = ExtResource("5_m152d")
