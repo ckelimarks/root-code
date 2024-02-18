@@ -5,7 +5,7 @@ extends CharacterBody3D
 var min_stats = {
 	"luck":               1.0,
 	"speed":             26.0,
-	"max_HP":           200.0,
+	"max_HP":           100.0,
 	"defense":            0.0,
 	"health_regen":       0.1,
 	"pushing_strength":  0.0,
