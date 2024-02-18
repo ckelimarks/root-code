@@ -176,8 +176,8 @@ func handleMovementAndCollisions(delta):
 		
 		if collider.is_in_group("enemies"):
 			$ImpactSound.play()
-			sparks()
 			HP -= collider.damage/2
+			sparks()
 			#sprite_node.modulate = Color(1, 0, 0, 1)
 
 		# Attempt to push the collider by manually adjusting the hero's global_position
