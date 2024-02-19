@@ -44,11 +44,11 @@ var angle        = target_angle
 @onready var AnimPlayer       = $Stan/AnimationPlayer
 @onready var AnimTree         = $Stan/AnimationTree
 @onready var SwordCollision   = $Stan/RobotArmature/Skeleton3D/BoneAttachment3D/Sword/CollisionShape3D
-# autoload these?, and put these vars in their top-level scopes
 #	external
 @onready var XpBar        = UI.XpBar
 @onready var RestartModal = UI.RestartModal
 @onready var UpgradeModal = UI.UpgradeModal
+# autoload these?, and put these vars in their top-level scopes
 #@onready var game_over = get_node("/root/Main/GameOverSound")
 @onready var Music        = get_node("/root/Main/Music")
 @onready var MainNode     = get_node("/root/Main")
@@ -72,6 +72,9 @@ func sleepen():
 	woke                                = false
 	Emp.enabled                         = false
 	Robot.get_node("%ThirdEye").visible = false
+	Robot.get_node("%LeftEye").get_active_material(0).emission = "#ff0000"
+	Robot.get_node("%RightEye").get_active_material(0).emission = "#ff0000"
+
 
 	if is_instance_valid(Sword):
 		Sword.queue_free()
@@ -87,7 +90,9 @@ func awaken():
 	woke                                = true
 	Emp.enabled                         = true
 	Robot.get_node("%ThirdEye").visible = true
-
+	#Robot.get_node("%Spotlight").light_color = "#39afea"
+	Robot.get_node("%LeftEye").get_active_material(0).emission = "#00c4f6"
+	Robot.get_node("%RightEye").get_active_material(0).emission = "#00c4f6"
 	Sword = SwordScene.instantiate()
 	SwordHolder.add_child(Sword)
 	WeaponManager.weapons.append(Sword)

@@ -1,13 +1,27 @@
 extends Node
 
-# NODES AND SCENES
+# NODES
+@onready var Ground = get_node("/root/Main/Ground")
+
+# SCENES
 var Column = preload("res://scenes/ecology/Column.tscn")
 
 func _ready():
-	for c in range(10):
-		var new_column = Column.instantiate()
-		new_column.global_position = Vector3(-30-50*c, 50, 100*c)
-		add_child(new_column)
+	var corner = -Ground.mesh.size.z * sqrt(2) / 4
+	var column_count = 4
+	var column_gap = sqrt(2) * Ground.mesh.size.z/2 / column_count
+	var column_height: float
+	for c_z in range(column_count):
+		for c_x in range(column_count):
+			var new_column = Column.instantiate()
+			if !column_height: 
+				column_height = new_column.get_node("Mesh").mesh.height
+			new_column.global_position = Vector3(
+				column_gap * (c_x-c_z),
+				column_height/2, 
+				corner + column_gap * (c_x+c_z - 1)
+			)
+			add_child(new_column)
 #
 #func _process(delta):
 ##	# Define the maximum view rectangle considering the camera's position

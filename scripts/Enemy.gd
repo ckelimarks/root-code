@@ -74,7 +74,7 @@ func _physics_process(delta):
 		direction.x = cos(global_rotation.y - PI/2)
 		direction.z = -sin(global_rotation.y - PI/2)
 	elif behaviour == "march":
-		direction = Vector3(0, 0, 1)
+		direction = Vector3(-1, 0, 1).normalized()
 
 	global_position.y = 0
 	global_rotation.y = atan2(-direction.z, direction.x) + PI / 2

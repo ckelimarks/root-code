@@ -20,7 +20,7 @@ func _process(delta):
 
 func update_platoon(delta):
 	if disabled: return
-	platoon_rect.position.y += delta * 8
+	platoon_rect.position += Vector2(1, 1).normalized() * delta * 8.0
 	var view_bounds = EnemyManager.get_spawn_rect()
 	var spawn_buffer = view_bounds.grow(20)
 	var unspawn_buffer = spawn_buffer.grow(20)
@@ -56,7 +56,7 @@ func process_perimeter(rect: Rect2, is_spawn: bool):
 func check_and_spawn_unspawn(position: Vector2, is_spawn: bool):
 	# Adjust position to grid alignment if necessary
 	var grid_position = (position - platoon_rect.position).snapped(platoon_spacing)
-	#if !platoon_rect.has_point(grid_position): return
+	if !platoon_rect.has_point(grid_position): return
 
 	# Depending on whether we are spawning or unspawning
 	if is_spawn:
