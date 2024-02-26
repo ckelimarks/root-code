@@ -171,8 +171,10 @@ func getUserInteraction():
 		throttle = 1.0
 
 	if !woke:
-		target_angle = PI/2
-		#throttle = 0.8
+		target_angle = 3*PI/4
+		throttle = 0.625 # don't do it this way
+		#actually wokeness should just intermittently hijack a regular platoon member
+		#only when you're fully woke does it become hero?
 		
 	if (slash or x or y):
 		wakefullness += 1
