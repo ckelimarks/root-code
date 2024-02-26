@@ -1,5 +1,9 @@
 extends CharacterBody3D
 
+# TODO: make stan and fist not monitor or monitorable when marching
+# if Hero enters avoidance area, turn on stan
+# if attack mode, turn on fist
+
 # ATTRIBUTES
 #	local
 var HP                       = 10 # hit points
@@ -13,7 +17,6 @@ var behaviour                = "attack" # assist, march, swarm ... etc
 var knock_back               = 1.0
 var enemy_color              = Color(.9, .8, 1, 1)
 var pushing_strength         = 0.0
-var platoon_grid_position:     Vector2
 #	external
 @onready var weapons         = WeaponManager.weapons
 
@@ -51,6 +54,8 @@ func _physics_process(delta):
 	# these behaviours should get outsourced to story/<BEHAVIOUR_TYPE>.gd scripts
 	# including speed adjustments, and animation modes (stan stops and melees for example)
 	if behaviour == "attack":
+		# remove guards from guard group?
+		#Robot.global_rotation.y = 0
 		direction = (gap_vector).normalized()
 		
 		if is_instance_valid($Stan/AnimationTree):
@@ -74,13 +79,18 @@ func _physics_process(delta):
 		direction.x = cos(global_rotation.y - PI/2)
 		direction.z = -sin(global_rotation.y - PI/2)
 	elif behaviour == "march":
-		direction = Vector3(0, 0, 1)
+		direction = Vector3(-1, 0, 1).normalized()
+	elif behaviour == "guard":
+		pass
+		#direction = Vector3(-1, 0, 1).normalized()
 
 	global_position.y = 0
-	global_rotation.y = atan2(-direction.z, direction.x) + PI / 2
+	if behaviour != "guard":
+		global_rotation.y = atan2(-direction.z, direction.x) + PI / 2
 
 	# First, try to move normally.
 	var push_vector = Vector3.ZERO
+	#speed=0
 	var collision = move_and_collide(direction * speed * delta)
 
 	momentum *= Vector3(.95, .95, .95)
@@ -88,10 +98,10 @@ func _physics_process(delta):
 	if collision:
 		var collider = collision.get_collider()
 		
-		if (collider == Hero or weapons.has(collider)) and behaviour == "march":
+		if collider == Hero or weapons.has(collider): # and behaviour == "march":
 			behaviour = "attack"
 			speed = 10
-			EnemyManager.Platoon.platoon_holes[platoon_grid_position] = true
+			#EnemyManager.Platoon.platoon_holes[platoon_grid_position] = true
 			EnemyManager.rogue_alert_on = true
 		
 		if collider == Hero:

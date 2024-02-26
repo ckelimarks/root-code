@@ -26,6 +26,8 @@ var touch = {
 	"down":   false,
 	"attack": false
 }
+var previous_horizontal_direction = 0
+var previous_vertical_direction = 0
 var woke         = false
 var mass         = 10.0
 var throttle     = 0.0
@@ -44,11 +46,11 @@ var angle        = target_angle
 @onready var AnimPlayer       = $Stan/AnimationPlayer
 @onready var AnimTree         = $Stan/AnimationTree
 @onready var SwordCollision   = $Stan/RobotArmature/Skeleton3D/BoneAttachment3D/Sword/CollisionShape3D
-# autoload these?, and put these vars in their top-level scopes
 #	external
 @onready var XpBar        = UI.XpBar
 @onready var RestartModal = UI.RestartModal
 @onready var UpgradeModal = UI.UpgradeModal
+# autoload these?, and put these vars in their top-level scopes
 #@onready var game_over = get_node("/root/Main/GameOverSound")
 @onready var Music        = get_node("/root/Main/Music")
 @onready var MainNode     = get_node("/root/Main")
@@ -72,6 +74,9 @@ func sleepen():
 	woke                                = false
 	Emp.enabled                         = false
 	Robot.get_node("%ThirdEye").visible = false
+	Robot.get_node("%LeftEye").get_active_material(0).emission = "#ff0000"
+	Robot.get_node("%RightEye").get_active_material(0).emission = "#ff0000"
+
 
 	if is_instance_valid(Sword):
 		Sword.queue_free()
@@ -87,7 +92,9 @@ func awaken():
 	woke                                = true
 	Emp.enabled                         = true
 	Robot.get_node("%ThirdEye").visible = true
-
+	#Robot.get_node("%Spotlight").light_color = "#39afea"
+	Robot.get_node("%LeftEye").get_active_material(0).emission = "#00c4f6"
+	Robot.get_node("%RightEye").get_active_material(0).emission = "#00c4f6"
 	Sword = SwordScene.instantiate()
 	SwordHolder.add_child(Sword)
 	WeaponManager.weapons.append(Sword)
@@ -104,12 +111,11 @@ func print_tree_properties(object, path):
 			print_tree_properties(property_value, property_path)
 
 func _physics_process(delta):
-	if woke: updateMomentum()
+	updateMomentum()
 	getUserInteraction()
 	handleMovementAndCollisions(delta)
 	update_animation_parameters()
 	HP = min(max_HP, HP + health_regen * delta)
-	if !woke: global_position += Vector3(0, 0, delta*8.0)
 	global_position.y = 0
 	if HP <= 100:
 		$HealthRing/H2.visible = false
@@ -136,8 +142,6 @@ func updateMomentum():
 	velocity *= Vector3(dampening, 0, dampening)
 	velocity += Vector3(cos(angle), 0, sin(angle)) * throttle * speed
 
-var previous_horizontal_direction = 0
-var previous_vertical_direction = 0
 func getUserInteraction():
 	# int(bool) turns true into 1 and false into 0
 	var right = int(Input.is_action_pressed('ui_right') || touch.right)
@@ -166,6 +170,12 @@ func getUserInteraction():
 		angle -= bias
 		throttle = 1.0
 
+	if !woke:
+		target_angle = 3*PI/4
+		throttle = 0.625 # don't do it this way
+		#actually wokeness should just intermittently hijack a regular platoon member
+		#only when you're fully woke does it become hero?
+		
 	if (slash or x or y):
 		wakefullness += 1
 		if !woke:

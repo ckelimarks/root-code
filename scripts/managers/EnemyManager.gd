@@ -19,7 +19,7 @@ var RobotTypes = {
 }
 
 func _process(delta):
-	Platoon.update_platoon(delta)
+	Platoon.update(delta)
 	# these updaters should get moved to story/<BEHAVIOUR_TYPE>.gd scripts
 	if rogue_alert_on: 
 		rogue(delta)

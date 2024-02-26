@@ -9,6 +9,8 @@ func _ready():
 	if debug_cam:
 		current = false
 		get_node("/root/Main/DebugCam").current = true
+		get_node("/root/Main/DebugCam").size = 700
+		
 	initial_offset = global_position
 	
 func _process(delta):

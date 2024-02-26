@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://3rgmo8vegmv"]
+[gd_scene load_steps=5 format=3 uid="uid://3rgmo8vegmv"]
 
 [ext_resource type="Script" path="res://scripts/Main.gd" id="2"]
 [ext_resource type="Shader" uid="uid://bcpe4wiysxuft" path="res://shaders/repitiontexture.tres" id="4_5ucip"]
@@ -10,18 +10,6 @@ size = Vector3(1000, 20, 1000)
 render_priority = 0
 shader = ExtResource("4_5ucip")
 
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_4qono"]
-
-[sub_resource type="Sky" id="3"]
-sky_material = SubResource("ProceduralSkyMaterial_4qono")
-
-[sub_resource type="Environment" id="4"]
-background_mode = 2
-background_energy_multiplier = 0.0
-sky = SubResource("3")
-sdfgi_enabled = true
-volumetric_fog_emission_energy = 10.0
-
 [node name="Main" type="Node3D"]
 script = ExtResource("2")
 
@@ -32,14 +20,18 @@ skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_5pp3x")
 
 [node name="Sun" type="DirectionalLight3D" parent="."]
-transform = Transform3D(0.779808, -0.602604, 0.169611, 0, 0.270936, 0.962597, -0.626019, -0.750641, 0.211278, 0, 6.38892, 0)
-light_energy = 0.1
+transform = Transform3D(-0.27228, 0.318027, 0.908142, -8.25097e-08, -0.943801, 0.330514, 0.962218, 0.0899924, 0.256978, 0, 15, 0)
+light_color = Color(0.827451, 0, 0.121569, 1)
+light_energy = 0.2
 shadow_enabled = true
 shadow_opacity = 0.5
 shadow_blur = 5.0
 
-[node name="Sky" type="WorldEnvironment" parent="."]
-environment = SubResource("4")
+[node name="Sun2" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.27228, 0.318027, 0.908142, -8.25097e-08, -0.943801, 0.330514, 0.962218, 0.0899924, 0.256978, 0, 15, 0)
+visible = false
+shadow_opacity = 0.5
+shadow_blur = 5.0
 
 [node name="Music" type="AudioStreamPlayer" parent="."]
 process_mode = 3
@@ -49,4 +41,6 @@ volume_db = -10.0
 process_mode = 3
 
 [node name="DebugCam" type="Camera3D" parent="."]
-transform = Transform3D(0.464842, 0.502765, -0.7288, 0, 0.823136, 0.567844, 0.885394, -0.263958, 0.382628, -58.1638, 40.8484, 58.5521)
+transform = Transform3D(1, 0, 0, 0, 0.819152, 0.573576, 0, -0.573576, 0.819152, 0, 400, 575)
+projection = 1
+size = 1000.0

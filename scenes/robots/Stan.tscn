@@ -197,10 +197,10 @@ hue_variation_min = 1.0
 hue_variation_max = 1.0
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_b0ek7"]
-albedo_color = Color(1, 1, 0, 1)
+albedo_color = Color(0.988235, 0.113725, 0, 1)
 emission_enabled = true
-emission = Color(1, 0, 0, 1)
-emission_energy_multiplier = 1000.0
+emission = Color(1, 0.384314, 0.145098, 1)
+emission_energy_multiplier = 10.0
 
 [sub_resource type="SphereMesh" id="SphereMesh_hdk2u"]
 material = SubResource("StandardMaterial3D_b0ek7")
@@ -210,10 +210,10 @@ radial_segments = 6
 rings = 3
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tg0n5"]
-albedo_color = Color(1, 0, 0, 1)
+albedo_color = Color(1, 0.498039, 0, 1)
 metallic_specular = 1.0
 emission_enabled = true
-emission = Color(1, 0.470588, 0, 1)
+emission = Color(1, 0.666667, 0.278431, 1)
 emission_energy_multiplier = 0.5
 
 [sub_resource type="SphereMesh" id="SphereMesh_14uqp"]
@@ -228,13 +228,15 @@ radius = 0.1
 height = 0.2
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_h4dn0"]
+albedo_color = Color(0, 0, 0, 1)
 emission_enabled = true
-emission = Color(0, 0.768627, 0.964706, 1)
+emission = Color(1, 0, 0, 1)
 emission_energy_multiplier = 16.0
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qdxx8"]
+albedo_color = Color(0, 0, 0, 1)
 emission_enabled = true
-emission = Color(0, 0.768627, 0.964706, 1)
+emission = Color(1, 0, 0, 1)
 emission_energy_multiplier = 16.0
 
 [sub_resource type="Animation" id="Animation_ld5vh"]
@@ -5612,18 +5614,20 @@ draw_pass_1 = SubResource("SphereMesh_hdk2u")
 draw_pass_2 = SubResource("SphereMesh_14uqp")
 
 [node name="LeftEye" type="MeshInstance3D" parent="RobotArmature/Skeleton3D/BoneAttachment3D2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.27, 0.48, 0.23)
+unique_name_in_owner = true
+transform = Transform3D(1, 9.74978e-10, 7.45058e-09, 2.35741e-09, 1, 0, 0, 0, 1, 0.269653, 0.480038, 0.222073)
 mesh = SubResource("SphereMesh_lq8hg")
 surface_material_override/0 = SubResource("StandardMaterial3D_h4dn0")
 
 [node name="RightEye" type="MeshInstance3D" parent="RobotArmature/Skeleton3D/BoneAttachment3D2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.27, 0.48, 0.23)
+unique_name_in_owner = true
+transform = Transform3D(1, 2.83762e-09, 1.11759e-08, 2.35741e-09, 1, 0, 0, -4.65661e-10, 1, -0.270347, 0.480037, 0.222073)
 mesh = SubResource("SphereMesh_lq8hg")
 surface_material_override/0 = SubResource("StandardMaterial3D_qdxx8")
 
 [node name="ThirdEye" type="MeshInstance3D" parent="RobotArmature/Skeleton3D/BoneAttachment3D2"]
 unique_name_in_owner = true
-transform = Transform3D(1.5, -1.00408e-09, -2.23517e-08, 1.00408e-09, 1.5, 6.9849e-10, 2.23517e-08, -6.9849e-10, 1.5, 0, 0.75, 0.25)
+transform = Transform3D(1.5, 4.33647e-09, -2.23517e-08, 8.03266e-09, 1.5, 4.19095e-09, 7.45058e-09, 9.31323e-10, 1.5, -0.00282372, 0.669766, 0.146851)
 visible = false
 mesh = SubResource("SphereMesh_lq8hg")
 skeleton = NodePath("../RightEye")
