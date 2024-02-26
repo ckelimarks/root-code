@@ -31,6 +31,10 @@ UI="*res://scenes/ui/UI.tscn"
 version_control/plugin_name="GitPlugin"
 version_control/autoload_on_startup=true
 
+[editor_plugins]
+
+enabled=PackedStringArray()
+
 [gui]
 
 common/drop_mouse_on_gui_input_disabled=true
