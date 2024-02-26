@@ -15,6 +15,7 @@ func _ready():
 	# spawn_orb()
 
 func _physics_process(delta):
+	return
 	heat -= delta
 	if heat < 0:
 #	if Input.is_action_pressed('ui_accept'):

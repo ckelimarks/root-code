@@ -3,7 +3,13 @@ extends Node3D
 func _ready():
 	SoundManager.AtmosphereMusic.play()
 	$Ground.global_position.y = -$Ground.mesh.size.y/2
-	pass
+
+var time = 0
+func _process(delta):
+	time += delta / (60*5)
+	
+	#$Sun.global_rotation.x = -PI/6# + PI/24 * sin(time/10)
+	#$Sun.global_rotation.y = time + PI/3
 
 func reset():
 	# unspawn enemies
@@ -11,9 +17,11 @@ func reset():
 		enemy.queue_free()
 	EnemyManager.enemies = []
 	EnemyManager.rogue_alert_on = false
-	EnemyManager.Platoon.platoon_exists = false
-	EnemyManager.Platoon.platoon_holes = {}
-	EnemyManager.Platoon.platoon_occupied = {}
+	# reset platoon should live in Platoon
+	EnemyManager.Platoon.exists = false
+	EnemyManager.Platoon.holes = {}
+	EnemyManager.Platoon.occupied = {}
+	EnemyManager.Platoon.members = []
 
 
 	# unspawn weapons

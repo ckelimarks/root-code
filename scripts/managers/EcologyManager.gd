@@ -1,5 +1,8 @@
 extends Node
 
+var columns = []
+var column_gap: float
+
 # NODES
 @onready var Ground = get_node("/root/Main/Ground")
 
@@ -9,42 +12,33 @@ var Column = preload("res://scenes/ecology/Column.tscn")
 func _ready():
 	var corner = -Ground.mesh.size.z * sqrt(2) / 4
 	var column_count = 4
-	var column_gap = sqrt(2) * Ground.mesh.size.z/2 / column_count
+	column_gap = sqrt(2) * Ground.mesh.size.z/2 / column_count
 	var column_height: float
 	for c_z in range(column_count):
 		for c_x in range(column_count):
 			var new_column = Column.instantiate()
-			if !column_height: 
-				column_height = new_column.get_node("Mesh").mesh.height
+			#if !column_height: 
+				#column_height = new_column.get_node("Mesh").mesh.height
 			new_column.global_position = Vector3(
 				column_gap * (c_x-c_z),
-				column_height/2, 
+				0,#column_height/2, 
 				corner + column_gap * (c_x+c_z - 1)
 			)
 			add_child(new_column)
-#
-#func _process(delta):
-##	# Define the maximum view rectangle considering the camera's position
-##	var view_size = get_viewport_rect().size
-##	var view_rect_max = Rect2(Cam.global_position - view_size, view_size * Vector2(3, 3))
-##
-##	# Check each ruin to see if it's within the view rectangle
-##	for ruin in ruins:
-##		var ruin_visible = view_rect_max.intersects(ruin.rect)
-##
-##		# If the ruin is now visible and not already active, activate and instance it
-##		if ruin_visible and not ruin.active:
-##			ruin.active = true
-##			ruin.instance = ruin_scenes[ruin.type].instance()
-##			ruin.instance.global_position = ruin.position
-##			ruin.instance.add_to_group("ruins")
-##			add_child(ruin.instance)
-##		# If the ruin is no longer visible and is active, deactivate and free it
-##		elif not ruin_visible and ruin.active:
-##			ruin.active = false
-##			ruin.instance.queue_free()
-##
-##		# Adjust the z_index of active ruins based on their y position relative to the camera
-##		if ruin_visible and ruin.active:
-##			ruin.instance.z_index = int(ruin.instance.global_position.y - Cam.global_position.y)
-#	pass
+			columns.append(new_column)
+
+var target = Vector3.ZERO
+
+func _process(delta):
+	target = target.lerp(Hero.global_position, delta/2)
+	for column in columns:
+		var gap = column.global_position - Hero.global_position
+		column.global_rotation.y = atan2(-gap.z, gap.x) + PI/4
+		var light = column.get_node("%Light")
+		if gap.length() < column_gap: #and Hero is SE of the light
+			light.look_at(target)
+			light.light_energy = min(20, (column_gap/gap.length() - 1) * 20)
+			light.shadow_enabled = true
+		else:
+			light.light_energy = 0
+			light.shadow_enabled = false

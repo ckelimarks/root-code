@@ -29,6 +29,6 @@ func _process(delta):
 		var affinity = -1
 		if "swarm_id" in target and "swarm_id" in SelfEnemy:
 			if target.swarm_id == SelfEnemy.swarm_id: 
-				if gap.length() > .5: affinity = 1
+				if gap.length() > .5: affinity = 1 # should be 0.5 * dune drone scale
 		if "momentum" in target:
 			target.momentum += gap / target.mass * delta * affinity

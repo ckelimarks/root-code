@@ -3,88 +3,114 @@ extends Node3D
 var disabled = false
 
 # ATTRIBUTES
-var platoon_exists   = false
-var platoon_holes    = {}
-var platoon_occupied = {}
-var platoon_spacing  = Vector2(10, 20)
-var platoon_size     = Vector2(10, 20)
-var platoon_rect     = Rect2(-platoon_size/2 * platoon_spacing, platoon_size * platoon_spacing)
+var exists   = false
+var holes    = {}
+var occupied = {}
+var members  = []
+var spacing  = Vector2(8.0, 12.0)
+var size     = Vector2i(10, int(1000/spacing.y))
+var hero_set = false
+#var rect     = Rect2(-size/2 * spacing, size * spacing)
 
-# Called when the node enters the scene tree for the first time.
+@onready var Ground = get_node("/root/Main/Ground")
+
 func _ready():
-	pass # Replace with function body.
+	pass
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	pass
 
-func update_platoon(delta):
+func update(delta):
 	if disabled: return
-	platoon_rect.position += Vector2(1, 1).normalized() * delta * 8.0
+
 	var view_bounds = EnemyManager.get_spawn_rect()
 	var spawn_buffer = view_bounds.grow(20)
 	var unspawn_buffer = spawn_buffer.grow(20)
 
-	if !platoon_exists:
-		process_area(spawn_buffer)
-		platoon_exists = true
+	if !exists:
+		randomize()
+		var hx = 0 + randi() % size.x
+		var hy = 1 + randi() % 3 # max rows Hero can appear in < size.y
+		exists = true
+		var edge_distance = 1000 * sqrt(2) / 4 # 1000 comes from ground mesh
 
+		for y in range(size.y):
+			var py = y * 5 / sqrt(2)
+			for side in [-1, 1]:
+				var px = (size.x/2+2) * spacing.x / sqrt(2)
+				members.append({
+					"position": Vector2( edge_distance + (px*side - py), -edge_distance + (py + px*side) ),
+					"rotation": PI/4 + side*PI/2,
+					"mode": "guard",
+					"spawned": false,
+					"enemy": null
+				})
+		for y in range(size.y):
+			var py = y * spacing.y / sqrt(2)	
+			for x in range(size.x):
+				var px = (x - size.x/2) * spacing.x / sqrt(2)
+				var grid_position = Vector2( edge_distance+(px-py), -edge_distance+(py+px) )
+				if x == hx and y == hy:
+					#hero_set = true
+					Hero.global_position = Vector3(grid_position.x, 0, grid_position.y)
+					#Cam.global_position = Hero.global_position + Cam.initial_offset
+				else:
+					members.append({
+						"position": grid_position,
+						"mode": "march",
+						"spawned": false,
+						"enemy": null
+					})
+					
+					
+		process_area(spawn_buffer)
+		
 	else:
-		process_perimeter(spawn_buffer, true)
-		process_perimeter(unspawn_buffer, false)
+		for member in members:
+			if is_instance_valid(member.enemy):
+				member.position = Vector2(member.enemy.global_position.x, member.enemy.global_position.z)
+			elif member.mode == "march":
+				member.position += Vector2(-1, 1).normalized() * 8.0 * delta
+
+		process_perimeter(spawn_buffer, unspawn_buffer)
 		
 func process_area(rect: Rect2):
-	for y in range(rect.position.y, rect.position.y + rect.size.y, platoon_spacing.y):
-		for x in range(rect.position.x, rect.position.x + rect.size.x, platoon_spacing.x):
-			if Vector2(x, y).snapped(platoon_spacing) == Vector2(0, 0):
-				platoon_occupied[Vector2(x, y)] = Hero
-				platoon_holes[Vector2(x, y)] = true
-			else:
-				check_and_spawn_unspawn(Vector2(x, y), true)
+	for member in members:
+		if rect.has_point(member.position):
+			#member.enemy = EnemyManager.spawn_enemy("Stan")
+			#member.spawned = true
+			spawn(member)
 
-func process_perimeter(rect: Rect2, is_spawn: bool):
-	# Top and bottom
-	for x in range(rect.position.x, rect.position.x + rect.size.x, platoon_spacing.x):
-		check_and_spawn_unspawn(Vector2(x, rect.position.y), is_spawn) # Top edge
-		check_and_spawn_unspawn(Vector2(x, rect.position.y + rect.size.y), is_spawn) # Bottom edge
-
-	# Left and right (excluding corners to avoid double processing)
-	for y in range(rect.position.y + platoon_spacing.y, rect.position.y + rect.size.y - platoon_spacing.y, platoon_spacing.y):
-		check_and_spawn_unspawn(Vector2(rect.position.x, y), is_spawn) # Left edge
-		check_and_spawn_unspawn(Vector2(rect.position.x + rect.size.x, y), is_spawn) # Right edge
-
-func check_and_spawn_unspawn(position: Vector2, is_spawn: bool):
-	# Adjust position to grid alignment if necessary
-	var grid_position = (position - platoon_rect.position).snapped(platoon_spacing)
-	if !platoon_rect.has_point(grid_position): return
-
-	# Depending on whether we are spawning or unspawning
-	if is_spawn:
-		# Check if within spawn area and not already spawned
-		if !platoon_occupied.has(grid_position) and !platoon_holes.has(grid_position):
-			platoon_spawn(EnemyManager.spawn_enemy("Stan"), grid_position)
-	else:
-		# Check if outside spawn area and currently spawned
-		if platoon_occupied.has(grid_position):
-			if !platoon_occupied[grid_position]: return
-			if platoon_occupied[grid_position].behaviour != "march": return
-			unspawn_enemy(platoon_occupied[grid_position])
-			platoon_occupied.erase(grid_position)
-
-func unspawn_enemy(enemy):
-	if (!EnemyManager.enemies.has(enemy)): return
-	EnemyManager.enemies.erase(enemy)
-	enemy.queue_free()
+func process_perimeter(spawn_rect: Rect2, unspawn_rect: Rect2):
+	for member in members:
+		if spawn_rect.has_point(member.position) and !member.spawned:
+			spawn(member)
+		if !unspawn_rect.has_point(member.position) and member.spawned:
+			unspawn(member)
+			
+func unspawn(member):
+	if (!EnemyManager.enemies.has(member.enemy)): return
+	EnemyManager.enemies.erase(member.enemy)
+	member.enemy.queue_free()
+	member.spawned = false
+	member.enemy = null
 	
-func platoon_spawn(new_enemy, grid_position):
-	new_enemy.global_position = Vector3(grid_position.x + platoon_rect.position.x, 0, grid_position.y + platoon_rect.position.y)
-	new_enemy.mass = 10.0
-	new_enemy.behaviour = "march"
-	new_enemy.speed = 8.0
-	new_enemy.platoon_grid_position = grid_position
-	var animation_tree = new_enemy.Robot.get_node("AnimationTree")
+func spawn(member):
+	member.enemy = EnemyManager.spawn_enemy("Stan")
+	member.spawned = true
+	member.enemy.global_position = Vector3(member.position.x, 0, member.position.y)
+	member.enemy.mass = 10.0
+	member.enemy.speed = 8.0
+	var animation_tree = member.enemy.Robot.get_node("AnimationTree")
 	animation_tree.active = true
-	animation_tree.set("parameters/Tree/BlendMove/blend_amount", 1.0)
-	animation_tree.set("parameters/Tree/WalkSpeed/scale", 8.0 / 12.0)
+	if member.mode == "march":
+		member.enemy.behaviour = "march"
+		animation_tree.set("parameters/Tree/BlendMove/blend_amount", 1.0)
+		animation_tree.set("parameters/Tree/WalkSpeed/scale", 8.0 / 12.0)
+	elif member.mode == "guard":
+		member.enemy.behaviour = "guard"
+		member.enemy.Robot.global_rotation.y = member.rotation
+		animation_tree.set("parameters/Tree/BlendMove/blend_amount", 0.0)
+		#animation_tree.set("parameters/Tree/WalkSpeed/scale", 0.0)
 	#animation_tree.set("parameters/Tree/Walk/time", other guys time)
-	platoon_occupied[grid_position] = new_enemy
+	#occupied[grid_position] = new_enemy

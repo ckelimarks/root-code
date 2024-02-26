@@ -26,6 +26,8 @@ var touch = {
 	"down":   false,
 	"attack": false
 }
+var previous_horizontal_direction = 0
+var previous_vertical_direction = 0
 var woke         = false
 var mass         = 10.0
 var throttle     = 0.0
@@ -109,12 +111,11 @@ func print_tree_properties(object, path):
 			print_tree_properties(property_value, property_path)
 
 func _physics_process(delta):
-	if woke: updateMomentum()
+	updateMomentum()
 	getUserInteraction()
 	handleMovementAndCollisions(delta)
 	update_animation_parameters()
 	HP = min(max_HP, HP + health_regen * delta)
-	if !woke: global_position += Vector3(0, 0, delta*8.0)
 	global_position.y = 0
 	if HP <= 100:
 		$HealthRing/H2.visible = false
@@ -141,8 +142,6 @@ func updateMomentum():
 	velocity *= Vector3(dampening, 0, dampening)
 	velocity += Vector3(cos(angle), 0, sin(angle)) * throttle * speed
 
-var previous_horizontal_direction = 0
-var previous_vertical_direction = 0
 func getUserInteraction():
 	# int(bool) turns true into 1 and false into 0
 	var right = int(Input.is_action_pressed('ui_right') || touch.right)
@@ -171,6 +170,10 @@ func getUserInteraction():
 		angle -= bias
 		throttle = 1.0
 
+	if !woke:
+		target_angle = PI/2
+		#throttle = 0.8
+		
 	if (slash or x or y):
 		wakefullness += 1
 		if !woke:
