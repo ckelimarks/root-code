@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://3rgmo8vegmv"]
+[gd_scene load_steps=6 format=3 uid="uid://3rgmo8vegmv"]
 
 [ext_resource type="Script" path="res://scripts/Main.gd" id="2"]
+[ext_resource type="PackedScene" uid="uid://bhyyxug0jw4b2" path="res://scenes/UndergroundConsole.tscn" id="2_m17pg"]
 [ext_resource type="Shader" uid="uid://bcpe4wiysxuft" path="res://shaders/repitiontexture.tres" id="4_5ucip"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_n8d8q"]
@@ -44,3 +45,5 @@ process_mode = 3
 transform = Transform3D(1, 0, 0, 0, 0.819152, 0.573576, 0, -0.573576, 0.819152, 0, 400, 575)
 projection = 1
 size = 1000.0
+
+[node name="UndergroundConsole" parent="." instance=ExtResource("2_m17pg")]

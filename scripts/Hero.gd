@@ -34,8 +34,10 @@ var throttle     = 0.0
 var momentum     = Vector3.ZERO
 var dampening    = 0.8
 var target_angle = PI/2
-var wakefullness = 0.0
+#var wakefullness = 0.0
 var angle        = target_angle
+var altitude     = -1
+var position_delta = Vector3.ZERO
 
 # NODES AND SCENES
 #	local
@@ -68,7 +70,12 @@ func _ready():
 	$Collider.set_shape(RobotCollider.shape)
 	$Collider.position = RobotCollider.position
 	$Collider.rotation = RobotCollider.rotation
-	sleepen()
+	#global_position.x = 2000
+
+	Robot.get_node("%LeftEye").get_active_material(0).emission = "#00c4f6"
+	Robot.get_node("%RightEye").get_active_material(0).emission = "#00c4f6"
+
+	#sleepen()
 
 func sleepen():
 	woke                                = false
@@ -85,20 +92,20 @@ func sleepen():
 	$HealthRing.set_visible(false)
 	#HealthBar.set_visible(false)
 
-	AnimTree.set("parameters/Tree/WalkSpeed/scale", 8.0 / 12.0)
-	AnimTree.set("parameters/Tree/BlendMove/blend_amount", 1)
+	#AnimTree.set("parameters/Tree/WalkSpeed/scale", 8.0 / 12.0)
+	#AnimTree.set("parameters/Tree/BlendMove/blend_amount", 1)
 
 func awaken():
 	woke                                = true
-	Emp.enabled                         = true
+	#Emp.enabled                         = true
 	Robot.get_node("%ThirdEye").visible = true
 	#Robot.get_node("%Spotlight").light_color = "#39afea"
 	Robot.get_node("%LeftEye").get_active_material(0).emission = "#00c4f6"
 	Robot.get_node("%RightEye").get_active_material(0).emission = "#00c4f6"
-	Sword = SwordScene.instantiate()
-	SwordHolder.add_child(Sword)
-	WeaponManager.weapons.append(Sword)
-	$HealthRing.visible = true
+	#Sword = SwordScene.instantiate()
+	#SwordHolder.add_child(Sword)
+	#WeaponManager.weapons.append(Sword)
+	#$HealthRing.visible = true
 	#HealthBar.set_vis6ible(true)
 	#print_tree_properties(AnimTree, "")
 
@@ -116,7 +123,7 @@ func _physics_process(delta):
 	handleMovementAndCollisions(delta)
 	update_animation_parameters()
 	HP = min(max_HP, HP + health_regen * delta)
-	global_position.y = 0
+	global_position.y = altitude
 	if HP <= 100:
 		$HealthRing/H2.visible = false
 		$HealthRing/H1/Red.visible = true
@@ -151,7 +158,7 @@ func getUserInteraction():
 	var slash = Input.is_action_just_pressed("attack")  || touch.attack
 
 	#InputEventScreenTouch.
-	if slash and woke: Sword.slash()
+	if slash and woke and is_instance_valid(Sword): Sword.slash()
 
 	var x = right - left
 	var y = down - up
@@ -170,21 +177,26 @@ func getUserInteraction():
 		angle -= bias
 		throttle = 1.0
 
-	if !woke:
-		target_angle = 3*PI/4
-		throttle = 0.625 # don't do it this way
+	#if !woke:
+		#target_angle = 3*PI/4
+		#throttle = 0.625 # don't do it this way
 		#actually wokeness should just intermittently hijack a regular platoon member
 		#only when you're fully woke does it become hero?
 		
 	if (slash or x or y):
-		wakefullness += 1
-		if !woke:
-			if randf() > 1-wakefullness: awaken()
-		else:
-			if randf() > wakefullness: sleepen()
+		woke = true #awaken()
+	else:
+		woke = false #sleepen()
+#
+	#print([woke, wakefullness])
+	#if !woke:
+		#if randf() > 1-wakefullness: awaken()
+	#else:
+		#if randf() > wakefullness: sleepen()
 
 func handleMovementAndCollisions(delta):
 	# First, try to move normally.
+	var start_position = global_position
 	var collision = move_and_collide(velocity * delta)
 	var push_vector = Vector3.ZERO
 
@@ -206,7 +218,8 @@ func handleMovementAndCollisions(delta):
 		push_vector = collision.get_remainder().normalized() * pushing_strength * delta
 
 	global_position += push_vector + momentum
-	global_position.y = 1
+	global_position.y = altitude
+	position_delta = position_delta.lerp((global_position - start_position) / delta, 0.3)
 
 func sparks():
 	if is_instance_valid($Stan/%Sparks):
@@ -231,9 +244,7 @@ func get_slash_curve(x):
 	return y
 
 func update_animation_parameters():
-	if !woke: return
-	var speed_percent = velocity.length() * 2 / speed
-
+	var speed_percent = position_delta.length() * 2 / speed
 	if is_instance_valid(Sword):
 		var slash_speed = 1
 		var slash_progress = minf(Sword.slash_progress*slash_speed, 1)

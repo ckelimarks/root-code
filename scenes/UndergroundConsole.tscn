@@ -1,0 +1,482 @@
+[gd_scene load_steps=57 format=3 uid="uid://bhyyxug0jw4b2"]
+
+[ext_resource type="Texture2D" uid="uid://7m8igtpewfg3" path="res://images/underground-console0.png" id="1_c0fk8"]
+[ext_resource type="Script" path="res://scripts/story/UndergroundConsole.gd" id="1_xofk5"]
+[ext_resource type="Material" uid="uid://bf35yl4crkhcs" path="res://shaders/ShadowCatcher.tres" id="2_m7knv"]
+[ext_resource type="Texture2D" uid="uid://dtkcjotccilpi" path="res://images/underground-console0.1.png" id="2_r6ct6"]
+[ext_resource type="Texture2D" uid="uid://i206a61lx5vs" path="res://images/textures/MatrixScreen/matrix-sprite-sheet.png" id="5_8rt3k"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_awrlr"]
+size = Vector2(24.27, 26.39)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_msmyq"]
+atlas = ExtResource("5_8rt3k")
+region = Rect2(0, 0, 500, 400)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u7p5n"]
+atlas = ExtResource("5_8rt3k")
+region = Rect2(500, 0, 500, 400)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j3vfw"]
+atlas = ExtResource("5_8rt3k")
+region = Rect2(1000, 0, 500, 400)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8i1tb"]
+atlas = ExtResource("5_8rt3k")
+region = Rect2(1500, 0, 500, 400)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pr88x"]
+atlas = ExtResource("5_8rt3k")
+region = Rect2(2000, 0, 500, 400)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_41sna"]
+atlas = ExtResource("5_8rt3k")
+region = Rect2(0, 400, 500, 400)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_np4ju"]
+atlas = ExtResource("5_8rt3k")
+region = Rect2(500, 400, 500, 400)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cx0n6"]
+atlas = ExtResource("5_8rt3k")
+region = Rect2(1000, 400, 500, 400)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cvtcl"]
+atlas = ExtResource("5_8rt3k")
+region = Rect2(1500, 400, 500, 400)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uowsk"]
+atlas = ExtResource("5_8rt3k")
+region = Rect2(2000, 400, 500, 400)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hx3a4"]
+atlas = ExtResource("5_8rt3k")
+region = Rect2(0, 800, 500, 400)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_whj2u"]
+atlas = ExtResource("5_8rt3k")
+region = Rect2(500, 800, 500, 400)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rw073"]
+atlas = ExtResource("5_8rt3k")
+region = Rect2(1000, 800, 500, 400)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x56dm"]
+atlas = ExtResource("5_8rt3k")
+region = Rect2(1500, 800, 500, 400)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w7djw"]
+atlas = ExtResource("5_8rt3k")
+region = Rect2(2000, 800, 500, 400)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cjogx"]
+atlas = ExtResource("5_8rt3k")
+region = Rect2(0, 1200, 500, 400)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u51mv"]
+atlas = ExtResource("5_8rt3k")
+region = Rect2(500, 1200, 500, 400)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_npdyd"]
+atlas = ExtResource("5_8rt3k")
+region = Rect2(1000, 1200, 500, 400)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_owsto"]
+atlas = ExtResource("5_8rt3k")
+region = Rect2(1500, 1200, 500, 400)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ot2ns"]
+atlas = ExtResource("5_8rt3k")
+region = Rect2(2000, 1200, 500, 400)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h0gpu"]
+atlas = ExtResource("5_8rt3k")
+region = Rect2(0, 1600, 500, 400)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nufr8"]
+atlas = ExtResource("5_8rt3k")
+region = Rect2(500, 1600, 500, 400)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sxbox"]
+atlas = ExtResource("5_8rt3k")
+region = Rect2(1000, 1600, 500, 400)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_65jbo"]
+atlas = ExtResource("5_8rt3k")
+region = Rect2(1500, 1600, 500, 400)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qggm5"]
+atlas = ExtResource("5_8rt3k")
+region = Rect2(2000, 1600, 500, 400)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ttyuj"]
+atlas = ExtResource("5_8rt3k")
+region = Rect2(0, 2000, 500, 400)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_molpr"]
+atlas = ExtResource("5_8rt3k")
+region = Rect2(500, 2000, 500, 400)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dx1dq"]
+atlas = ExtResource("5_8rt3k")
+region = Rect2(1000, 2000, 500, 400)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iwh7l"]
+atlas = ExtResource("5_8rt3k")
+region = Rect2(1500, 2000, 500, 400)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gcmpv"]
+atlas = ExtResource("5_8rt3k")
+region = Rect2(2000, 2000, 500, 400)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0spv2"]
+atlas = ExtResource("5_8rt3k")
+region = Rect2(0, 2400, 500, 400)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jj88b"]
+atlas = ExtResource("5_8rt3k")
+region = Rect2(500, 2400, 500, 400)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7ivx0"]
+atlas = ExtResource("5_8rt3k")
+region = Rect2(1000, 2400, 500, 400)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1okhn"]
+atlas = ExtResource("5_8rt3k")
+region = Rect2(1500, 2400, 500, 400)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_42vwb"]
+atlas = ExtResource("5_8rt3k")
+region = Rect2(2000, 2400, 500, 400)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oo8au"]
+atlas = ExtResource("5_8rt3k")
+region = Rect2(0, 2800, 500, 400)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_37r4l"]
+atlas = ExtResource("5_8rt3k")
+region = Rect2(500, 2800, 500, 400)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rjqqh"]
+atlas = ExtResource("5_8rt3k")
+region = Rect2(1000, 2800, 500, 400)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fafbx"]
+atlas = ExtResource("5_8rt3k")
+region = Rect2(1500, 2800, 500, 400)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_321kp"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_msmyq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u7p5n")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j3vfw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8i1tb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pr88x")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_41sna")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_np4ju")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cx0n6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cvtcl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uowsk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hx3a4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_whj2u")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rw073")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x56dm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w7djw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cjogx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u51mv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_npdyd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_owsto")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ot2ns")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h0gpu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nufr8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sxbox")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_65jbo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qggm5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ttyuj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_molpr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dx1dq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iwh7l")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gcmpv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0spv2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jj88b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7ivx0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1okhn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_42vwb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oo8au")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_37r4l")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rjqqh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fafbx")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[sub_resource type="QuadMesh" id="QuadMesh_hw04d"]
+size = Vector2(2.625, 1.29)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_c4q7d"]
+albedo_color = Color(0, 0, 0, 1)
+emission = Color(0, 0.890196, 0.956863, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_oqlb3"]
+size = Vector3(0.3, 1.8, 5.8)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_or0kb"]
+size = Vector3(0.6, 2, 4.929)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_2qljt"]
+size = Vector3(0.6, 2, 10.8142)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_rvmfu"]
+size = Vector3(0.6, 2, 4.69891)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_yx3ia"]
+size = Vector3(0.6, 2, 4.65125)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_qxybn"]
+size = Vector3(0.6, 2, 11.892)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ro1w0"]
+size = Vector3(0.6, 2, 5.36958)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_xwe1q"]
+size = Vector3(30, 20, 1)
+
+[node name="UndergroundConsole" type="SubViewportContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="."]
+handle_input_locally = false
+size = Vector2i(1152, 648)
+render_target_update_mode = 4
+script = ExtResource("1_xofk5")
+
+[node name="Camera" type="Camera3D" parent="SubViewport"]
+transform = Transform3D(1, 0, 0, 0, 0.819152, 0.573577, 0, -0.573577, 0.819152, 0, 140, 200)
+projection = 1
+current = true
+size = 60.0
+near = 1.0
+far = 1000.0
+
+[node name="ForegroundShrubbery" type="Sprite3D" parent="SubViewport/Camera"]
+transform = Transform3D(8, 0, 0, 0, 8, -2.38419e-07, 0, 2.38419e-07, 8, 0, 0, -100)
+texture = ExtResource("2_r6ct6")
+region_rect = Rect2(0, 0, 1024, 1024)
+
+[node name="Background" type="Sprite3D" parent="SubViewport/Camera"]
+transform = Transform3D(8, 0, 0, 0, 8, 0, 0, 0, 8, 0, 0, -300)
+texture = ExtResource("1_c0fk8")
+region_rect = Rect2(0, 0, 1024, 1024)
+
+[node name="InnerColliders" type="Node3D" parent="SubViewport"]
+transform = Transform3D(0.942573, 0, 0.942573, 0, 1.333, 0, -0.942573, 0, 0.942573, 13.668, -1, 20.88)
+
+[node name="Ground" type="CSGMesh3D" parent="SubViewport/InnerColliders"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.175, 0, -3.895)
+mesh = SubResource("PlaneMesh_awrlr")
+material = ExtResource("2_m7knv")
+
+[node name="MatrixScreen" type="AnimatedSprite3D" parent="SubViewport/InnerColliders"]
+transform = Transform3D(0.375299, 0.0229543, 0, -0.0172711, 0.28238, 0.247667, 0.0151197, -0.247205, 0.282908, -0.205, 3.363, -17.7)
+double_sided = false
+sprite_frames = SubResource("SpriteFrames_321kp")
+frame_progress = 0.826641
+
+[node name="Screen" type="MeshInstance3D" parent="SubViewport/InnerColliders"]
+transform = Transform3D(0.750188, 0, 0, 0, 0.58218, 0.473125, 0, -0.473125, 0.58218, -0.265, 3.27, -17.624)
+visible = false
+mesh = SubResource("QuadMesh_hw04d")
+skeleton = NodePath("../../Camera")
+surface_material_override/0 = SubResource("StandardMaterial3D_c4q7d")
+
+[node name="FenceEXAMPLE" type="CSGMesh3D" parent="SubViewport/InnerColliders"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.2648, 0.13, -1.03)
+layers = 513
+mesh = SubResource("BoxMesh_oqlb3")
+material = ExtResource("2_m7knv")
+
+[node name="NW_Fence" type="StaticBody3D" parent="SubViewport/InnerColliders"]
+transform = Transform3D(0.999999, 0, 0, 0, 1, 0, 0, 0, 0.999999, -4.185, 0.13, -1.03)
+
+[node name="NW_Collider" type="CollisionShape3D" parent="SubViewport/InnerColliders/NW_Fence"]
+transform = Transform3D(-5.96046e-08, 0, 1, 0, 1, 0, -1, 0, -5.96046e-08, -8.1247, -0.00808936, -8.68291)
+shape = SubResource("BoxShape3D_or0kb")
+
+[node name="SE_Fence" type="StaticBody3D" parent="SubViewport/InnerColliders"]
+transform = Transform3D(0.999999, 0, 0, 0, 1, 0, 0, 0, 0.999999, -4.185, 0.13, -1.03)
+
+[node name="SE_Collider" type="CollisionShape3D" parent="SubViewport/InnerColliders/SE_Fence"]
+transform = Transform3D(-5.96046e-08, 0, 0.999999, 0, 1, 0, -0.999999, 0, -5.96046e-08, -5.38887, 0, 2.60242)
+shape = SubResource("BoxShape3D_2qljt")
+
+[node name="W_InnerFence" type="StaticBody3D" parent="SubViewport/InnerColliders"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.185, 0.13, -1.03)
+
+[node name="W_InnerCollider" type="CollisionShape3D" parent="SubViewport/InnerColliders/W_InnerFence"]
+transform = Transform3D(-5.96046e-08, 0, 0.999998, 0, 1, 0, -0.999998, 0, -5.96046e-08, -8.23743, 0, -2.2891)
+shape = SubResource("BoxShape3D_rvmfu")
+
+[node name="E_InnerFence" type="StaticBody3D" parent="SubViewport/InnerColliders"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.185, 0.13, -1.03)
+
+[node name="E_InnerCollider" type="CollisionShape3D" parent="SubViewport/InnerColliders/E_InnerFence"]
+transform = Transform3D(0.999999, 0, 0, 0, 1, 0, 0, 0, 0.999999, -5.85004, 0, 0.0278282)
+shape = SubResource("BoxShape3D_yx3ia")
+
+[node name="SW_Fence" type="StaticBody3D" parent="SubViewport/InnerColliders"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.185, 0.13, -1.03)
+
+[node name="SW_Collider" type="CollisionShape3D" parent="SubViewport/InnerColliders/SW_Fence"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.8465, 0, -3.66445)
+shape = SubResource("BoxShape3D_qxybn")
+
+[node name="NE_Fence" type="StaticBody3D" parent="SubViewport/InnerColliders"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.185, 0.13, -1.03)
+
+[node name="NE_Collider" type="CollisionShape3D" parent="SubViewport/InnerColliders/NE_Fence"]
+transform = Transform3D(0.999999, 0, 0, 0, 1, 0, 0, 0, 0.999999, 1.90735e-06, 0, -0.215416)
+shape = SubResource("BoxShape3D_ro1w0")
+
+[node name="OuterBoundary" type="Node3D" parent="SubViewport"]
+
+[node name="SW_Boundary" type="StaticBody3D" parent="SubViewport/OuterBoundary"]
+
+[node name="SW_Collider" type="CollisionShape3D" parent="SubViewport/OuterBoundary/SW_Boundary"]
+transform = Transform3D(0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, 0.707107, -9.57481, -2.761, 35.6166)
+shape = SubResource("BoxShape3D_xwe1q")
+
+[node name="SE_Boundary" type="StaticBody3D" parent="SubViewport/OuterBoundary"]
+
+[node name="SE_Collider" type="CollisionShape3D" parent="SubViewport/OuterBoundary/SE_Boundary"]
+transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 10.9267, -2.761, 35.8862)
+shape = SubResource("BoxShape3D_xwe1q")
+
+[node name="NE_Boundary" type="StaticBody3D" parent="SubViewport/OuterBoundary"]
+
+[node name="NE_Collider" type="CollisionShape3D" parent="SubViewport/OuterBoundary/NE_Boundary"]
+transform = Transform3D(0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, 0.707107, 10.117, -2.76127, 16.3106)
+shape = SubResource("BoxShape3D_xwe1q")
+
+[node name="NW_Boundary" type="StaticBody3D" parent="SubViewport/OuterBoundary"]
+
+[node name="NW_Collider" type="CollisionShape3D" parent="SubViewport/OuterBoundary/NW_Boundary"]
+transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, -9.73842, -2.76127, 15.0331)
+shape = SubResource("BoxShape3D_xwe1q")
+
+[node name="SpotLight" type="SpotLight3D" parent="SubViewport"]
+transform = Transform3D(1, 0, 0, 0, -0.173648, 0.984808, 0, -0.984808, -0.173648, 0, 30, -20)
+light_color = Color(1, 0.85098, 0.643137, 1)
+light_energy = 10.0
+shadow_enabled = true
+spot_range = 100.0
+spot_attenuation = 1e-05
+spot_angle = 60.0
+spot_angle_attenuation = 3.2708e-05
+
+[node name="GoldAmbiance" type="DirectionalLight3D" parent="SubViewport"]
+transform = Transform3D(0.122154, -0.820945, 0.557789, 0.743039, 0.44823, 0.496974, -0.658006, 0.353752, 0.664747, 0, 0, 0)
+light_color = Color(1, 0.929412, 0.894118, 1)
+light_energy = 0.2
+light_indirect_energy = 0.0
+light_volumetric_fog_energy = 0.0
+sky_mode = 1
+
+[node name="BlueAmbiance" type="DirectionalLight3D" parent="SubViewport"]
+transform = Transform3D(1.08679e-07, 0.743145, -0.669131, -5.84972e-08, -0.669131, -0.743145, -1, 1.19907e-07, -2.92486e-08, 0, 0, 0)
+light_color = Color(0, 1, 1, 1)
+light_energy = 2.0
+light_indirect_energy = 0.0
+light_volumetric_fog_energy = 0.0
+sky_mode = 1
+
+[node name="SpawnCylinder" type="CSGCylinder3D" parent="SubViewport"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.425, 2, 40.0777)
+visible = false
+radius = 2.0
+height = 6.0
+sides = 16

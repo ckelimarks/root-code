@@ -17,8 +17,7 @@ func reset():
 		enemy.queue_free()
 	EnemyManager.enemies = []
 	EnemyManager.rogue_alert_on = false
-	# reset platoon should live in Platoon
-	EnemyManager.Platoon.exists = false
+	# reset platoon should live in Platoon	EnemyManager.Platoon.exists = false
 	EnemyManager.Platoon.holes = {}
 	EnemyManager.Platoon.occupied = {}
 	EnemyManager.Platoon.members = []
