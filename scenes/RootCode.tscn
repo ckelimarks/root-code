@@ -28,7 +28,7 @@ shadow_enabled = true
 shadow_opacity = 0.5
 shadow_blur = 5.0
 
-[node name="Sun2" type="DirectionalLight3D" parent="."]
+[node name="DebugSun" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.27228, 0.318027, 0.908142, -8.25097e-08, -0.943801, 0.330514, 0.962218, 0.0899924, 0.256978, 0, 15, 0)
 visible = false
 shadow_opacity = 0.5

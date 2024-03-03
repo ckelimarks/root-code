@@ -34,7 +34,7 @@ var throttle     = 0.0
 var momentum     = Vector3.ZERO
 var dampening    = 0.8
 var target_angle = PI/2
-#var wakefullness = 0.0
+var action       = false
 var angle        = target_angle
 var altitude     = -1
 var position_delta = Vector3.ZERO
@@ -89,7 +89,7 @@ func sleepen():
 		Sword.queue_free()
 		WeaponManager.weapons.erase(Sword)
 
-	$HealthRing.set_visible(false)
+	$HealthRing.visible = false
 	#HealthBar.set_visible(false)
 
 	#AnimTree.set("parameters/Tree/WalkSpeed/scale", 8.0 / 12.0)
@@ -105,7 +105,8 @@ func awaken():
 	#Sword = SwordScene.instantiate()
 	#SwordHolder.add_child(Sword)
 	#WeaponManager.weapons.append(Sword)
-	#$HealthRing.visible = true
+	$HealthRing.visible = true
+	print($HealthRing.visible)
 	#HealthBar.set_vis6ible(true)
 	#print_tree_properties(AnimTree, "")
 
@@ -177,22 +178,12 @@ func getUserInteraction():
 		angle -= bias
 		throttle = 1.0
 
-	#if !woke:
+	#if !woke: # lerp interaction and default march based on wokeness
 		#target_angle = 3*PI/4
 		#throttle = 0.625 # don't do it this way
-		#actually wokeness should just intermittently hijack a regular platoon member
-		#only when you're fully woke does it become hero?
 		
-	if (slash or x or y):
-		woke = true #awaken()
-	else:
-		woke = false #sleepen()
-#
-	#print([woke, wakefullness])
-	#if !woke:
-		#if randf() > 1-wakefullness: awaken()
-	#else:
-		#if randf() > wakefullness: sleepen()
+	if (slash or x or y): action = true
+	else: action = false
 
 func handleMovementAndCollisions(delta):
 	# First, try to move normally.

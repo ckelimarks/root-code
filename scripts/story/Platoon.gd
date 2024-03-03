@@ -51,8 +51,8 @@ func unspawn(member):
 	if (!EnemyManager.enemies.has(member.enemy)): return
 	EnemyManager.enemies.erase(member.enemy)
 	member.enemy.queue_free()
-	member.spawned = false
 	member.enemy = null
+	member.spawned = false
 	
 func spawn(member):
 	member.enemy = EnemyManager.spawn_enemy("Stan")
@@ -128,4 +128,5 @@ func init_ranks():
 				members.append(member)
 				if x == hx and y == hy and rank == 1: #middle rank
 					chosen = member
+					chosen.hacked = false
 					#Cam.global_position = Vector3(chosen.position.x, 0, chosen.position.y) + Cam.initial_offset

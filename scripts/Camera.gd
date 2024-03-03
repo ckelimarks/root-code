@@ -4,7 +4,7 @@ extends Camera3D
 var position_smoothing_speed = 0.0
 var initial_offset: Vector3
 var target_position: Vector3
-var debug_cam = !true
+var debug_cam = false
 
 func _ready():	
 	size = 100
@@ -16,19 +16,10 @@ func _ready():
 	initial_offset = global_position
 	
 func _process(delta):
-	#if Hero.woke:
-		#current = false
-		#get_node("/root/Main/UndergroundConsole/SubViewport/Camera3D").current = true
-		#get_node("/root/Main/UndergroundConsole").visible = true
-	#else:
-		#current = true
-		#get_node("/root/Main/UndergroundConsole/SubViewport/Camera3D").current = false
-		#get_node("/root/Main/UndergroundConsole").visible = false
-
 	size = size*0.99 + 40*0.01
 	if position_smoothing_speed < 5: position_smoothing_speed += delta * 0.2
 	
-	if !true:
+	if Hero.woke:
 		target_position = Hero.global_position
 	else:
 		var chosen = EnemyManager.Platoon.chosen.position
