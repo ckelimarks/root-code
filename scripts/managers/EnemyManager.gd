@@ -37,6 +37,7 @@ func spawn_enemy(enemy_type):
 	# Set the enemy's position and add it to the scene
 	var enemy_instance = EnemyScene.instantiate()
 	enemy_instance.Robot = RobotTypes[enemy_type].instantiate()
+	enemy_instance.global_position = Vector3(1000, 1000, 1000)
 	enemy_instance.add_to_group("enemies")
 	add_child(enemy_instance)
 	enemies.append(enemy_instance)

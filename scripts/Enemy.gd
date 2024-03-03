@@ -127,7 +127,8 @@ func _physics_process(delta):
 		# Attempt to push the collider by manually adjusting the enemy's global_position
 		push_vector = collision.get_remainder().normalized() * pushing_strength * delta
 	
-	global_position += push_vector + momentum
+	#global_position += push_vector + momentum
+	global_position += momentum
 
 func sparks():
 	if is_instance_valid($Stan/%Sparks):

@@ -2,17 +2,18 @@ extends Node3D
 
 var disabled = false
 var debug_all = false
+var debug_scalar = 1 + 2*int(debug_all)
 
 # ATTRIBUTES
 var exists        = false
-var holes         = {}
-var occupied      = {}
 var members       = []
-var guard_spacing = 5
-var spacing       = Vector2(8.0, 12.0)
-var size          = Vector2i(10, int(1000/spacing.y))
+var guard_spacing = 5*debug_scalar
+var spacing       = Vector2(8.0*debug_scalar, 12.0*debug_scalar)
+var size          = Vector2i(int(60/spacing.x), int(1000/spacing.y))
 var hero_set      = false
+var chosen        = {}
 
+# SCENES AND NODES
 @onready var Ground = get_node("/root/Main/Ground")
 
 func _ready():
@@ -50,8 +51,8 @@ func unspawn(member):
 	if (!EnemyManager.enemies.has(member.enemy)): return
 	EnemyManager.enemies.erase(member.enemy)
 	member.enemy.queue_free()
-	member.spawned = false
 	member.enemy = null
+	member.spawned = false
 	
 func spawn(member):
 	member.enemy = EnemyManager.spawn_enemy("Stan")
@@ -85,6 +86,10 @@ func update_member(member, delta):
 		member.mode = member.enemy.behaviour
 	elif member.mode == "march":
 		member.position += Vector2(-1, 1).normalized() * 8.0 * delta
+	if member.position.x < -1000 * sqrt(2) / 4:
+		member.position.x += 1000 * sqrt(2) / 2
+		if is_instance_valid(member.enemy):
+			member.enemy.global_position = Vector3(member.position.x, 0, member.position.y)
 
 func init_ranks():
 	var hx = 0 + randi() % size.x
@@ -94,7 +99,6 @@ func init_ranks():
 	for rank in range(3):
 		# Guard Stans
 		for y in range(int(1000/guard_spacing)):
-			print([rank,y])
 			var py = y * guard_spacing / sqrt(2)
 			for side in [-1, 1]:
 				var px = (size.x/2+2) * spacing.x / sqrt(2)
@@ -115,15 +119,14 @@ func init_ranks():
 			for x in range(size.x):
 				var px = (x - size.x/2) * spacing.x / sqrt(2)
 				var grid_position = Vector2( edge_distance*(1+rank)/2 + (px-py), -edge_distance*(3-rank)/2 + (py+px) )
-				
-				if x == hx and y == hy:
-					#hero_set = true
-					Hero.global_position = Vector3(grid_position.x, 0, grid_position.y)
-					#Cam.global_position = Hero.global_position + Cam.initial_offset
-				else:
-					members.append({
-						"position": grid_position,
-						"mode": "march",
-						"spawned": false,
-						"enemy": null
-					})
+				var member = {
+					"position": grid_position,
+					"mode": "march",
+					"spawned": false,
+					"enemy": null
+				}
+				members.append(member)
+				if x == hx and y == hy and rank == 1: #middle rank
+					chosen = member
+					chosen.hacked = false
+					#Cam.global_position = Vector3(chosen.position.x, 0, chosen.position.y) + Cam.initial_offset
