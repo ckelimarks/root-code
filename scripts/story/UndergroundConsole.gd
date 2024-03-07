@@ -13,13 +13,16 @@ var elapsed = 0
 
 func _ready():
 	own_world_3d = true
-	await get_tree().create_timer(0).timeout
+	await Mainframe.intro("UndergroundConsole")
 	Hero.get_parent().remove_child(Hero)
 	Hero.global_position = $SpawnCylinder.global_position
 	add_child(Hero)
 	Screen.play()
 	
 func _process(delta):
+	
+	SoundManager.march_db_target = (40 - Cam.size) * 0.5
+
 	if transfered: return
 	if !eye_material:
 		if is_instance_valid(EnemyManager.Platoon.chosen.enemy):
@@ -28,11 +31,20 @@ func _process(delta):
 			EnemyManager.Platoon.chosen.enemy.Robot.get_node("%RightEye").material_override = eye_material
 
 	get_parent().modulate = Color(1, 1, 1, fade)
+	SoundManager.march_db_target += log(1-fade) * 10;
+	
+	if Hero.action:
+		AudioServer.set_bus_effect_enabled(SoundManager.BUS_SFX, 0, true)
+	else:
+		AudioServer.set_bus_effect_enabled(SoundManager.BUS_SFX, 0, false)
+
 	var i = 0.8 + 0.19 * int(Hero.action)
 	fade = fade * i + int(Hero.action) * (1-i)
 	var gap = (Hero.global_position - Screen.global_position).length()
+	
+	#if true:
 	if gap<6.29 and Hero.action and abs(PI/4-PI - Hero.Robot.global_rotation.y) < 0.01:
-		elapsed += delta
+		elapsed += delta #+ 3
 		if randf() < glitch_curve(elapsed): # function should cos ramp up and stay at 1
 			get_parent().modulate = Color(1, 1, 1, 0)
 			if is_instance_valid(EnemyManager.Platoon.chosen.enemy):
@@ -62,7 +74,6 @@ func glitch_curve(x):
 
 func mind_transfer():
 	Hero.global_position = EnemyManager.Platoon.chosen.enemy.global_position
-	Hero.altitude = 0
 	EnemyManager.Platoon.chosen.hacked = true
 	EnemyManager.Platoon.unspawn(EnemyManager.Platoon.chosen)
 	EnemyManager.Platoon.chosen.spawned = true

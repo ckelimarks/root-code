@@ -10,10 +10,10 @@ var upgrade_threshold = 10
 @onready var FocusButton = get_node("/root/Main/UICanvas/MarginContainer/VBoxContainer/Button1")
 @onready var XpBar = get_node("/root/Main/UICanvas/XpBar")
 var AudioSamples := [
-	preload("res://sounds/gemsounds/v2/gemsound1.mp3"),
-	preload("res://sounds/gemsounds/v2/gemsound2.mp3"),
-	preload("res://sounds/gemsounds/v2/gemsound3.mp3"),
-	preload("res://sounds/gemsounds/v2/gemsound4.mp3"),
+	preload("res://assets/sounds/gemsounds/v2/gemsound1.mp3"),
+	preload("res://assets/sounds/gemsounds/v2/gemsound2.mp3"),
+	preload("res://assets/sounds/gemsounds/v2/gemsound3.mp3"),
+	preload("res://assets/sounds/gemsounds/v2/gemsound4.mp3"),
 	# ... add more audio samples as needed
 ]
 

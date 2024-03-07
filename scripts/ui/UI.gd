@@ -15,6 +15,7 @@ extends CanvasLayer
 @onready var MusicNode = get_node("/root/Main/Music")
 
 func _ready():
+	await Mainframe.intro("UI")
 	RestartButton.pressed.connect(_on_restartbutton_pressed)
 
 func _process(delta):

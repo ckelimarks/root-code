@@ -17,13 +17,13 @@ config/icon="res://icon.png"
 
 [autoload]
 
+Mainframe="*res://scripts/Mainframe.gd"
 SoundManager="*res://scenes/managers/SoundManager.tscn"
-Hero="*res://scenes/Hero.tscn"
+EcologyManager="*res://scenes/managers/EcologyManager.tscn"
 EnemyManager="*res://scripts/managers/EnemyManager.gd"
 WeaponManager="*res://scenes/managers/WeaponManager.tscn"
-EcologyManager="*res://scenes/managers/EcologyManager.tscn"
 Cam="*res://scenes/Camera.tscn"
-Mainframe="*res://scripts/Mainframe.gd"
+Hero="*res://scenes/Hero.tscn"
 UI="*res://scenes/ui/UI.tscn"
 
 [editor]
@@ -84,6 +84,7 @@ attack={
 [input_devices]
 
 pointing/emulate_touch_from_mouse=true
+pointing/android/enable_pan_and_scale_gestures=true
 
 [mono]
 

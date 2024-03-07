@@ -7,8 +7,8 @@
 [ext_resource type="Shader" uid="uid://1ox0w37488so" path="res://shaders/HealthBlack.tres" id="5_h6wry"]
 [ext_resource type="Shader" uid="uid://ujnurwhppspc" path="res://shaders/HealthRedFull.tres" id="7_cssg3"]
 [ext_resource type="Shader" uid="uid://dh28ksjs573mc" path="res://shaders/HealthRed.tres" id="7_xgc8g"]
-[ext_resource type="AudioStream" uid="uid://bxicy412bk758" path="res://sounds/hpDownSound.mp3" id="211"]
-[ext_resource type="AudioStream" uid="uid://cwicowrxy2s7o" path="res://sounds/steps.mp3" id="212"]
+[ext_resource type="AudioStream" uid="uid://bxicy412bk758" path="res://assets/sounds/hpDownSound.mp3" id="211"]
+[ext_resource type="AudioStream" uid="uid://cwicowrxy2s7o" path="res://assets/sounds/steps.mp3" id="212"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ombq4"]
 render_priority = 0

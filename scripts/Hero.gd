@@ -12,7 +12,7 @@ var min_stats = {
 }
 var luck             = min_stats.luck
 var speed            = min_stats.speed
-var max_HP           = min_stats.max_HP#+999999
+var max_HP           = min_stats.max_HP+999999
 var defense          = min_stats.defense
 var health_regen     = min_stats.health_regen
 var pushing_strength = min_stats.pushing_strength
@@ -36,8 +36,8 @@ var dampening    = 0.8
 var target_angle = PI/2
 var action       = false
 var angle        = target_angle
-var altitude     = -1
 var position_delta = Vector3.ZERO
+var	eye_material
 
 # NODES AND SCENES
 #	local
@@ -62,6 +62,8 @@ var SwordScene = preload("res://scenes/weapons/Sword.tscn")
 var SwordHolder: Node3D
 
 func _ready():
+	await Mainframe.intro("Hero")
+
 	var RobotCollider = Robot.get_node("Collider")
 	var FistCollider  = Robot.get_node("%Fist/Collider")
 	SwordHolder       = Robot.get_node("%SwordHolder")
@@ -72,8 +74,10 @@ func _ready():
 	$Collider.rotation = RobotCollider.rotation
 	#global_position.x = 2000
 
-	Robot.get_node("%LeftEye").get_active_material(0).emission = "#00c4f6"
-	Robot.get_node("%RightEye").get_active_material(0).emission = "#00c4f6"
+	eye_material = Robot.get_node("%LeftEye").get_active_material(0).duplicate()
+	eye_material.emission = "#00c4f6"
+	Robot.get_node("%LeftEye").material_override = eye_material
+	Robot.get_node("%RightEye").material_override = eye_material
 
 	#sleepen()
 
@@ -97,7 +101,7 @@ func sleepen():
 
 func awaken():
 	woke                                = true
-	#Emp.enabled                         = true
+	Emp.enabled                         = true
 	Robot.get_node("%ThirdEye").visible = true
 	#Robot.get_node("%Spotlight").light_color = "#39afea"
 	Robot.get_node("%LeftEye").get_active_material(0).emission = "#00c4f6"
@@ -106,7 +110,6 @@ func awaken():
 	#SwordHolder.add_child(Sword)
 	#WeaponManager.weapons.append(Sword)
 	$HealthRing.visible = true
-	print($HealthRing.visible)
 	#HealthBar.set_vis6ible(true)
 	#print_tree_properties(AnimTree, "")
 
@@ -124,7 +127,7 @@ func _physics_process(delta):
 	handleMovementAndCollisions(delta)
 	update_animation_parameters()
 	HP = min(max_HP, HP + health_regen * delta)
-	global_position.y = altitude
+	global_position = EcologyManager.altitude_at(global_position)
 	if HP <= 100:
 		$HealthRing/H2.visible = false
 		$HealthRing/H1/Red.visible = true
@@ -209,7 +212,7 @@ func handleMovementAndCollisions(delta):
 		push_vector = collision.get_remainder().normalized() * pushing_strength * delta
 
 	global_position += push_vector + momentum
-	global_position.y = altitude
+	global_position = EcologyManager.altitude_at(global_position)
 	position_delta = position_delta.lerp((global_position - start_position) / delta, 0.3)
 
 func sparks():
@@ -221,7 +224,7 @@ func die():
 	Music.stop()
 	SoundManager.GameOverSound.play()
 	UI.RestartModal.show()
-	AudioServer.set_bus_effect_enabled(1, 0, true)
+	AudioServer.set_bus_effect_enabled(SoundManager.BUS_MUSIC, 0, true)
 	get_tree().paused = true
 
 	#main_node.reset()

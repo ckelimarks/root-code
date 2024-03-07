@@ -1,10 +1,10 @@
 [gd_scene load_steps=57 format=3 uid="uid://bhyyxug0jw4b2"]
 
-[ext_resource type="Texture2D" uid="uid://7m8igtpewfg3" path="res://images/underground-console0.png" id="1_c0fk8"]
+[ext_resource type="Texture2D" uid="uid://7m8igtpewfg3" path="res://assets/environment/underground-console0.png" id="1_c0fk8"]
 [ext_resource type="Script" path="res://scripts/story/UndergroundConsole.gd" id="1_xofk5"]
 [ext_resource type="Material" uid="uid://bf35yl4crkhcs" path="res://shaders/ShadowCatcher.tres" id="2_m7knv"]
-[ext_resource type="Texture2D" uid="uid://dtkcjotccilpi" path="res://images/underground-console0.1.png" id="2_r6ct6"]
-[ext_resource type="Texture2D" uid="uid://i206a61lx5vs" path="res://images/textures/MatrixScreen/matrix-sprite-sheet.png" id="5_8rt3k"]
+[ext_resource type="Texture2D" uid="uid://dtkcjotccilpi" path="res://assets/environment/underground-console0.1.png" id="2_r6ct6"]
+[ext_resource type="Texture2D" uid="uid://i206a61lx5vs" path="res://assets/sprites/MatrixScreen/matrix-sprite-sheet.png" id="5_8rt3k"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_awrlr"]
 size = Vector2(24.27, 26.39)
@@ -322,6 +322,7 @@ size = Vector3(0.6, 2, 5.36958)
 size = Vector3(30, 20, 1)
 
 [node name="UndergroundConsole" type="SubViewportContainer"]
+modulate = Color(1, 1, 1, 0)
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -336,7 +337,7 @@ render_target_update_mode = 4
 script = ExtResource("1_xofk5")
 
 [node name="Camera" type="Camera3D" parent="SubViewport"]
-transform = Transform3D(1, 0, 0, 0, 0.819152, 0.573577, 0, -0.573577, 0.819152, 0, 140, 200)
+transform = Transform3D(1, 0, 0, 0, 0.819152, 0.573577, 0, -0.573577, 0.819152, 0, 141, 200)
 projection = 1
 current = true
 size = 60.0
@@ -354,7 +355,7 @@ texture = ExtResource("1_c0fk8")
 region_rect = Rect2(0, 0, 1024, 1024)
 
 [node name="InnerColliders" type="Node3D" parent="SubViewport"]
-transform = Transform3D(0.942573, 0, 0.942573, 0, 1.333, 0, -0.942573, 0, 0.942573, 13.668, -1, 20.88)
+transform = Transform3D(0.942573, 0, 0.942573, 0, 1.333, 0, -0.942573, 0, 0.942573, 13.668, 0, 20.88)
 
 [node name="Ground" type="CSGMesh3D" parent="SubViewport/InnerColliders"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.175, 0, -3.895)
@@ -475,7 +476,7 @@ light_volumetric_fog_energy = 0.0
 sky_mode = 1
 
 [node name="SpawnCylinder" type="CSGCylinder3D" parent="SubViewport"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.425, 2, 40.0777)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.425, -1, 40.078)
 visible = false
 radius = 2.0
 height = 6.0
