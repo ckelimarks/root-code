@@ -1,19 +1,21 @@
 extends Node
 
+# ATTRIBUTES
 var columns = []
 var column_gap: float
 
 # NODES
-@onready var Ground = get_node("/root/Main/Ground")
-
+@onready var Ground = $Bool/Ground
 # SCENES
 var Column = preload("res://scenes/ecology/Column.tscn")
 
 func _ready():
-	var corner = -Ground.mesh.size.z * sqrt(2) / 4
+	await Mainframe.intro("EcologyManager")
+	var corner = -Ground.size.z * sqrt(2) / 4
 	var column_count = 4
-	column_gap = sqrt(2) * Ground.mesh.size.z/2 / column_count
 	var column_height: float
+	Ground.global_position.y = -Ground.size.y/2
+	column_gap = sqrt(2) * Ground.size.z/2 / column_count
 	for c_z in range(column_count):
 		for c_x in range(column_count):
 			var new_column = Column.instantiate()
@@ -39,6 +41,18 @@ func _process(delta):
 			light.look_at(target)
 			light.light_energy = min(40, (column_gap/gap.length() - 1) * 40)
 			light.shadow_enabled = true
+			light.visible = true
 		else:
+			light.visible = false
 			light.light_energy = 0
 			light.shadow_enabled = false
+
+func altitude_at(position: Vector3):
+	position.y = 0
+	var rotated_position = Vector2(position.x, position.z).rotated(PI/4)
+	var ramp = $Bool/Ramp
+	var ramp_edge = 415
+	if rotated_position.x < ramp_edge or abs(rotated_position.y) > ramp.size.z/2: 
+		return position
+	position.y = cos(PI/2-ramp.rotation.z) * (rotated_position.x-ramp_edge)
+	return position

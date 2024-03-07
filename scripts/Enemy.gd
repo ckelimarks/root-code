@@ -39,8 +39,6 @@ func _ready():
 	$Collider.set_shape(RobotCollider.shape)
 	$Collider.position = RobotCollider.position
 	$Collider.rotation = RobotCollider.rotation
-	SoundManager.MarchSound.pitch_scale = .7
-	SoundManager.MarchSound.play()
 
 var punching = 0.0
 func _physics_process(delta):
@@ -84,7 +82,7 @@ func _physics_process(delta):
 		pass
 		#direction = Vector3(-1, 0, 1).normalized()
 
-	global_position.y = 0
+	global_position = EcologyManager.altitude_at(global_position)
 	if behaviour != "guard":
 		global_rotation.y = atan2(-direction.z, direction.x) + PI / 2
 

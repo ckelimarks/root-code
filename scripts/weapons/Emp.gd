@@ -23,8 +23,8 @@ func _ready():
 var delay = 0
 func _physics_process(delta):
 	if !enabled: return
-	delay += delta
-	if delay < 2: return
+	#delay += delta
+	#if delay < 2: return
 	self.scale = Vector3(rad, rad, rad)
 	heat -= delta
 	power = heat/cooldown

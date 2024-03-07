@@ -7,6 +7,7 @@ var weapons = []
 @onready var BlueOrbEmitter = $BlueOrbEmitter
 
 func _ready():
+	await Mainframe.intro("WeaponManager")
 	weapons.append(Hero.Emp)
 	#weapons.append(Hero.Sword)
 

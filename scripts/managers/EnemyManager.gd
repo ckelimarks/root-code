@@ -18,6 +18,9 @@ var RobotTypes = {
 	"Stan":      preload("res://scenes/robots/Stan.tscn"),
 }
 
+func _ready():
+	await Mainframe.intro("EnemyManager")
+
 func _process(delta):
 	Platoon.update(delta)
 	# these updaters should get moved to story/<BEHAVIOUR_TYPE>.gd scripts

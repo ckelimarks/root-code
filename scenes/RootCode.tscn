@@ -1,38 +1,12 @@
-[gd_scene load_steps=6 format=3 uid="uid://3rgmo8vegmv"]
+[gd_scene load_steps=5 format=3 uid="uid://3rgmo8vegmv"]
 
 [ext_resource type="Script" path="res://scripts/Main.gd" id="2"]
 [ext_resource type="PackedScene" uid="uid://bhyyxug0jw4b2" path="res://scenes/UndergroundConsole.tscn" id="2_m17pg"]
-[ext_resource type="Shader" uid="uid://bcpe4wiysxuft" path="res://shaders/repitiontexture.tres" id="4_5ucip"]
-
-[sub_resource type="BoxMesh" id="BoxMesh_n8d8q"]
-size = Vector3(1000, 20, 1000)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_5pp3x"]
-render_priority = 0
-shader = ExtResource("4_5ucip")
+[ext_resource type="PackedScene" uid="uid://qn8xc4d5jsao" path="res://scenes/robots/YellowBot.tscn" id="4_d2dmr"]
+[ext_resource type="PackedScene" uid="uid://bnnbjmrqxwrhl" path="res://scenes/weapons/Sword.tscn" id="5_pw500"]
 
 [node name="Main" type="Node3D"]
 script = ExtResource("2")
-
-[node name="Ground" type="MeshInstance3D" parent="."]
-transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 0, -1, 0)
-mesh = SubResource("BoxMesh_n8d8q")
-skeleton = NodePath("")
-surface_material_override/0 = SubResource("ShaderMaterial_5pp3x")
-
-[node name="Sun" type="DirectionalLight3D" parent="."]
-transform = Transform3D(-0.27228, 0.318027, 0.908142, -8.25097e-08, -0.943801, 0.330514, 0.962218, 0.0899924, 0.256978, 0, 15, 0)
-light_color = Color(0.827451, 0, 0.121569, 1)
-light_energy = 0.2
-shadow_enabled = true
-shadow_opacity = 0.5
-shadow_blur = 5.0
-
-[node name="DebugSun" type="DirectionalLight3D" parent="."]
-transform = Transform3D(-0.27228, 0.318027, 0.908142, -8.25097e-08, -0.943801, 0.330514, 0.962218, 0.0899924, 0.256978, 0, 15, 0)
-visible = false
-shadow_opacity = 0.5
-shadow_blur = 5.0
 
 [node name="Music" type="AudioStreamPlayer" parent="."]
 process_mode = 3
@@ -41,9 +15,10 @@ volume_db = -10.0
 [node name="GameOverSound" type="AudioStreamPlayer2D" parent="."]
 process_mode = 3
 
-[node name="DebugCam" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.819152, 0.573576, 0, -0.573576, 0.819152, 0, 400, 575)
-projection = 1
-size = 1000.0
-
 [node name="UndergroundConsole" parent="." instance=ExtResource("2_m17pg")]
+
+[node name="Sword" parent="." instance=ExtResource("5_pw500")]
+transform = Transform3D(-0.152028, 0, 0.152028, 0, 0.215, 0, -0.152028, 0, -0.152028, 388.495, 1, -308.617)
+
+[node name="YellowBot" parent="." instance=ExtResource("4_d2dmr")]
+transform = Transform3D(-0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, -0.707107, 388.495, 0, -308.617)

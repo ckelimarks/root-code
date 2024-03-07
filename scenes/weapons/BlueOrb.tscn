@@ -1,8 +1,8 @@
 [gd_scene load_steps=31 format=3 uid="uid://c5frctnkpuga3"]
 
 [ext_resource type="Script" path="res://scripts/weapons/BlueOrb.gd" id="1"]
-[ext_resource type="Texture2D" uid="uid://m6wdr1abieab" path="res://images/weapons/orb/electricorb.png" id="2"]
-[ext_resource type="AudioStream" uid="uid://bgqmjgpy1oerl" path="res://sounds/orbSound.mp3" id="3"]
+[ext_resource type="Texture2D" uid="uid://m6wdr1abieab" path="res://assets/weapons/orb/electricorb.png" id="2"]
+[ext_resource type="AudioStream" uid="uid://bgqmjgpy1oerl" path="res://assets/sounds/orbSound.mp3" id="3"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_7qdla"]
 radius = 0.82101

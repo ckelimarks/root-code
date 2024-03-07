@@ -12,26 +12,27 @@ var spacing       = Vector2(8.0*debug_scalar, 12.0*debug_scalar)
 var size          = Vector2i(int(60/spacing.x), int(1000/spacing.y))
 var hero_set      = false
 var chosen        = {}
+var db_target = 0
 
 # SCENES AND NODES
-@onready var Ground = get_node("/root/Main/Ground")
+@onready var Ground = EcologyManager.Ground #get_node("/root/Main/Ground")
 
 func _ready():
-	pass
+	await Mainframe.intro("Platoon")
 
 func _process(delta):
 	pass
 
 func update(delta):
 	if disabled: return
-
+	
 	var view_bounds = EnemyManager.get_spawn_rect()
 	var spawn_buffer = view_bounds.grow(20)
 	var unspawn_buffer = spawn_buffer.grow(20)
 
 	# initialize the platoon on first update
 	if !exists:
-		exists = true	
+		exists = true
 		randomize()
 		init_ranks()
 
@@ -57,7 +58,8 @@ func unspawn(member):
 func spawn(member):
 	member.enemy = EnemyManager.spawn_enemy("Stan")
 	member.spawned = true
-	member.enemy.global_position = Vector3(member.position.x, 0, member.position.y)
+	member.enemy.global_position = EcologyManager.altitude_at(
+		Vector3(member.position.x, 0, member.position.y) )
 	member.enemy.mass = 10.0
 	member.enemy.speed = 8.0
 	var animation_tree = member.enemy.Robot.get_node("AnimationTree")
@@ -86,10 +88,20 @@ func update_member(member, delta):
 		member.mode = member.enemy.behaviour
 	elif member.mode == "march":
 		member.position += Vector2(-1, 1).normalized() * 8.0 * delta
-	if member.position.x < -1000 * sqrt(2) / 4:
-		member.position.x += 1000 * sqrt(2) / 2
+	if over_edge(member):
+		recycle(member)
 		if is_instance_valid(member.enemy):
-			member.enemy.global_position = Vector3(member.position.x, 0, member.position.y)
+			member.enemy.global_position = EcologyManager.altitude_at(
+				Vector3(member.position.x, 0, member.position.y) )
+
+func over_edge(member):
+	var rotated_position = member.position.rotated(PI/4)
+	return rotated_position.x < -500
+	
+func recycle(member):
+	var rotated_position = member.position.rotated(PI/4)
+	rotated_position.x += 1000
+	member.position = rotated_position.rotated(-PI/4)
 
 func init_ranks():
 	var hx = 0 + randi() % size.x
@@ -98,7 +110,7 @@ func init_ranks():
 
 	for rank in range(3):
 		# Guard Stans
-		for y in range(int(1000/guard_spacing)):
+		for y in range(int(1000/guard_spacing)+1):
 			var py = y * guard_spacing / sqrt(2)
 			for side in [-1, 1]:
 				var px = (size.x/2+2) * spacing.x / sqrt(2)
@@ -114,7 +126,7 @@ func init_ranks():
 				})
 				
 		# Marching Stans
-		for y in range(size.y):
+		for y in range(size.y+1):
 			var py = y * spacing.y / sqrt(2)
 			for x in range(size.x):
 				var px = (x - size.x/2) * spacing.x / sqrt(2)

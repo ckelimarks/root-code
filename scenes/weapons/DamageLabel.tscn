@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://by2bm4n7o8ki2"]
 
-[ext_resource type="FontFile" uid="uid://dc8dkaxhhekhr" path="res://images/uigraphics/DIN Condensed Bold.ttf" id="1_fnl18"]
+[ext_resource type="FontFile" uid="uid://dc8dkaxhhekhr" path="res://assets/uigraphics/DIN Condensed Bold.ttf" id="1_fnl18"]
 
 [node name="DamageLabel" type="Label3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.69318, 0)

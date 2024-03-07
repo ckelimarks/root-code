@@ -1,11 +1,12 @@
-[gd_scene load_steps=8 format=3 uid="uid://b5hidq7fuopte"]
+[gd_scene load_steps=9 format=3 uid="uid://b5hidq7fuopte"]
 
 [ext_resource type="Script" path="res://scripts/ui/UI.gd" id="2"]
 [ext_resource type="Script" path="res://scripts/ui/Upgrades.gd" id="2_hbawy"]
-[ext_resource type="Texture2D" uid="uid://7gmoiykqs4aa" path="res://images/UIgraphics/upgradePanel/panelBG.png" id="2_uey1n"]
-[ext_resource type="FontFile" uid="uid://bhsvn2jyukb8u" path="res://images/UIgraphics/DIN Condensed Bold.ttf" id="3_oc6jy"]
+[ext_resource type="Texture2D" uid="uid://cxsocupwk1n0k" path="res://assets/uigraphics/upgradePanel/panelBG.png" id="2_uey1n"]
+[ext_resource type="FontFile" uid="uid://dc8dkaxhhekhr" path="res://assets/uigraphics/DIN Condensed Bold.ttf" id="3_oc6jy"]
 [ext_resource type="PackedScene" uid="uid://dkbmvhbvo33hn" path="res://scenes/ui/button.tscn" id="4_qfrau"]
 [ext_resource type="Script" path="res://scripts/ui/TouchZones.gd" id="6_xswsx"]
+[ext_resource type="VideoStream" path="res://assets/intro/intro.ogv" id="8_p4u82"]
 
 [sub_resource type="FontVariation" id="FontVariation_x3ktr"]
 base_font = ExtResource("3_oc6jy")
@@ -108,3 +109,13 @@ offset_bottom = 55.0
 
 [node name="TouchZones" type="Node2D" parent="."]
 script = ExtResource("6_xswsx")
+
+[node name="IntroVideo" type="VideoStreamPlayer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 3
+stream = ExtResource("8_p4u82")
+autoplay = true

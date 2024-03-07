@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=3 uid="uid://ves278062adc"]
 
-[ext_resource type="Texture2D" uid="uid://bab3rrrhapcnn" path="res://images/gem/XpGem.png" id="1"]
+[ext_resource type="Texture2D" uid="uid://bab3rrrhapcnn" path="res://assets/sprites/gem/XpGem.png" id="1"]
 [ext_resource type="Script" path="res://scripts/items/ExpGem.gd" id="2"]
-[ext_resource type="AudioStream" uid="uid://cguagtk5gx00x" path="res://sounds/gemsounds/gemsound1.mp3" id="3"]
+[ext_resource type="AudioStream" uid="uid://cguagtk5gx00x" path="res://assets/sounds/gemsounds/gemsound1.mp3" id="3"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_0rkvu"]
 radius = 1.64312

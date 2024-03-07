@@ -3,21 +3,21 @@ extends MarginContainer
 # ATTRIBUTES
 var upgrades = [
 	{
-		"image": preload("res://images/uigraphics/upgradePanel/sword.jpg"),
+		"image": preload("res://assets/uigraphics/upgradePanel/sword.jpg"),
 		"name": "ELECTRIC SWORD",
 		"description": ["Increases sword damage"],
 		"callback": upgrade_sword,
 		"level": 0
 	},
 	{
-		"image": preload("res://images/uigraphics/upgradePanel/health.jpg"),
+		"image": preload("res://assets/uigraphics/upgradePanel/health.jpg"),
 		"name": "MAX HP",
 		"description": ["Increase your max health by 5%"],
 		"callback": upgrade_hp,
 		"level": 0
 	},
 	{
-		"image": preload("res://images/uigraphics/upgradePanel/emp.jpg"),
+		"image": preload("res://assets/uigraphics/upgradePanel/emp.jpg"),
 		"name": "EMP",
 		"description": [
 			"Increase your EMP radius from 70% to 120%",
@@ -91,7 +91,8 @@ func release_modal():
 
 func upgrade_sword(upgrade):
 	# we can implement a schedule here
-	Hero.Sword.base_damage += 1
+	if is_instance_valid(Hero.Sword):
+		Hero.Sword.base_damage += 1
 	release_modal()
 
 func upgrade_emp(upgrade):

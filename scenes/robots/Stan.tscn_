@@ -1,6 +1,6 @@
 [gd_scene load_steps=54 format=3 uid="uid://c1eksyt1bexd4"]
 
-[ext_resource type="Texture2D" uid="uid://dokwt3mhjyoim" path="res://models/Stan_Stan_Texture.png" id="1_biqsn"]
+[ext_resource type="Texture2D" uid="uid://dokwt3mhjyoim" path="res://assets/models/stan/Stan_Stan_Texture.png" id="1_biqsn"]
 [ext_resource type="Script" path="res://scripts/weapons/Fist.gd" id="2_jo37q"]
 [ext_resource type="PackedScene" uid="uid://bn0rijtdm57t2" path="res://scenes/robots/Avoidance.tscn" id="2_mx2bf"]
 

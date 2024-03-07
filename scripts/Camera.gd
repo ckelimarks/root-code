@@ -6,17 +6,19 @@ var initial_offset: Vector3
 var target_position: Vector3
 var debug_cam = false
 
-func _ready():	
+func _ready():
+	await Mainframe.intro("Cam")
 	size = 100
 	if debug_cam:
 		current = false
-		get_node("/root/Main/DebugCam").current = true
-		get_node("/root/Main/DebugCam").size = 800
+		EcologyManager.get_node("DebugCam").current = true
+		EcologyManager.get_node("DebugCam").size = 40
 		
 	initial_offset = global_position
 	
 func _process(delta):
 	size = size*0.99 + 40*0.01
+	# effect march volume
 	if position_smoothing_speed < 5: position_smoothing_speed += delta * 0.2
 	
 	if Hero.woke:

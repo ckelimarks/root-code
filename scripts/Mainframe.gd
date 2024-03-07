@@ -14,10 +14,19 @@ var saved_attributes = {
 
 func _ready():
 	load_game()
+	get_tree().paused = true
+	await Mainframe.intro("MainFrame")
+	get_tree().paused = false
 	#save_game()
 
 func _process(delta):
 	pass
+
+func intro(caller):
+	await get_tree().create_timer(1+0*84.0).timeout
+	get_node("/root/UI/IntroVideo").visible = false
+	get_node("/root/UI/IntroVideo").paused = true
+	print(caller, " Ready")
 
 func save_game():
 	var save_game = FileAccess.open("user://root-code.save", FileAccess.WRITE)
