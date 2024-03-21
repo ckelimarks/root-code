@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://ba23qb2fsamky"]
+[gd_scene load_steps=7 format=3 uid="uid://ba23qb2fsamky"]
 
 [ext_resource type="Script" path="res://scripts/managers/EcologyManager.gd" id="1"]
 [ext_resource type="Shader" uid="uid://bcpe4wiysxuft" path="res://shaders/Repitiontexture.tres" id="2_gbbyn"]
+[ext_resource type="PackedScene" uid="uid://bnnbjmrqxwrhl" path="res://scenes/weapons/Sword.tscn" id="3_klwua"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_amv2m"]
 render_priority = 0
@@ -17,8 +18,16 @@ shader = ExtResource("2_gbbyn")
 [node name="Ecology" type="Node"]
 script = ExtResource("1")
 
+[node name="Sword" parent="." instance=ExtResource("3_klwua")]
+transform = Transform3D(0.0707107, 0, -0.0707107, 0, 0.1, 0, 0.0707107, 0, 0.0707107, 331.131, 3.5, -368.905)
+
+[node name="Wall" type="CSGBox3D" parent="."]
+transform = Transform3D(0.707108, 0, 0.707107, 0, 0.999991, 0, -0.707108, 0, 0.707107, 354.782, 7.99001, -354.782)
+size = Vector3(4, 20, 1000)
+
 [node name="Bool" type="CSGCombiner3D" parent="."]
 transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 0, -10, 0)
+visible = false
 
 [node name="Ground" type="CSGBox3D" parent="Bool"]
 calculate_tangents = false
@@ -30,9 +39,12 @@ transform = Transform3D(0.978148, 0.207912, 0, -0.207912, 0.978148, 0, 0, 0, 1, 
 operation = 2
 size = Vector3(85, 13.145, 60.1)
 
+[node name="Bridge" type="CSGBox3D" parent="Bool"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 483.737, 7.99, 0)
+size = Vector3(10, 4, 60.1)
+
 [node name="Ground" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 0, -10, 0)
-visible = false
 mesh = SubResource("BoxMesh_tqgwg")
 skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_vfuu3")

@@ -15,13 +15,14 @@ func _ready():
 	own_world_3d = true
 	await Mainframe.intro("UndergroundConsole")
 	Hero.get_parent().remove_child(Hero)
-	Hero.global_position = $SpawnCylinder.global_position
 	add_child(Hero)
+	Hero.global_position = $SpawnCylinder.global_position
+	Hero.global_position.z -= 35
 	Screen.play()
-	
+
 func _process(delta):
-	
 	SoundManager.march_db_target = (40 - Cam.size) * 0.5
+	elapsed = 3
 
 	if transfered: return
 	if !eye_material:
@@ -32,7 +33,7 @@ func _process(delta):
 
 	get_parent().modulate = Color(1, 1, 1, fade)
 	SoundManager.march_db_target += log(1-fade) * 10;
-	
+		
 	if Hero.action:
 		AudioServer.set_bus_effect_enabled(SoundManager.BUS_SFX, 0, true)
 	else:
@@ -43,7 +44,8 @@ func _process(delta):
 	var gap = (Hero.global_position - Screen.global_position).length()
 	
 	#if true:
-	if gap<6.29 and Hero.action and abs(PI/4-PI - Hero.Robot.global_rotation.y) < 0.01:
+	#print("gap: ", gap, " action: ", Hero.action, " angle: ", abs(PI/4-PI - Hero.Robot.global_rotation.y))
+	if gap<7.1 and Hero.action and abs(PI/4-PI - Hero.Robot.global_rotation.y) < 0.01:
 		elapsed += delta #+ 3
 		if randf() < glitch_curve(elapsed): # function should cos ramp up and stay at 1
 			get_parent().modulate = Color(1, 1, 1, 0)
@@ -51,8 +53,7 @@ func _process(delta):
 				EnemyManager.Platoon.chosen.enemy.Robot.get_node("%ThirdEye").visible = randf() < elapsed/3
 				eye_material.emission = red.lerp(aqua, elapsed-2)
 				if elapsed > 3:
-					mind_transfer()
-				
+					mind_transfer()	
 
 	else:
 		elapsed = 0

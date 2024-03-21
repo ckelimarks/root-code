@@ -6,6 +6,8 @@ var column_gap: float
 
 # NODES
 @onready var Ground = $Bool/Ground
+@onready var Sword = $Sword
+
 # SCENES
 var Column = preload("res://scenes/ecology/Column.tscn")
 
@@ -50,9 +52,13 @@ func _process(delta):
 func altitude_at(position: Vector3):
 	position.y = 0
 	var rotated_position = Vector2(position.x, position.z).rotated(PI/4)
-	var ramp = $Bool/Ramp
-	var ramp_edge = 415
-	if rotated_position.x < ramp_edge or abs(rotated_position.y) > ramp.size.z/2: 
-		return position
-	position.y = cos(PI/2-ramp.rotation.z) * (rotated_position.x-ramp_edge)
+	#var ramp = $Bool/Ramp
+	#var ramp_edge = 415
+	#var bridge_edge = 480
+	#var before_ramp = rotated_position.x < ramp_edge
+	#var on_bridge = rotated_position.x > bridge_edge
+	#var on_ramp = abs(rotated_position.y) < ramp.size.z/2
+	#if before_ramp or on_bridge or !on_ramp: 
+		#return position
+	#position.y = cos(PI/2-ramp.rotation.z) * (rotated_position.x-ramp_edge)
 	return position

@@ -1,9 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://3rgmo8vegmv"]
+[gd_scene load_steps=3 format=3 uid="uid://3rgmo8vegmv"]
 
 [ext_resource type="Script" path="res://scripts/Main.gd" id="2"]
 [ext_resource type="PackedScene" uid="uid://bhyyxug0jw4b2" path="res://scenes/UndergroundConsole.tscn" id="2_m17pg"]
-[ext_resource type="PackedScene" uid="uid://qn8xc4d5jsao" path="res://scenes/robots/YellowBot.tscn" id="4_d2dmr"]
-[ext_resource type="PackedScene" uid="uid://bnnbjmrqxwrhl" path="res://scenes/weapons/Sword.tscn" id="5_pw500"]
 
 [node name="Main" type="Node3D"]
 script = ExtResource("2")
@@ -16,9 +14,3 @@ volume_db = -10.0
 process_mode = 3
 
 [node name="UndergroundConsole" parent="." instance=ExtResource("2_m17pg")]
-
-[node name="Sword" parent="." instance=ExtResource("5_pw500")]
-transform = Transform3D(-0.152028, 0, 0.152028, 0, 0.215, 0, -0.152028, 0, -0.152028, 388.495, 1, -308.617)
-
-[node name="YellowBot" parent="." instance=ExtResource("4_d2dmr")]
-transform = Transform3D(-0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, -0.707107, 388.495, 0, -308.617)

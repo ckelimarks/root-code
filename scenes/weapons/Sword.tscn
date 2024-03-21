@@ -1,14 +1,19 @@
-[gd_scene load_steps=11 format=3 uid="uid://bnnbjmrqxwrhl"]
+[gd_scene load_steps=13 format=3 uid="uid://bnnbjmrqxwrhl"]
 
 [ext_resource type="Script" path="res://scripts/weapons/Sword.gd" id="1_wmrv1"]
-[ext_resource type="Texture2D" uid="uid://cj62khqgcqors" path="res://models/jade_sword/textures/MAT_Lowpoly_baseColor.png" id="2_yiuox"]
-[ext_resource type="Texture2D" uid="uid://cghclpi6buo46" path="res://models/jade_sword/textures/MAT_Lowpoly_metallicRoughness.png" id="3_i4p1k"]
-[ext_resource type="Texture2D" uid="uid://4pdvg47uta24" path="res://models/jade_sword/textures/MAT_Lowpoly_normal.png" id="4_dg1kg"]
+[ext_resource type="PackedScene" uid="uid://qn8xc4d5jsao" path="res://scenes/robots/YellowBot.tscn" id="2_u7mxu"]
+[ext_resource type="Texture2D" uid="uid://cj62khqgcqors" path="res://assets/models/jade-sword/textures/MAT_Lowpoly_baseColor.png" id="2_yiuox"]
+[ext_resource type="Texture2D" uid="uid://cghclpi6buo46" path="res://assets/models/jade-sword/textures/MAT_Lowpoly_metallicRoughness.png" id="3_i4p1k"]
+[ext_resource type="Texture2D" uid="uid://4pdvg47uta24" path="res://assets/models/jade-sword/textures/MAT_Lowpoly_normal.png" id="4_dg1kg"]
 [ext_resource type="Shader" uid="uid://r2q54uueil87" path="res://shaders/sword.tres" id="6_f0dtk"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_mkxix"]
 radius = 4.0
 height = 50.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_m7evm"]
+emission_enabled = true
+emission = Color(0, 0.968627, 0.682353, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lfi6h"]
 resource_name = "MAT_Lowpoly"
@@ -78,8 +83,19 @@ script = ExtResource("1_wmrv1")
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, -4, -21)
 shape = SubResource("CapsuleShape3D_mkxix")
 
+[node name="YellowBot" parent="." instance=ExtResource("2_u7mxu")]
+transform = Transform3D(-5.85, 0, -5.11423e-07, 0, 5.85, 0, 5.11423e-07, 0, -5.85, 0, -21.8007, 0)
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="."]
+transform = Transform3D(5.85, 0, 0, 0, -2.55712e-07, -5.85, 0, 5.85, -2.55712e-07, 0, -4, -25.0405)
+radius = 0.3
+height = 6.7067
+sides = 16
+material = SubResource("StandardMaterial3D_m7evm")
+
 [node name="SwordMesh" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.5, 0, 0, 0, -2.18557e-08, -0.5, 0, 0.5, -2.18557e-08, 0, -4, -21)
+visible = false
 mesh = SubResource("ArrayMesh_tj27b")
 skeleton = NodePath("")
 

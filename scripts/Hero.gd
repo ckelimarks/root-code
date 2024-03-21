@@ -12,7 +12,7 @@ var min_stats = {
 }
 var luck             = min_stats.luck
 var speed            = min_stats.speed
-var max_HP           = min_stats.max_HP+999999
+var max_HP           = min_stats.max_HP #+999999
 var defense          = min_stats.defense
 var health_regen     = min_stats.health_regen
 var pushing_strength = min_stats.pushing_strength
@@ -60,8 +60,11 @@ var	eye_material
 var Sword: CharacterBody3D
 var SwordScene = preload("res://scenes/weapons/Sword.tscn")
 var SwordHolder: Node3D
+var punch = 0.0
+var punching = false
 
 func _ready():
+	
 	await Mainframe.intro("Hero")
 
 	var RobotCollider = Robot.get_node("Collider")
@@ -75,9 +78,11 @@ func _ready():
 	#global_position.x = 2000
 
 	eye_material = Robot.get_node("%LeftEye").get_active_material(0).duplicate()
-	eye_material.emission = "#00c4f6"
+	eye_material.emission = "#00ff00"
 	Robot.get_node("%LeftEye").material_override = eye_material
 	Robot.get_node("%RightEye").material_override = eye_material
+
+	print_tree_properties(AnimTree, "")
 
 	#sleepen()
 
@@ -106,12 +111,19 @@ func awaken():
 	#Robot.get_node("%Spotlight").light_color = "#39afea"
 	Robot.get_node("%LeftEye").get_active_material(0).emission = "#00c4f6"
 	Robot.get_node("%RightEye").get_active_material(0).emission = "#00c4f6"
-	#Sword = SwordScene.instantiate()
-	#SwordHolder.add_child(Sword)
-	#WeaponManager.weapons.append(Sword)
 	$HealthRing.visible = true
+	activate_sword()
+	
+func activate_sword():
+	#Sword = SwordScene.instantiate()
+	Sword = EcologyManager.Sword
+	Sword.get_parent().remove_child(Sword)
+	SwordHolder.add_child(Sword)
+	Sword.global_position = SwordHolder.global_position
+	Sword.global_rotation = SwordHolder.global_rotation
+	Sword.scale = Vector3(0.1, 0.1, 0.1)
+	WeaponManager.weapons.append(Sword)
 	#HealthBar.set_vis6ible(true)
-	#print_tree_properties(AnimTree, "")
 
 func print_tree_properties(object, path):
 	for property in object.get_property_list():
@@ -125,7 +137,7 @@ func _physics_process(delta):
 	updateMomentum()
 	getUserInteraction()
 	handleMovementAndCollisions(delta)
-	update_animation_parameters()
+	update_animation_parameters(delta)
 	HP = min(max_HP, HP + health_regen * delta)
 	global_position = EcologyManager.altitude_at(global_position)
 	if HP <= 100:
@@ -163,6 +175,7 @@ func getUserInteraction():
 
 	#InputEventScreenTouch.
 	if slash and woke and is_instance_valid(Sword): Sword.slash()
+	elif slash and woke and punch < 0.3: punching = true
 
 	var x = right - left
 	var y = down - up
@@ -204,7 +217,7 @@ func handleMovementAndCollisions(delta):
 			$ImpactSound.play()
 			sparks()
 			SoundManager.ImpactSound.play()
-			HP -= collider.damage/2
+			#HP -= collider.damage/2
 			sparks()
 			#sprite_node.modulate = Color(1, 0, 0, 1)
 
@@ -237,7 +250,7 @@ func get_slash_curve(x):
 	if x > 1/a and x < 1-1/a: y = 1.0
 	return y
 
-func update_animation_parameters():
+func update_animation_parameters(delta):
 	var speed_percent = position_delta.length() * 2 / speed
 	if is_instance_valid(Sword):
 		var slash_speed = 1
@@ -248,6 +261,17 @@ func update_animation_parameters():
 		AnimTree.set("parameters/Tree/WalkSlash/time", slash_progress * slash_duration)
 		AnimTree.set("parameters/Tree/BlendSlash/blend_amount", slash_blend)
 		AnimTree.set("parameters/Tree/BlendWalkSlash/blend_amount", slash_blend * speed_percent)
+		
+	if punching:
+		AnimTree.set("parameters/Tree/BlendPunch/blend_amount", min(1, punch*2))
+		AnimTree.set("parameters/Tree/Punch/time", punch)
+		punch += delta
+		#punch = min(0.7083, punch + delta)
+		if punch > 0.7: punching = false
+	else:
+		punch*=0.9
+		AnimTree.set("parameters/Tree/BlendPunch/blend_amount", min(1, punch))
+
 	#AnimTree.set("parameters/Tree/Idle/time", x)
 	#AnimTree.set("parameters/Tree/WalkHold/time", x)
 	AnimTree.set("parameters/Tree/BlendMove/blend_amount", speed_percent)

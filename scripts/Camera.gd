@@ -27,6 +27,7 @@ func _process(delta):
 		var chosen = EnemyManager.Platoon.chosen.position
 		target_position = Vector3(chosen.x, 0, chosen.y)
 
+	target_position.y = 0
 	global_position = global_position.lerp(
 		target_position + initial_offset,
 		position_smoothing_speed * delta

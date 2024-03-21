@@ -12,11 +12,13 @@ var speed                    = 10.0  # Adjust as needed
 var damage                   = 1.0
 var is_dead                  = false
 var swarm_id                 = randf()
+var punching                 = 0.0
 var momentum                 = Vector3.ZERO
 var behaviour                = "attack" # assist, march, swarm ... etc
 var knock_back               = 1.0
 var enemy_color              = Color(.9, .8, 1, 1)
 var pushing_strength         = 0.0
+
 #	external
 @onready var weapons         = WeaponManager.weapons
 
@@ -40,7 +42,6 @@ func _ready():
 	$Collider.position = RobotCollider.position
 	$Collider.rotation = RobotCollider.rotation
 
-var punching = 0.0
 func _physics_process(delta):
 	if is_dead:
 		return

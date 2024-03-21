@@ -60,6 +60,7 @@ func spawn(member):
 	member.spawned = true
 	member.enemy.global_position = EcologyManager.altitude_at(
 		Vector3(member.position.x, 0, member.position.y) )
+	#member.enemy.global_position = Vector3(member.position.x, 0, member.position.y)
 	member.enemy.mass = 10.0
 	member.enemy.speed = 8.0
 	var animation_tree = member.enemy.Robot.get_node("AnimationTree")
@@ -93,6 +94,7 @@ func update_member(member, delta):
 		if is_instance_valid(member.enemy):
 			member.enemy.global_position = EcologyManager.altitude_at(
 				Vector3(member.position.x, 0, member.position.y) )
+			#member.enemy.global_position = Vector3(member.position.x, 0, member.position.y)
 
 func over_edge(member):
 	var rotated_position = member.position.rotated(PI/4)
