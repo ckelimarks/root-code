@@ -11,8 +11,6 @@ func _ready():
 
 func _process(delta):
 	time += delta #/ (60*5)
-	$Sword.global_rotation.y = -10 * time
-	$Sword.scale = Vector3(0.2, 0.2, 0.2)
 	#$Sun.global_rotation.x = -PI/6# + PI/24 * sin(time/10)
 	#$Sun.global_rotation.y = time + PI/3
 
@@ -24,7 +22,7 @@ func reset():
 	EnemyManager.rogue_alert_on = false
 	# reset platoon should live in Platoon	EnemyManager.Platoon.exists = false
 	#EnemyManager.Platoon.holes = {}
-	EnemyManager.Platoon.occupied = {}
+	#EnemyManager.Platoon.occupied = {}
 	EnemyManager.Platoon.members = []
 
 

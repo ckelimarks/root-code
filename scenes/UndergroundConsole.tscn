@@ -346,11 +346,13 @@ far = 1000.0
 
 [node name="ForegroundShrubbery" type="Sprite3D" parent="SubViewport/Camera"]
 transform = Transform3D(8, 0, 0, 0, 8, -2.38419e-07, 0, 2.38419e-07, 8, 0, 0, -100)
+modulate = Color(1, 1, 0.501961, 1)
 texture = ExtResource("2_r6ct6")
 region_rect = Rect2(0, 0, 1024, 1024)
 
 [node name="Background" type="Sprite3D" parent="SubViewport/Camera"]
 transform = Transform3D(8, 0, 0, 0, 8, 0, 0, 0, 8, 0, 0, -300)
+modulate = Color(1, 1, 0.501961, 1)
 texture = ExtResource("1_c0fk8")
 region_rect = Rect2(0, 0, 1024, 1024)
 
@@ -469,7 +471,7 @@ sky_mode = 1
 
 [node name="BlueAmbiance" type="DirectionalLight3D" parent="SubViewport"]
 transform = Transform3D(1.08679e-07, 0.743145, -0.669131, -5.84972e-08, -0.669131, -0.743145, -1, 1.19907e-07, -2.92486e-08, 0, 0, 0)
-light_color = Color(0, 1, 1, 1)
+light_color = Color(0, 1, 0, 1)
 light_energy = 2.0
 light_indirect_energy = 0.0
 light_volumetric_fog_energy = 0.0
