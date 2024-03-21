@@ -3,7 +3,6 @@ extends Area3D
 # ATTRIBUTES
 var recoil = Vector3.ZERO
 var touched = false
-var upgrade_threshold = 10
 
 # NODES AND SCENES
 @onready var GemSprite = $GemSprite
@@ -36,9 +35,15 @@ func _on_body_entered(body):
 		$AudioStreamPlayer.set_stream(AudioSamples[random_note_index])
 		$AudioStreamPlayer.play()
 		$AudioStreamPlayer.connect("finished", Callable(self, "_on_audio_finished"))
-		UI.XpBar.value = UI.XpBar.value + 1
+		Hero.exp += 1
+		UI.XpBar.value = Hero.exp
 		
-	if UI.XpBar.value == upgrade_threshold:
+	if Hero.exp >= Hero.upgrade_threshold:
+		Hero.upgrade_threshold += 5
+		Hero.exp = 0
+		UI.XpBar.max_value = Hero.upgrade_threshold
+		UI.XpBar.value = Hero.exp
+		
 		get_tree().paused = true
 		UI.UpgradeModal.show()
 		Hero.current_level += 1
@@ -48,11 +53,7 @@ func _on_body_entered(body):
 		#AudioServer.add_bus_effect(1, AudioEffectLowPassFilter.new(), 0)
 		#AudioServer.cutoff_hz = 400.0
 		#AudioServer.set_bus_effect_enabled(1, 1, enable)
-		AudioServer.set_bus_effect_enabled(0, 0, true)
-		UI.XpBar.value = 0
-#		Hero.HP = 100
-#		Hero.healthbar_node.value = HP / max_HP * 100
-		
+		AudioServer.set_bus_effect_enabled(SoundManager.BUS_MASTER, 0, true)
 		
 func gem_captured():
 	GemSprite.visible = false

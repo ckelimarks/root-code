@@ -88,6 +88,7 @@ func rogue(delta):
 		new_drone.global_position += Vector3(cos(angle), 0, sin(angle)) * distance
 		new_drone.behaviour = "attack"
 		new_drone.HP = 1
+		new_drone.damage = 0.2
 	
 		var animation_player = new_drone.Robot.get_node("AnimationPlayer")
 		animation_player.active = true

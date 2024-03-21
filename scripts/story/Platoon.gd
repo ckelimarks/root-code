@@ -63,6 +63,7 @@ func spawn(member):
 	#member.enemy.global_position = Vector3(member.position.x, 0, member.position.y)
 	member.enemy.mass = 10.0
 	member.enemy.speed = 8.0
+	member.enemy.damage = 0.5
 	var animation_tree = member.enemy.Robot.get_node("AnimationTree")
 	#var avoidance = member.enemy.Robot.get_node("Avoidance")
 	animation_tree.active = true

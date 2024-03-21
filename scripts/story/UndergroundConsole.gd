@@ -17,7 +17,7 @@ func _ready():
 	Hero.get_parent().remove_child(Hero)
 	add_child(Hero)
 	Hero.global_position = $SpawnCylinder.global_position
-	Hero.global_position.z -= 35
+	Hero.global_position.z -= 34
 	Screen.play()
 
 func _process(delta):

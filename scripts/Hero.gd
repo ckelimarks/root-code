@@ -10,14 +10,16 @@ var min_stats = {
 	"health_regen":     0.1,
 	"pushing_strength": 0.0,
 }
-var luck             = min_stats.luck
-var speed            = min_stats.speed
-var max_HP           = min_stats.max_HP #+999999
-var defense          = min_stats.defense
-var health_regen     = min_stats.health_regen
-var pushing_strength = min_stats.pushing_strength
-var HP               = max_HP
-var current_level    = 0
+var exp               = 0
+var luck              = min_stats.luck
+var speed             = min_stats.speed
+var max_HP            = min_stats.max_HP +999999
+var defense           = min_stats.defense
+var health_regen      = min_stats.health_regen
+var current_level     = 0
+var pushing_strength  = min_stats.pushing_strength
+var upgrade_threshold = 10
+var HP                = max_HP
 #	movement
 var touch = {
 	"left":   false,
