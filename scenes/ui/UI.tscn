@@ -31,6 +31,7 @@ size_flags_horizontal = 7
 size_flags_vertical = 7
 max_value = 10.0
 step = 0.0
+rounded = true
 
 [node name="UpgradeModal" type="MarginContainer" parent="."]
 visible = false
