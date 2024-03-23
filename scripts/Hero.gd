@@ -13,7 +13,8 @@ var min_stats = {
 var exp               = 0
 var luck              = min_stats.luck
 var speed             = min_stats.speed
-var max_HP            = min_stats.max_HP +999999
+var max_HP            = min_stats.max_HP #+999999
+var max_HP            = min_stats.max_HP #+999999
 var defense           = min_stats.defense
 var health_regen      = min_stats.health_regen
 var current_level     = 0
@@ -142,16 +143,18 @@ func _physics_process(delta):
 	update_animation_parameters(delta)
 	HP = min(max_HP, HP + health_regen * delta)
 	global_position = EcologyManager.altitude_at(global_position)
-	if HP <= 100:
-		$HealthRing/H2.visible = false
-		$HealthRing/H1/Red.visible = true
-		$HealthRing/H1/RedFull.visible = false
-		$HealthRing/H1/Red.material.set_shader_parameter("health", HP/100)
-	else:
-		$HealthRing/H2.visible = true
-		$HealthRing/H1/Red.visible = false
-		$HealthRing/H1/RedFull.visible = true
-		$HealthRing/H2/Red.material.set_shader_parameter("health", HP/100-1)
+	$HealthRing/H1/HP.material.set_shader_parameter("health", HP/1000)
+	$HealthRing/H1/MaxHP.rotation.y = -min(1000, max_HP/1000 * 2*PI)
+	#if HP <= 100:
+		#$HealthRing/H2.visible = false
+		#$HealthRing/H1/Red.visible = true
+		#$HealthRing/H1/RedFull.visible = false
+		#$HealthRing/H1/Red.material.set_shader_parameter("health", HP/100)
+	#else:
+		#$HealthRing/H2.visible = true
+		#$HealthRing/H1/Red.visible = false
+		#$HealthRing/H1/RedFull.visible = true
+		#$HealthRing/H2/Red.material.set_shader_parameter("health", HP/100-1)
 		
 		
 	if HP <= 0: die()

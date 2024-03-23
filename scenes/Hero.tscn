@@ -1,11 +1,11 @@
-[gd_scene load_steps=13 format=3 uid="uid://c7mt66i7ljer8"]
+[gd_scene load_steps=12 format=3 uid="uid://c7mt66i7ljer8"]
+[gd_scene load_steps=12 format=3 uid="uid://c7mt66i7ljer8"]
 
 [ext_resource type="Script" path="res://scripts/Hero.gd" id="1"]
 [ext_resource type="PackedScene" uid="uid://c1eksyt1bexd4" path="res://scenes/robots/Stan.tscn" id="2"]
 [ext_resource type="PackedScene" uid="uid://7mo00dv2g31f" path="res://scenes/weapons/Emp.tscn" id="3"]
 [ext_resource type="Script" path="res://scripts/ui/HealthBar.gd" id="4_wq24w"]
 [ext_resource type="Shader" uid="uid://1ox0w37488so" path="res://shaders/HealthBlack.tres" id="5_h6wry"]
-[ext_resource type="Shader" uid="uid://ujnurwhppspc" path="res://shaders/HealthRedFull.tres" id="7_cssg3"]
 [ext_resource type="Shader" uid="uid://dh28ksjs573mc" path="res://shaders/HealthRed.tres" id="7_xgc8g"]
 [ext_resource type="AudioStream" uid="uid://bxicy412bk758" path="res://assets/sounds/hpDownSound.mp3" id="211"]
 [ext_resource type="AudioStream" uid="uid://cwicowrxy2s7o" path="res://assets/sounds/steps.mp3" id="212"]
@@ -14,9 +14,12 @@
 render_priority = 0
 shader = ExtResource("5_h6wry")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_eaf0d"]
-render_priority = 0
-shader = ExtResource("7_cssg3")
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_x55b5"]
+emission_enabled = true
+emission = Color(1, 1, 1, 1)
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_x55b5"]
+emission_enabled = true
+emission = Color(1, 1, 1, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_cpgow"]
 render_priority = 0
@@ -62,11 +65,12 @@ offset_bottom = 40.0
 color = Color(1, 0, 0, 1)
 
 [node name="HealthRing" type="Node3D" parent="."]
-visible = false
+transform = Transform3D(0.5, 0, -0.866025, 0, 1, 0, 0.866025, 0, 0.5, 0, 0, 0)
+transform = Transform3D(0.5, 0, -0.866025, 0, 1, 0, 0.866025, 0, 0.5, 0, 0, 0)
 
 [node name="H1" type="Node3D" parent="HealthRing"]
 
-[node name="Black" type="CSGTorus3D" parent="HealthRing/H1"]
+[node name="MaxHP" type="CSGTorus3D" parent="HealthRing/H1"]
 transform = Transform3D(1, 0, 0, 0, 0.01, 0, 0, 0, 1, 0, 0.199, 0)
 layers = 2
 cast_shadow = 0
@@ -76,19 +80,15 @@ sides = 36
 ring_sides = 12
 material = SubResource("ShaderMaterial_ombq4")
 
-[node name="RedFull" type="CSGTorus3D" parent="HealthRing/H1"]
-transform = Transform3D(1, 0, 0, 0, 0.01, 0, 0, 0, 1, 0, 0.22, 0)
+[node name="WhiteBar" type="CSGBox3D" parent="HealthRing/H1/MaxHP"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 2.2, 0)
 layers = 2
 cast_shadow = 0
-inner_radius = 1.9
-outer_radius = 2.1
-sides = 36
-ring_sides = 12
-material = SubResource("ShaderMaterial_eaf0d")
+size = Vector3(0.25, 0.1, 0.25)
+material = SubResource("StandardMaterial3D_x55b5")
 
-[node name="Red" type="CSGTorus3D" parent="HealthRing/H1"]
+[node name="HP" type="CSGTorus3D" parent="HealthRing/H1"]
 transform = Transform3D(1, 0, 0, 0, 0.1, 0, 0, 0, 1, 0, 0.2, 0)
-visible = false
 layers = 2
 cast_shadow = 0
 inner_radius = 1.9
@@ -98,6 +98,8 @@ ring_sides = 12
 material = SubResource("ShaderMaterial_cpgow")
 
 [node name="H2" type="Node3D" parent="HealthRing"]
+visible = false
+visible = false
 
 [node name="Black" type="CSGTorus3D" parent="HealthRing/H2"]
 transform = Transform3D(1, 0, 0, 0, 0.01, 0, 0, 0, 1, 0, 0.199, 0)
