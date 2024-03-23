@@ -14,6 +14,7 @@ var exp               = 0
 var luck              = min_stats.luck
 var speed             = min_stats.speed
 var max_HP            = min_stats.max_HP #+999999
+var max_HP            = min_stats.max_HP #+999999
 var defense           = min_stats.defense
 var health_regen      = min_stats.health_regen
 var current_level     = 0
