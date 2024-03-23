@@ -142,7 +142,8 @@ func _physics_process(delta):
 	update_animation_parameters(delta)
 	HP = min(max_HP, HP + health_regen * delta)
 	global_position = EcologyManager.altitude_at(global_position)
-	$HealthRing/H1/Red.material.set_shader_parameter("health", HP/1000)
+	$HealthRing/H1/HP.material.set_shader_parameter("health", HP/1000)
+	$HealthRing/H1/MaxHP.rotation.y = -min(1000, max_HP/1000 * 2*PI)
 	#if HP <= 100:
 		#$HealthRing/H2.visible = false
 		#$HealthRing/H1/Red.visible = true

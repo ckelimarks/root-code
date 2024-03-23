@@ -65,7 +65,7 @@ transform = Transform3D(0.5, 0, -0.866025, 0, 1, 0, 0.866025, 0, 0.5, 0, 0, 0)
 
 [node name="H1" type="Node3D" parent="HealthRing"]
 
-[node name="Black" type="CSGTorus3D" parent="HealthRing/H1"]
+[node name="MaxHP" type="CSGTorus3D" parent="HealthRing/H1"]
 transform = Transform3D(1, 0, 0, 0, 0.01, 0, 0, 0, 1, 0, 0.199, 0)
 layers = 2
 cast_shadow = 0
@@ -75,14 +75,14 @@ sides = 36
 ring_sides = 12
 material = SubResource("ShaderMaterial_ombq4")
 
-[node name="RedFull" type="CSGBox3D" parent="HealthRing/H1"]
-transform = Transform3D(0.76491, 0, -0.644137, 0, 0.01, 0, 0.644137, 0, 0.76491, 1.52789, 0.22, 1.28665)
+[node name="WhiteBar" type="CSGBox3D" parent="HealthRing/H1/MaxHP"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 2.2, 0)
 layers = 2
 cast_shadow = 0
-size = Vector3(0.205, 0.01, 0.1)
+size = Vector3(0.25, 0.1, 0.25)
 material = SubResource("StandardMaterial3D_x55b5")
 
-[node name="Red" type="CSGTorus3D" parent="HealthRing/H1"]
+[node name="HP" type="CSGTorus3D" parent="HealthRing/H1"]
 transform = Transform3D(1, 0, 0, 0, 0.1, 0, 0, 0, 1, 0, 0.2, 0)
 layers = 2
 cast_shadow = 0
