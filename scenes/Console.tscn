@@ -1,7 +1,7 @@
 [gd_scene load_steps=57 format=3 uid="uid://bhyyxug0jw4b2"]
 
 [ext_resource type="Texture2D" uid="uid://7m8igtpewfg3" path="res://assets/environment/underground-console0.png" id="1_c0fk8"]
-[ext_resource type="Script" path="res://scripts/story/UndergroundConsole.gd" id="1_xofk5"]
+[ext_resource type="Script" path="res://scripts/story/Console.gd" id="1_xofk5"]
 [ext_resource type="Material" uid="uid://bf35yl4crkhcs" path="res://shaders/ShadowCatcher.tres" id="2_m7knv"]
 [ext_resource type="Texture2D" uid="uid://dtkcjotccilpi" path="res://assets/environment/underground-console0.1.png" id="2_r6ct6"]
 [ext_resource type="Texture2D" uid="uid://i206a61lx5vs" path="res://assets/sprites/MatrixScreen/matrix-sprite-sheet.png" id="5_8rt3k"]
@@ -321,7 +321,7 @@ size = Vector3(0.6, 2, 5.36958)
 [sub_resource type="BoxShape3D" id="BoxShape3D_xwe1q"]
 size = Vector3(30, 20, 1)
 
-[node name="UndergroundConsole" type="SubViewportContainer"]
+[node name="Console" type="SubViewportContainer"]
 modulate = Color(1, 1, 1, 0)
 anchors_preset = 15
 anchor_right = 1.0
@@ -329,12 +329,12 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 stretch = true
+script = ExtResource("1_xofk5")
 
 [node name="SubViewport" type="SubViewport" parent="."]
 handle_input_locally = false
 size = Vector2i(1152, 648)
 render_target_update_mode = 4
-script = ExtResource("1_xofk5")
 
 [node name="Camera" type="Camera3D" parent="SubViewport"]
 transform = Transform3D(1, 0, 0, 0, 0.819152, 0.573577, 0, -0.573577, 0.819152, 0, 141, 200)

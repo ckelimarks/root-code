@@ -106,11 +106,17 @@ func recycle(member):
 	rotated_position.x += 1000
 	member.position = rotated_position.rotated(-PI/4)
 
+func clear_ranks():
+	for member in members:
+		if is_instance_valid(member.enemy):
+			EnemyManager.unspawn_enemy(member.enemy)
+	members = []
+	
 func init_ranks():
 	var hx = 0 + randi() % size.x
 	var hy = 1 + randi() % 3 # max rows Hero can appear in < size.y
 	var edge_distance = 1000 * sqrt(2) / 4 # 1000 comes from ground mesh
-
+	
 	for rank in range(3):
 		# Guard Stans
 		for y in range(int(1000/guard_spacing)+1):

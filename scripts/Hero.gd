@@ -14,13 +14,12 @@ var exp               = 0
 var luck              = min_stats.luck
 var speed             = min_stats.speed
 var max_HP            = min_stats.max_HP #+999999
-var max_HP            = min_stats.max_HP #+999999
 var defense           = min_stats.defense
 var health_regen      = min_stats.health_regen
 var current_level     = 0
 var pushing_strength  = min_stats.pushing_strength
 var upgrade_threshold = 10
-var HP                = max_HP
+var HP                = 1#max_HP
 #	movement
 var touch = {
 	"left":   false,
@@ -32,6 +31,7 @@ var touch = {
 var previous_horizontal_direction = 0
 var previous_vertical_direction = 0
 var woke         = false
+var dead         = false
 var mass         = 10.0
 var throttle     = 0.0
 var momentum     = Vector3.ZERO
@@ -40,7 +40,7 @@ var target_angle = PI/2
 var action       = false
 var angle        = target_angle
 var position_delta = Vector3.ZERO
-var	eye_material
+var eye_material
 
 # NODES AND SCENES
 #	local
@@ -67,7 +67,6 @@ var punch = 0.0
 var punching = false
 
 func _ready():
-	
 	await Mainframe.intro("Hero")
 
 	var RobotCollider = Robot.get_node("Collider")
@@ -98,8 +97,12 @@ func sleepen():
 
 
 	if is_instance_valid(Sword):
-		Sword.queue_free()
-		WeaponManager.weapons.erase(Sword)
+		Sword.get_parent().remove_child(Sword)
+		EcologyManager.add_child(Sword)
+		#if !is_instance_valid(EcologyManager.Sword):
+			#EcologyManager.Sword = SwordScene.instantiate()
+		#Sword.queue_free()
+		#WeaponManager.weapons.erase(Sword)
 
 	$HealthRing.visible = false
 	#HealthBar.set_visible(false)
@@ -118,7 +121,8 @@ func awaken():
 	activate_sword()
 	
 func activate_sword():
-	#Sword = SwordScene.instantiate()
+	#if !is_instance_valid(EcologyManager.Sword):
+		#EcologyManager.Sword = SwordScene.instantiate()
 	Sword = EcologyManager.Sword
 	Sword.get_parent().remove_child(Sword)
 	SwordHolder.add_child(Sword)
@@ -234,18 +238,23 @@ func handleMovementAndCollisions(delta):
 	position_delta = position_delta.lerp((global_position - start_position) / delta, 0.3)
 
 func sparks():
-	if is_instance_valid($Stan/%Sparks):
+	if dead:
+		pass
+	elif is_instance_valid($Stan/%Sparks):
 		var Sparks = $Stan/%Sparks
 		Sparks.emitting = true
 
 func die():
+	if dead: return
 	Music.stop()
 	SoundManager.GameOverSound.play()
 	UI.RestartModal.show()
 	AudioServer.set_bus_effect_enabled(SoundManager.BUS_MUSIC, 0, true)
-	get_tree().paused = true
-
+	#get_tree().paused = true
 	#main_node.reset()
+	punching = false
+	dead = true
+	MainNode.reset_begin()
 	UI.XpBar.value = 0
 
 func get_slash_curve(x):
@@ -266,7 +275,10 @@ func update_animation_parameters(delta):
 		AnimTree.set("parameters/Tree/WalkSlash/time", slash_progress * slash_duration)
 		AnimTree.set("parameters/Tree/BlendSlash/blend_amount", slash_blend)
 		AnimTree.set("parameters/Tree/BlendWalkSlash/blend_amount", slash_blend * speed_percent)
-		
+	else:
+		AnimTree.set("parameters/Tree/BlendSlash/blend_amount", 0)
+		AnimTree.set("parameters/Tree/BlendWalkSlash/blend_amount", 0)
+	
 	if punching:
 		AnimTree.set("parameters/Tree/BlendPunch/blend_amount", min(1, punch*2))
 		AnimTree.set("parameters/Tree/Punch/time", punch)
