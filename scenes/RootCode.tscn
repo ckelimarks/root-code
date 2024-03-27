@@ -1,7 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://3rgmo8vegmv"]
+[gd_scene load_steps=2 format=3 uid="uid://3rgmo8vegmv"]
 
 [ext_resource type="Script" path="res://scripts/Main.gd" id="2"]
-[ext_resource type="PackedScene" uid="uid://bhyyxug0jw4b2" path="res://scenes/UndergroundConsole.tscn" id="2_m17pg"]
 
 [node name="Main" type="Node3D"]
 script = ExtResource("2")
@@ -12,5 +11,3 @@ volume_db = -10.0
 
 [node name="GameOverSound" type="AudioStreamPlayer2D" parent="."]
 process_mode = 3
-
-[node name="UndergroundConsole" parent="." instance=ExtResource("2_m17pg")]

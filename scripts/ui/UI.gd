@@ -11,8 +11,7 @@ extends CanvasLayer
 @onready var RestartButton = $RestartModal/VBoxContainer/RestartButton
 
 # remote
-@onready var MainNode  = get_node("/root/Main")
-@onready var MusicNode = get_node("/root/Main/Music")
+@onready var MainNode = get_node("/root/Main")
 
 func _ready():
 	await Mainframe.intro("UI")
@@ -24,9 +23,8 @@ func _process(delta):
 func release_modal(node):
 	node.hide()
 	AudioServer.set_bus_effect_enabled(0, 0, false)
-	get_tree().paused = false
+	#get_tree().paused = false
 
 func _on_restartbutton_pressed():
-	MainNode.reset()
-	MusicNode.play()
+	MainNode.reset_complete()
 	release_modal($RestartModal)

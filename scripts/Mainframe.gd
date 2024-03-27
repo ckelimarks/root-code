@@ -9,6 +9,7 @@ var saved_attributes = {
 		"defense": 0,
 		"health_regen": 0,
 		"pushing_strength": 0,
+		"gold": 0
 	}
 }
 

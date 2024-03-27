@@ -25,6 +25,7 @@ WeaponManager="*res://scenes/managers/WeaponManager.tscn"
 Cam="*res://scenes/Camera.tscn"
 Hero="*res://scenes/Hero.tscn"
 UI="*res://scenes/ui/UI.tscn"
+Console="*res://scenes/Console.tscn"
 
 [editor]
 
