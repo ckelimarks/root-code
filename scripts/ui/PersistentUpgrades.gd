@@ -1,19 +1,19 @@
 extends MarginContainer
 
 # ATTRIBUTES
-var upgrades = [
+var persistent_upgrades = [
 	{
 		"image": preload("res://assets/uigraphics/upgradePanel/sword.jpg"),
-		"name": "ELECTRIC SWORD",
-		"description": ["Increases sword damage"],
-		"callback": upgrade_sword,
+		"name": "MIGHT",
+		"description": ["Increases global damage"],
+		"callback": persistent_upgrade_might,
 		"level": 0
 	},
 	{
 		"image": preload("res://assets/uigraphics/upgradePanel/health.jpg"),
 		"name": "MAX HP",
 		"description": ["Increase your max health by 5%"],
-		"callback": upgrade_hp,
+		"callback": persistent_upgrade_hp,
 		"level": 0
 	},
 	{
@@ -34,25 +34,21 @@ var upgrades = [
 			"Increase your EMP cool-down from 2 to 1",
 			"MAX"
 		],
-		"callback": upgrade_emp,
+		"callback": persistent_upgrade_emp,
 		"level": 0
 	},
 ]
 
 # NODES AND SCENES
 # local
-@onready var UpgradeButtons = [
-	$ButtonsMargin/VBoxContainer/Button1,
-	$ButtonsMargin/VBoxContainer/Button2,
-	$ButtonsMargin/VBoxContainer/Button3,
+@onready var PersistentUpgradeButtons = [
+	$ButtonsMargin/VBoxContainer/RestartButton1,
+	$ButtonsMargin/VBoxContainer/RestartButton2,
+	$ButtonsMargin/VBoxContainer/RestartButton3,
 ]
-#@onready var PersistentUpgradeButtons = [
-	#$ButtonsMargin/VBoxContainer/RestartButton1,
-	#$ButtonsMargin/VBoxContainer/RestartButton2,
-	#$ButtonsMargin/VBoxContainer/RestartButton3,
-#]
 
 # remote
+@onready var MainNode = get_node("/root/Main")
 
 func _ready():
 	get_viewport().connect("size_changed", resize_upgrade_modal)
@@ -63,11 +59,11 @@ func _process(delta):
 	pass
 
 func shuffle_upgrades():
-	var selected_upgrades = upgrades.duplicate()
+	var selected_upgrades = persistent_upgrades.duplicate()
 	randomize()
 	selected_upgrades.shuffle()
-	for i in len(UpgradeButtons):
-		var button = UpgradeButtons[i]
+	for i in len(PersistentUpgradeButtons):
+		var button = PersistentUpgradeButtons[i]
 		var upgrade = selected_upgrades[i]
 		button.get_node("%Image").texture    = upgrade.image
 		button.get_node("%Name").text        = upgrade.name 
@@ -90,20 +86,24 @@ func resize_upgrade_modal():
 	self.position = view_size / 2.0 - (self.size * self.scale) / 2.0
 
 func release_modal():
+	MainNode.reset_complete()
+	#release_modal($RestartModal)
+
 	hide()
 	AudioServer.set_bus_effect_enabled(0, 0, false)
 	get_tree().paused = false
 	shuffle_upgrades() # belongs before showing upgrade modal, not here
 
-func upgrade_sword(upgrade):
+func persistent_upgrade_might(upgrade):
+	print("Persistent Upgrading might: ", upgrade)
 	# we can implement a schedule here
-	print("Upgrading sword: ", upgrade)
-	if is_instance_valid(Hero.Sword):
-		Hero.Sword.base_damage += 1
+	Mainframe.saved_attributes.Hero.might += 1
+	print(Mainframe.saved_attributes)
+	#Hero.Sword.base_damage += 1
 	release_modal()
 
-func upgrade_emp(upgrade):
-	print("Upgrading emp: ", upgrade)
+func persistent_upgrade_emp(upgrade):
+	print("Persistent Upgrading emp: ", upgrade)
 	upgrade.level += 1
 	if upgrade.level == 1: Hero.Emp.rad = 1.2
 	if upgrade.level == 2: Hero.Emp.cooldown = 3
@@ -120,18 +120,18 @@ func upgrade_emp(upgrade):
 	Hero.Emp.heat = 0
 	release_modal()
 	
-func upgrade_hp(upgrade):
-	print("Upgrading HP: ", upgrade)
+func persistent_upgrade_hp(upgrade):
+	print("Persistent Upgrading HP: ", upgrade)
 	Hero.max_HP += 50
 	Hero.HP = min(Hero.HP + 50, Hero.max_HP)
 	release_modal()
 
-func upgrade_speed(upgrade):
-	print("Upgrading speed: ", upgrade)
+func persistent_upgrade_speed(upgrade):
+	print("Persistent Upgrading speed: ", upgrade)
 	Hero.speed += 1
 	release_modal()
 
-func upgrade_pushing_strength(push_level):
-	print("Upgrading push strength: ", push_level)
+func persistent_upgrade_pushing_strength(push_level):
+	print("Persistent Upgrading push_level: ", push_level)
 	Hero.pushing_strength += 1
 	release_modal()

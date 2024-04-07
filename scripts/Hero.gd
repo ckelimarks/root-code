@@ -4,6 +4,7 @@ extends CharacterBody3D
 #	stats
 var min_stats = {
 	"luck":             1.0,
+	"might":            0.0,
 	"speed":           26.0,
 	"max_HP":         100.0,
 	"defense":          0.0,
@@ -12,15 +13,15 @@ var min_stats = {
 }
 var exp               = 0
 var luck              = min_stats.luck
+var might             = min_stats.might
 var speed             = min_stats.speed
-var max_HP            = min_stats.max_HP #+999999
 var max_HP            = min_stats.max_HP #+999999
 var defense           = min_stats.defense
 var health_regen      = min_stats.health_regen
 var current_level     = 0
 var pushing_strength  = min_stats.pushing_strength
 var upgrade_threshold = 10
-var HP                = max_HP
+var HP                = 1#max_HP
 #	movement
 var touch = {
 	"left":   false,
@@ -32,6 +33,7 @@ var touch = {
 var previous_horizontal_direction = 0
 var previous_vertical_direction = 0
 var woke         = false
+var dead         = false
 var mass         = 10.0
 var throttle     = 0.0
 var momentum     = Vector3.ZERO
@@ -40,7 +42,7 @@ var target_angle = PI/2
 var action       = false
 var angle        = target_angle
 var position_delta = Vector3.ZERO
-var	eye_material
+var eye_material
 
 # NODES AND SCENES
 #	local
@@ -50,7 +52,6 @@ var	eye_material
 @onready var Robot            = $Stan
 @onready var AnimPlayer       = $Stan/AnimationPlayer
 @onready var AnimTree         = $Stan/AnimationTree
-@onready var SwordCollision   = $Stan/RobotArmature/Skeleton3D/BoneAttachment3D/Sword/CollisionShape3D
 #	external
 @onready var XpBar        = UI.XpBar
 @onready var RestartModal = UI.RestartModal
@@ -67,9 +68,9 @@ var punch = 0.0
 var punching = false
 
 func _ready():
-	
 	await Mainframe.intro("Hero")
-
+	set_stats()
+	
 	var RobotCollider = Robot.get_node("Collider")
 	var FistCollider  = Robot.get_node("%Fist/Collider")
 	SwordHolder       = Robot.get_node("%SwordHolder")
@@ -85,9 +86,19 @@ func _ready():
 	Robot.get_node("%LeftEye").material_override = eye_material
 	Robot.get_node("%RightEye").material_override = eye_material
 
-	print_tree_properties(AnimTree, "")
+	#print_tree_properties(AnimTree, "")
 
 	#sleepen()
+
+func set_stats():
+	luck = min_stats.luck + Mainframe.saved_attributes.Hero.luck
+	speed = min_stats.speed + Mainframe.saved_attributes.Hero.speed
+	max_HP = min_stats.max_HP + Mainframe.saved_attributes.Hero.max_HP
+	defense = min_stats.defense + Mainframe.saved_attributes.Hero.defense
+	health_regen = min_stats.health_regen + Mainframe.saved_attributes.Hero.health_regen
+	pushing_strength = min_stats.pushing_strength + Mainframe.saved_attributes.Hero.pushing_strength
+	current_level = 0
+	HP = max_HP
 
 func sleepen():
 	woke                                = false
@@ -98,8 +109,12 @@ func sleepen():
 
 
 	if is_instance_valid(Sword):
-		Sword.queue_free()
-		WeaponManager.weapons.erase(Sword)
+		Sword.get_parent().remove_child(Sword)
+		EcologyManager.add_child(Sword)
+		#if !is_instance_valid(EcologyManager.Sword):
+			#EcologyManager.Sword = SwordScene.instantiate()
+		#Sword.queue_free()
+		#WeaponManager.weapons.erase(Sword)
 
 	$HealthRing.visible = false
 	#HealthBar.set_visible(false)
@@ -118,7 +133,8 @@ func awaken():
 	activate_sword()
 	
 func activate_sword():
-	#Sword = SwordScene.instantiate()
+	#if !is_instance_valid(EcologyManager.Sword):
+		#EcologyManager.Sword = SwordScene.instantiate()
 	Sword = EcologyManager.Sword
 	Sword.get_parent().remove_child(Sword)
 	SwordHolder.add_child(Sword)
@@ -143,8 +159,8 @@ func _physics_process(delta):
 	update_animation_parameters(delta)
 	HP = min(max_HP, HP + health_regen * delta)
 	global_position = EcologyManager.altitude_at(global_position)
-	$HealthRing/H1/HP.material.set_shader_parameter("health", HP/1000)
-	$HealthRing/H1/MaxHP.rotation.y = -min(1000, max_HP/1000 * 2*PI)
+	$HealthRing/H1/HP.material.set_shader_parameter("HP", HP/1000)
+	$HealthRing/H1/HP.material.set_shader_parameter("max_HP", max_HP/1000) #rotation.y = -min(1000, max_HP/1000 * 2*PI)
 	#if HP <= 100:
 		#$HealthRing/H2.visible = false
 		#$HealthRing/H1/Red.visible = true
@@ -185,6 +201,11 @@ func getUserInteraction():
 	var x = right - left
 	var y = down - up
 	var bias_amount = PI/1024
+	
+	if dead and (right or left or up or down or slash):
+		x = -1
+		y = -1
+	
 	if x or y:
 		var bias = 0
 		if x:
@@ -207,6 +228,8 @@ func getUserInteraction():
 	else: action = false
 
 func handleMovementAndCollisions(delta):
+	momentum *= Vector3(.95, .95, .95)
+	if dead: return
 	# First, try to move normally.
 	var start_position = global_position
 	var collision = move_and_collide(velocity * delta)
@@ -234,18 +257,24 @@ func handleMovementAndCollisions(delta):
 	position_delta = position_delta.lerp((global_position - start_position) / delta, 0.3)
 
 func sparks():
-	if is_instance_valid($Stan/%Sparks):
+	if dead:
+		pass
+	elif is_instance_valid($Stan/%Sparks):
 		var Sparks = $Stan/%Sparks
 		Sparks.emitting = true
 
 func die():
+	if dead: return
 	Music.stop()
 	SoundManager.GameOverSound.play()
 	UI.RestartModal.show()
 	AudioServer.set_bus_effect_enabled(SoundManager.BUS_MUSIC, 0, true)
-	get_tree().paused = true
-
+	#get_tree().paused = true
 	#main_node.reset()
+	punching = false
+	dead = true
+	Console.transfer_delay = 1
+	MainNode.reset_begin()
 	UI.XpBar.value = 0
 
 func get_slash_curve(x):
@@ -266,7 +295,10 @@ func update_animation_parameters(delta):
 		AnimTree.set("parameters/Tree/WalkSlash/time", slash_progress * slash_duration)
 		AnimTree.set("parameters/Tree/BlendSlash/blend_amount", slash_blend)
 		AnimTree.set("parameters/Tree/BlendWalkSlash/blend_amount", slash_blend * speed_percent)
-		
+	else:
+		AnimTree.set("parameters/Tree/BlendSlash/blend_amount", 0)
+		AnimTree.set("parameters/Tree/BlendWalkSlash/blend_amount", 0)
+	
 	if punching:
 		AnimTree.set("parameters/Tree/BlendPunch/blend_amount", min(1, punch*2))
 		AnimTree.set("parameters/Tree/Punch/time", punch)

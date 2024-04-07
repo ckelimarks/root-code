@@ -1,4 +1,4 @@
-[gd_resource type="VisualShader" load_steps=6 format=3 uid="uid://dh28ksjs573mc"]
+[gd_resource type="VisualShader" load_steps=9 format=3 uid="uid://dh28ksjs573mc"]
 
 [sub_resource type="VisualShaderNodeIf" id="VisualShaderNodeIf_50egb"]
 output_port_for_preview = 0
@@ -7,22 +7,33 @@ output_port_for_preview = 0
 output_port_for_preview = 0
 input_name = "uv"
 
+[sub_resource type="VisualShaderNodeFloatParameter" id="VisualShaderNodeFloatParameter_jnk3c"]
+parameter_name = "max_HP"
+default_value_enabled = true
+default_value = 0.2
+
+[sub_resource type="VisualShaderNodeIf" id="VisualShaderNodeIf_y5fg3"]
+output_port_for_preview = 0
+
+[sub_resource type="VisualShaderNodeColorConstant" id="VisualShaderNodeColorConstant_r0le3"]
+
 [sub_resource type="VisualShaderNodeColorConstant" id="VisualShaderNodeColorConstant_584en"]
 constant = Color(1, 0, 0, 0.501961)
 
 [sub_resource type="VisualShaderNodeFloatParameter" id="VisualShaderNodeFloatParameter_gxka3"]
-parameter_name = "health"
+parameter_name = "HP"
 default_value_enabled = true
-default_value = 0.5
+default_value = 0.1
 
 [sub_resource type="VisualShaderNodeColorConstant" id="VisualShaderNodeColorConstant_xw806"]
-constant = Color(0, 0, 0, 1)
+constant = Color(0, 0, 1, 1)
 
 [resource]
 code = "shader_type spatial;
 render_mode blend_add, depth_draw_opaque, cull_back, diffuse_lambert, specular_schlick_ggx, shadows_disabled;
 
-uniform float health = 0.5;
+uniform float HP = 0.10000000149012;
+uniform float max_HP = 0.20000000298023;
 
 
 
@@ -32,11 +43,11 @@ void fragment() {
 
 
 // FloatParameter:8
-	float n_out8p0 = health;
+	float n_out8p0 = HP;
 
 
 // ColorConstant:9
-	vec4 n_out9p0 = vec4(0.000000, 0.000000, 0.000000, 1.000000);
+	vec4 n_out9p0 = vec4(0.000000, 0.000000, 1.000000, 1.000000);
 
 
 // ColorConstant:7
@@ -61,8 +72,35 @@ void fragment() {
 	}
 
 
+// FloatParameter:15
+	float n_out15p0 = max_HP;
+
+
+// ColorConstant:17
+	vec4 n_out17p0 = vec4(1.000000, 1.000000, 1.000000, 1.000000);
+
+
+	vec3 n_out16p0;
+// If:16
+	float n_in16p2 = 0.00001;
+	vec3 n_in16p3 = vec3(0.00000, 0.00000, 0.00000);
+	if(abs(n_out14p0.x - n_out15p0) < n_in16p2)
+	{
+		n_out16p0 = n_in16p3;
+	}
+	else if(n_out14p0.x < n_out15p0)
+	{
+		n_out16p0 = vec3(n_out17p0.xyz);
+	}
+	else
+	{
+		n_out16p0 = vec3(n_out9p0.xyz);
+	}
+
+
 // Output:0
 	ALBEDO = n_out13p0;
+	ALPHA = n_out16p0.x;
 	EMISSION = n_out13p0;
 
 
@@ -74,11 +112,17 @@ nodes/fragment/0/position = Vector2(540, -40)
 nodes/fragment/7/node = SubResource("VisualShaderNodeColorConstant_584en")
 nodes/fragment/7/position = Vector2(-120, 500)
 nodes/fragment/8/node = SubResource("VisualShaderNodeFloatParameter_gxka3")
-nodes/fragment/8/position = Vector2(-160, 200)
+nodes/fragment/8/position = Vector2(-380, 200)
 nodes/fragment/9/node = SubResource("VisualShaderNodeColorConstant_xw806")
 nodes/fragment/9/position = Vector2(-120, 420)
 nodes/fragment/13/node = SubResource("VisualShaderNodeIf_50egb")
 nodes/fragment/13/position = Vector2(280, 200)
 nodes/fragment/14/node = SubResource("VisualShaderNodeInput_dbkjp")
 nodes/fragment/14/position = Vector2(-200, -80)
-nodes/fragment/connections = PackedInt32Array(8, 0, 13, 1, 9, 0, 13, 4, 7, 0, 13, 5, 14, 0, 13, 0, 13, 0, 0, 0, 13, 0, 0, 5)
+nodes/fragment/15/node = SubResource("VisualShaderNodeFloatParameter_jnk3c")
+nodes/fragment/15/position = Vector2(-20, -260)
+nodes/fragment/16/node = SubResource("VisualShaderNodeIf_y5fg3")
+nodes/fragment/16/position = Vector2(280, -200)
+nodes/fragment/17/node = SubResource("VisualShaderNodeColorConstant_r0le3")
+nodes/fragment/17/position = Vector2(-120, 320)
+nodes/fragment/connections = PackedInt32Array(8, 0, 13, 1, 9, 0, 13, 4, 7, 0, 13, 5, 14, 0, 13, 0, 13, 0, 0, 0, 13, 0, 0, 5, 14, 0, 16, 0, 15, 0, 16, 1, 9, 0, 16, 4, 17, 0, 16, 5, 16, 0, 0, 1)
