@@ -24,7 +24,6 @@ var pushing_strength         = 0.0
 
 # NODES
 #	local
-@onready var Explosion       = $Explosion
 #	external
 @onready var Robot:            CharacterBody3D
 @onready var KillSound       = SoundManager.KillSound
@@ -57,15 +56,16 @@ func _physics_process(delta):
 		#Robot.global_rotation.y = 0
 		direction = (gap_vector).normalized()
 		
-		if is_instance_valid($Stan/AnimationTree):
-			var AnimTree = $Stan/AnimationTree
-			AnimTree.active = true
-			AnimTree.set("parameters/Tree/BlendMove/blend_amount", 1-punching)
-			AnimTree.set("parameters/Tree/BlendPunch/blend_amount", punching)
-			if gap_vector.length() < 5:
-				punching  = min(1, punching + delta * 3)
-			else:
-				punching = max(0, punching - delta * 3)
+		if is_instance_valid($Stan):
+			if is_instance_valid($Stan/AnimationTree):
+				var AnimTree = $Stan/AnimationTree
+				AnimTree.active = true
+				AnimTree.set("parameters/Tree/BlendMove/blend_amount", 1-punching)
+				AnimTree.set("parameters/Tree/BlendPunch/blend_amount", punching)
+				if gap_vector.length() < 5:
+					punching  = min(1, punching + delta * 3)
+				else:
+					punching = max(0, punching - delta * 3)
 
 		# KELI -- this shouldn't go here:
 		SoundManager.MarchSound.stop() 

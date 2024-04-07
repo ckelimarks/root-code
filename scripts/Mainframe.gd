@@ -4,6 +4,7 @@ extends Node
 var saved_attributes = {
 	"Hero": {
 		"luck": 0,
+		"might": 0,
 		"speed": 0, 
 		"max_HP": 0,
 		"defense": 0,
@@ -30,8 +31,8 @@ func intro(caller):
 	print(caller, " Ready")
 
 func save_game():
-	var save_game = FileAccess.open("user://root-code.save", FileAccess.WRITE)
-	save_game.store_line(JSON.stringify(saved_attributes))
+	var saved_game = FileAccess.open("user://root-code.save", FileAccess.WRITE)
+	saved_game.store_line(JSON.stringify(saved_attributes))
 
 func load_game():
 	if not FileAccess.file_exists("user://root-code.save"): return
@@ -45,3 +46,4 @@ func load_game():
 		if "Hero" in data:
 			for key in data["Hero"].keys():
 				saved_attributes["Hero"][key] = data["Hero"][key]
+	print("Saved Attributes: ", saved_attributes)

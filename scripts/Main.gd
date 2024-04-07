@@ -34,16 +34,6 @@ func reset_begin():
 	#	weapon.queue_free()
 	#$WeaponManager.weapons = []
 
-	# reset/respawn Hero
-	Hero.luck = Hero.min_stats.luck + Mainframe.saved_attributes.Hero.luck
-	Hero.speed = Hero.min_stats.speed + Mainframe.saved_attributes.Hero.speed
-	Hero.max_HP = Hero.min_stats.max_HP + Mainframe.saved_attributes.Hero.max_HP
-	Hero.defense = Hero.min_stats.defense + Mainframe.saved_attributes.Hero.defense
-	Hero.health_regen = Hero.min_stats.health_regen + Mainframe.saved_attributes.Hero.health_regen
-	Hero.pushing_strength = Hero.min_stats.pushing_strength + Mainframe.saved_attributes.Hero.pushing_strength
-	Hero.current_level = 0
-	Hero.HP = Hero.max_HP
-
 	Hero.woke             = false
 	Hero.target_angle     = PI/2
 	Hero.angle            = Hero.target_angle
@@ -58,6 +48,9 @@ func reset_begin():
 	Console.visible = true
 
 func reset_complete():
+	Mainframe.save_game()
+	# reset/respawn Hero
+	Hero.set_stats()
 	MusicNode.play()
 	EnemyManager.Platoon.clear_ranks()
 	EnemyManager.Platoon.init_ranks()

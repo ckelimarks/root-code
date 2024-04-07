@@ -21,6 +21,8 @@ func _ready():
 	for c_z in range(column_count):
 		for c_x in range(column_count):
 			var new_column = Column.instantiate()
+			add_child(new_column)
+			
 			#if !column_height: 
 				#column_height = new_column.get_node("Mesh").mesh.height
 			new_column.global_position = Vector3(
@@ -28,7 +30,6 @@ func _ready():
 				0,#column_height/2, 
 				corner + column_gap * (c_x+c_z - 1)
 			)
-			add_child(new_column)
 			columns.append(new_column)
 
 var target = Vector3.ZERO

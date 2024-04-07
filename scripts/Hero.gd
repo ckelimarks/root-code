@@ -4,6 +4,7 @@ extends CharacterBody3D
 #	stats
 var min_stats = {
 	"luck":             1.0,
+	"might":            0.0,
 	"speed":           26.0,
 	"max_HP":         100.0,
 	"defense":          0.0,
@@ -12,6 +13,7 @@ var min_stats = {
 }
 var exp               = 0
 var luck              = min_stats.luck
+var might             = min_stats.might
 var speed             = min_stats.speed
 var max_HP            = min_stats.max_HP #+999999
 var defense           = min_stats.defense
@@ -50,7 +52,6 @@ var eye_material
 @onready var Robot            = $Stan
 @onready var AnimPlayer       = $Stan/AnimationPlayer
 @onready var AnimTree         = $Stan/AnimationTree
-@onready var SwordCollision   = $Stan/RobotArmature/Skeleton3D/BoneAttachment3D/Sword/CollisionShape3D
 #	external
 @onready var XpBar        = UI.XpBar
 @onready var RestartModal = UI.RestartModal
@@ -68,7 +69,8 @@ var punching = false
 
 func _ready():
 	await Mainframe.intro("Hero")
-
+	set_stats()
+	
 	var RobotCollider = Robot.get_node("Collider")
 	var FistCollider  = Robot.get_node("%Fist/Collider")
 	SwordHolder       = Robot.get_node("%SwordHolder")
@@ -84,9 +86,19 @@ func _ready():
 	Robot.get_node("%LeftEye").material_override = eye_material
 	Robot.get_node("%RightEye").material_override = eye_material
 
-	print_tree_properties(AnimTree, "")
+	#print_tree_properties(AnimTree, "")
 
 	#sleepen()
+
+func set_stats():
+	luck = min_stats.luck + Mainframe.saved_attributes.Hero.luck
+	speed = min_stats.speed + Mainframe.saved_attributes.Hero.speed
+	max_HP = min_stats.max_HP + Mainframe.saved_attributes.Hero.max_HP
+	defense = min_stats.defense + Mainframe.saved_attributes.Hero.defense
+	health_regen = min_stats.health_regen + Mainframe.saved_attributes.Hero.health_regen
+	pushing_strength = min_stats.pushing_strength + Mainframe.saved_attributes.Hero.pushing_strength
+	current_level = 0
+	HP = max_HP
 
 func sleepen():
 	woke                                = false

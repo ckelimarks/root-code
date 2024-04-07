@@ -97,11 +97,13 @@ func release_modal():
 
 func upgrade_sword(upgrade):
 	# we can implement a schedule here
+	print("Upgrading sword: ", upgrade)
 	if is_instance_valid(Hero.Sword):
 		Hero.Sword.base_damage += 1
 	release_modal()
 
 func upgrade_emp(upgrade):
+	print("Upgrading emp: ", upgrade)
 	upgrade.level += 1
 	if upgrade.level == 1: Hero.Emp.rad = 1.2
 	if upgrade.level == 2: Hero.Emp.cooldown = 3
@@ -119,14 +121,17 @@ func upgrade_emp(upgrade):
 	release_modal()
 	
 func upgrade_hp(upgrade):
+	print("Upgrading HP: ", upgrade)
 	Hero.max_HP += 50
 	Hero.HP = min(Hero.HP + 50, Hero.max_HP)
 	release_modal()
 
 func upgrade_speed(upgrade):
+	print("Upgrading speed: ", upgrade)
 	Hero.speed += 1
 	release_modal()
 
 func upgrade_pushing_strength(push_level):
+	print("Upgrading push strength: ", push_level)
 	Hero.pushing_strength += 1
 	release_modal()

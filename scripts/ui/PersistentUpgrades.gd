@@ -4,9 +4,9 @@ extends MarginContainer
 var persistent_upgrades = [
 	{
 		"image": preload("res://assets/uigraphics/upgradePanel/sword.jpg"),
-		"name": "ELECTRIC SWORD",
-		"description": ["Increases sword damage"],
-		"callback": persistent_upgrade_sword,
+		"name": "MIGHT",
+		"description": ["Increases global damage"],
+		"callback": persistent_upgrade_might,
 		"level": 0
 	},
 	{
@@ -94,13 +94,16 @@ func release_modal():
 	get_tree().paused = false
 	shuffle_upgrades() # belongs before showing upgrade modal, not here
 
-func persistent_upgrade_sword(upgrade):
+func persistent_upgrade_might(upgrade):
+	print("Persistent Upgrading might: ", upgrade)
 	# we can implement a schedule here
-	if is_instance_valid(Hero.Sword):
-		Hero.Sword.base_damage += 1
+	Mainframe.saved_attributes.Hero.might += 1
+	print(Mainframe.saved_attributes)
+	#Hero.Sword.base_damage += 1
 	release_modal()
 
 func persistent_upgrade_emp(upgrade):
+	print("Persistent Upgrading emp: ", upgrade)
 	upgrade.level += 1
 	if upgrade.level == 1: Hero.Emp.rad = 1.2
 	if upgrade.level == 2: Hero.Emp.cooldown = 3
@@ -118,14 +121,17 @@ func persistent_upgrade_emp(upgrade):
 	release_modal()
 	
 func persistent_upgrade_hp(upgrade):
+	print("Persistent Upgrading HP: ", upgrade)
 	Hero.max_HP += 50
 	Hero.HP = min(Hero.HP + 50, Hero.max_HP)
 	release_modal()
 
 func persistent_upgrade_speed(upgrade):
+	print("Persistent Upgrading speed: ", upgrade)
 	Hero.speed += 1
 	release_modal()
 
 func persistent_upgrade_pushing_strength(push_level):
+	print("Persistent Upgrading push_level: ", push_level)
 	Hero.pushing_strength += 1
 	release_modal()

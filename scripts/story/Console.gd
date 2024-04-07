@@ -42,9 +42,9 @@ func _process(delta):
 	#print("modulate: ", modulate)
 	#print("transferred = false")
 	#print("fade: ", fade)
-	if Hero.action:
+	if Hero.action and AudioServer.get_bus_effect_count(SoundManager.BUS_SFX) > 0:
 		AudioServer.set_bus_effect_enabled(SoundManager.BUS_SFX, 0, true)
-	else:
+	elif AudioServer.get_bus_effect_count(SoundManager.BUS_SFX) > 0:
 		AudioServer.set_bus_effect_enabled(SoundManager.BUS_SFX, 0, false)
 
 	var i = 0.8 + 0.19 * int(Hero.action)
@@ -91,5 +91,5 @@ func mind_transfer():
 	visible = false
 	Hero.dead = false
 	Hero.awaken()
-	print("transfer")
+	#print("transfer")
 	transferred = true
