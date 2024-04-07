@@ -20,7 +20,8 @@ emission = Color(1, 1, 1, 1)
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_cpgow"]
 render_priority = 0
 shader = ExtResource("7_xgc8g")
-shader_parameter/health = 0.5
+shader_parameter/HP = 0.1
+shader_parameter/max_HP = 0.2
 
 [node name="HeroBody" type="CharacterBody3D"]
 collision_layer = 257
@@ -67,6 +68,7 @@ transform = Transform3D(0.5, 0, -0.866025, 0, 1, 0, 0.866025, 0, 0.5, 0, 0, 0)
 
 [node name="MaxHP" type="CSGTorus3D" parent="HealthRing/H1"]
 transform = Transform3D(1, 0, 0, 0, 0.01, 0, 0, 0, 1, 0, 0.199, 0)
+visible = false
 layers = 2
 cast_shadow = 0
 inner_radius = 1.9
@@ -77,6 +79,7 @@ material = SubResource("ShaderMaterial_ombq4")
 
 [node name="WhiteBar" type="CSGBox3D" parent="HealthRing/H1/MaxHP"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 2.2, 0)
+visible = false
 layers = 2
 cast_shadow = 0
 size = Vector3(0.25, 0.1, 0.25)

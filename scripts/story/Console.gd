@@ -7,6 +7,7 @@ var red = Color.html("#ff0000")
 var aqua = Color.html("#00c4f6")
 var transferred = false
 var elapsed = 0
+var transfer_delay = 3
 
 # NODES
 @onready var Screen = $SubViewport/InnerColliders/MatrixScreen
@@ -25,7 +26,7 @@ func attach_hero():
 
 func _process(delta):
 	SoundManager.march_db_target = (40 - Cam.size) * 0.5
-	elapsed = 3
+	#elapsed = 3
 
 	if transferred: return
 	
@@ -59,8 +60,8 @@ func _process(delta):
 			if is_instance_valid(EnemyManager.Platoon.chosen.enemy):
 				EnemyManager.Platoon.chosen.enemy.Robot.get_node("%ThirdEye").visible = randf() < elapsed/3
 				eye_material.emission = red.lerp(aqua, elapsed-2)
-				if elapsed > 3:
-					mind_transfer()	
+				if elapsed > transfer_delay:
+					mind_transfer()
 
 	else:
 		elapsed = 0

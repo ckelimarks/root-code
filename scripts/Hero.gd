@@ -147,8 +147,8 @@ func _physics_process(delta):
 	update_animation_parameters(delta)
 	HP = min(max_HP, HP + health_regen * delta)
 	global_position = EcologyManager.altitude_at(global_position)
-	$HealthRing/H1/HP.material.set_shader_parameter("health", HP/1000)
-	$HealthRing/H1/MaxHP.rotation.y = -min(1000, max_HP/1000 * 2*PI)
+	$HealthRing/H1/HP.material.set_shader_parameter("HP", HP/1000)
+	$HealthRing/H1/HP.material.set_shader_parameter("max_HP", max_HP/1000) #rotation.y = -min(1000, max_HP/1000 * 2*PI)
 	#if HP <= 100:
 		#$HealthRing/H2.visible = false
 		#$HealthRing/H1/Red.visible = true
@@ -189,6 +189,11 @@ func getUserInteraction():
 	var x = right - left
 	var y = down - up
 	var bias_amount = PI/1024
+	
+	if dead and (right or left or up or down or slash):
+		x = -1
+		y = -1
+	
 	if x or y:
 		var bias = 0
 		if x:
@@ -211,6 +216,8 @@ func getUserInteraction():
 	else: action = false
 
 func handleMovementAndCollisions(delta):
+	momentum *= Vector3(.95, .95, .95)
+	if dead: return
 	# First, try to move normally.
 	var start_position = global_position
 	var collision = move_and_collide(velocity * delta)
@@ -254,6 +261,7 @@ func die():
 	#main_node.reset()
 	punching = false
 	dead = true
+	Console.transfer_delay = 1
 	MainNode.reset_begin()
 	UI.XpBar.value = 0
 
