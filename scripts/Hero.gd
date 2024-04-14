@@ -60,6 +60,7 @@ var eye_material
 #@onready var game_over = get_node("/root/Main/GameOverSound")
 @onready var Music        = get_node("/root/Main/Music")
 @onready var MainNode     = get_node("/root/Main")
+@onready var EcologyManager = get_node("/root/Main/Ecology")
 
 var Sword: CharacterBody3D
 var SwordScene = preload("res://scenes/weapons/Sword.tscn")
@@ -273,7 +274,7 @@ func die():
 	#main_node.reset()
 	punching = false
 	dead = true
-	Console.transfer_delay = 1
+	#Console.transfer_delay = 1
 	MainNode.reset_begin()
 	UI.XpBar.value = 0
 

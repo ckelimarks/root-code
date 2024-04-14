@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://3rgmo8vegmv"]
+[gd_scene load_steps=3 format=3 uid="uid://3rgmo8vegmv"]
 
 [ext_resource type="Script" path="res://scripts/Main.gd" id="2"]
+[ext_resource type="PackedScene" uid="uid://ba23qb2fsamky" path="res://scenes/managers/EcologyManager.tscn" id="2_71ai2"]
 
 [node name="Main" type="Node3D"]
 script = ExtResource("2")
@@ -11,3 +12,5 @@ volume_db = -10.0
 
 [node name="GameOverSound" type="AudioStreamPlayer2D" parent="."]
 process_mode = 3
+
+[node name="Ecology" parent="." instance=ExtResource("2_71ai2")]

@@ -19,13 +19,13 @@ config/icon="res://icon.png"
 
 Mainframe="*res://scripts/Mainframe.gd"
 SoundManager="*res://scenes/managers/SoundManager.tscn"
-EcologyManager="*res://scenes/managers/EcologyManager.tscn"
+EcologyManager="res://scenes/managers/EcologyManager.tscn"
 EnemyManager="*res://scripts/managers/EnemyManager.gd"
 WeaponManager="*res://scenes/managers/WeaponManager.tscn"
 Cam="*res://scenes/Camera.tscn"
 Hero="*res://scenes/Hero.tscn"
 UI="*res://scenes/ui/UI.tscn"
-Console="*res://scenes/Console.tscn"
+Console="res://scenes/Console.tscn"
 
 [editor]
 

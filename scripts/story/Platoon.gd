@@ -1,6 +1,6 @@
 extends Node3D
 
-var disabled = false
+var disabled = !false
 var debug_all = false
 var debug_scalar = 1 + 2*int(debug_all)
 
@@ -15,7 +15,8 @@ var chosen        = {}
 var db_target = 0
 
 # SCENES AND NODES
-@onready var Ground = EcologyManager.Ground #get_node("/root/Main/Ground")
+@onready var EcologyManager = get_node("/root/Main/Ecology")
+@onready var Ground = EcologyManager.get_node("Ground")
 
 func _ready():
 	await Mainframe.intro("Platoon")

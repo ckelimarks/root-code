@@ -1,6 +1,7 @@
 extends SubViewportContainer
 
 # ATTRIBUTES
+var disabled = true
 var fade = 0
 var eye_material = false
 var red = Color.html("#ff0000")
@@ -13,7 +14,9 @@ var transfer_delay = 3
 @onready var Screen = $SubViewport/InnerColliders/MatrixScreen
 
 func _ready():
+	visible = false	
 	$SubViewport.own_world_3d = true
+	if disabled: return
 	await Mainframe.intro("Console")
 	attach_hero()
 	Screen.play()
@@ -25,6 +28,7 @@ func attach_hero():
 	Hero.global_position.z -= 34
 
 func _process(delta):
+	if disabled: return
 	SoundManager.march_db_target = (40 - Cam.size) * 0.5
 	#elapsed = 3
 

@@ -43,9 +43,9 @@ func reset_begin():
 	Hero.sleepen()
 	
 	# return to console
-	Console.attach_hero()
-	Console.transferred = false
-	Console.visible = true
+	#Console.attach_hero()
+	#Console.transferred = false
+	#Console.visible = true
 
 func reset_complete():
 	Mainframe.save_game()

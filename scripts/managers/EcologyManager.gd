@@ -1,6 +1,7 @@
 extends Node
 
 # ATTRIBUTES
+var disabled = true
 var columns = []
 var column_gap: float
 
@@ -12,6 +13,10 @@ var column_gap: float
 var Column = preload("res://scenes/ecology/Column.tscn")
 
 func _ready():
+	if disabled: 
+		columns = $ColumnsGroup.get_children()
+		#columns.append()
+		return
 	await Mainframe.intro("EcologyManager")
 	var corner = -Ground.size.z * sqrt(2) / 4
 	var column_count = 4

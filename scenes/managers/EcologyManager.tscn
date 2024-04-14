@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://ba23qb2fsamky"]
+[gd_scene load_steps=8 format=3 uid="uid://ba23qb2fsamky"]
 
 [ext_resource type="Script" path="res://scripts/managers/EcologyManager.gd" id="1"]
 [ext_resource type="Shader" uid="uid://bcpe4wiysxuft" path="res://shaders/Repitiontexture.tres" id="2_gbbyn"]
 [ext_resource type="PackedScene" uid="uid://bnnbjmrqxwrhl" path="res://scenes/weapons/Sword.tscn" id="3_klwua"]
+[ext_resource type="PackedScene" uid="uid://bstbiux4uhr63" path="res://scenes/ecology/Column.tscn" id="4_bu8jy"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_amv2m"]
 render_priority = 0
@@ -67,3 +68,14 @@ shadow_blur = 5.0
 transform = Transform3D(1, 0, 0, 0, 0.819152, 0.573576, 0, -0.573576, 0.819152, 300, 400, 270.28)
 projection = 1
 size = 100.0
+
+[node name="ColumnsGroup" type="Node3D" parent="."]
+
+[node name="Column" parent="ColumnsGroup" instance=ExtResource("4_bu8jy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 51.461, 0, 0)
+
+[node name="Column2" parent="ColumnsGroup" instance=ExtResource("4_bu8jy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -72.1235, 0, 58.1317)
+
+[node name="Column3" parent="ColumnsGroup" instance=ExtResource("4_bu8jy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -61.0995, 0, -73.7117)

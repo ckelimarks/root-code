@@ -6,6 +6,9 @@ var initial_offset: Vector3
 var target_position: Vector3
 var debug_cam = false
 
+# SCENES AND NODES
+@onready var EcologyManager = get_node("/root/Main/Ecology")
+
 func _ready():
 	await Mainframe.intro("Cam")
 	size = 100
@@ -21,7 +24,7 @@ func _process(delta):
 	# effect march volume
 	if position_smoothing_speed < 5: position_smoothing_speed += delta * 0.2
 	
-	if Hero.woke:
+	if Hero.woke or EnemyManager.Platoon.disabled:
 		target_position = Hero.global_position
 	else:
 		var chosen = EnemyManager.Platoon.chosen.position

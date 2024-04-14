@@ -322,6 +322,7 @@ size = Vector3(0.6, 2, 5.36958)
 size = Vector3(30, 20, 1)
 
 [node name="Console" type="SubViewportContainer"]
+visible = false
 modulate = Color(1, 1, 1, 0)
 anchors_preset = 15
 anchor_right = 1.0
@@ -334,7 +335,7 @@ script = ExtResource("1_xofk5")
 [node name="SubViewport" type="SubViewport" parent="."]
 handle_input_locally = false
 size = Vector2i(1152, 648)
-render_target_update_mode = 4
+render_target_update_mode = 0
 
 [node name="Camera" type="Camera3D" parent="SubViewport"]
 transform = Transform3D(1, 0, 0, 0, 0.819152, 0.573577, 0, -0.573577, 0.819152, 0, 141, 200)

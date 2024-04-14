@@ -31,6 +31,7 @@ var pushing_strength         = 0.0
 @onready var RobotAnimation:   AnimationPlayer
 
 # SCENES
+@onready var EcologyManager = get_node("/root/Main/Ecology")
 var ExpGemScene              = preload("res://scenes/items/ExpGem.tscn")
 var ExplosionScene           = preload("res://scenes/weapons/Explosion.tscn")
 
